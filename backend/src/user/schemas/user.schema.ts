@@ -62,3 +62,5 @@ export class User{
 
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+UserSchema.index({ mail:1 }, { unique: true });

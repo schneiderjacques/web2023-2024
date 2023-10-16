@@ -1,5 +1,5 @@
-import { ClassSerializerInterceptor, Controller, Get, Logger, Param, UseGuards } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiTags, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
+import { Body, ClassSerializerInterceptor, Controller, Get, HttpCode, HttpStatus, Logger, Param, Post, UseGuards } from '@nestjs/common';
+import { ApiBadRequestResponse, ApiBody, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiTags, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
 import { HttpInterceptor } from 'src/interceptors/http.interceptor';
 import { UseInterceptors } from '@nestjs/common';
 import { UserService } from './user.service';
@@ -7,12 +7,13 @@ import { UserEntity } from './entities/user.entity';
 import { Observable } from 'rxjs';
 import { HandlerParams } from './validators/handler-params';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { SignUpDto } from './dto/sign-up-user.dto';
+import { Public } from 'src/decorators/decorators';
 
 @ApiTags('users')
 @Controller('users')
 @UseInterceptors(ClassSerializerInterceptor)
 @UseInterceptors(HttpInterceptor)
-@UseGuards(AuthGuard)
 export class UserController {
 
       /**
@@ -65,6 +66,15 @@ export class UserController {
   @Get(':id')
   findOne(@Param('id') userId: string): Observable<UserEntity> {
     return this._userService.findOne(userId);
+  }
+
+
+  @HttpCode(HttpStatus.OK)
+  @Post()
+  @Public()
+  signUp(@Body() signUp : SignUpDto): Observable<UserEntity> {
+    //Wait for the hash password to be done
+    return this._userService.create(signUp);
   }
   
 

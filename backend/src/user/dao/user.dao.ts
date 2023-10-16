@@ -4,9 +4,11 @@ import { Model } from 'mongoose';
 import { catchError, from, map, mergeMap, Observable, of, tap, throwError } from 'rxjs';
 import { User } from "../schemas/user.schema";
 import { UserEntity } from "../entities/user.entity";
+import { SignUpDto } from "../dto/sign-up-user.dto";
+import { Sign } from "crypto";
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UserDao{
-
   /**
    * Class constructor
    *
@@ -58,6 +60,27 @@ find = (): Observable<User[]> =>
    */
   findByMail = (mail: string): Observable<User | void> =>
   from(this._userModel.findOne({ mail: mail }))
+
+  /**
+   * Check if person already exists with index and add it in people list
+   *
+   * @param {SignUpDto} user to create
+   *
+   * @return {Observable<User>}
+   */
+  save = async (user: SignUpDto): Promise<User> =>
+    //await user.password = await bcrypt.hash(user.password, 10);
+    //Then save the user and return it for it to bo Observable<User>
+    {
+      const newUser = new User();
+      newUser.mail = user.mail;
+      newUser.pseudo = user.pseudo;
+      newUser.password = await bcrypt.hash(user.password, 10);
+      newUser.isMailConfirmed = false;
+      return this._userModel.create(newUser);
+      
+    }
+
   
       
     

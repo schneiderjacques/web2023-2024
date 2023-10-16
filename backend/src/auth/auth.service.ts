@@ -2,7 +2,7 @@ import { Dependencies, Injectable, Logger, UnauthorizedException } from '@nestjs
 import { JwtService } from '@nestjs/jwt';
 import { from, lastValueFrom } from 'rxjs';
 import { UserService } from 'src/user/user.service';
-
+import * as bcrypt from 'bcrypt';
 @Dependencies(UserService, JwtService)
 @Injectable()
 export class AuthService {
@@ -18,7 +18,9 @@ export class AuthService {
     async signIn(email: string, pass: string): Promise<any> {
         const user = await lastValueFrom(this.userService.findOneByMail(email));
         Logger.log('USER IS :' +  user);
-        if (!user || user.password !== pass) {
+        //password is hashed in the database
+        
+        if (!user || !(await bcrypt.compare(pass, user.password))) {
             throw new UnauthorizedException();
         }
         

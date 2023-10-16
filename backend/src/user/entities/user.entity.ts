@@ -1,6 +1,8 @@
 import { Exclude, Expose, Type } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { User } from '../schemas/user.schema';
+import * as bcrypt from 'bcrypt';
+import { BeforeInsert } from 'typeorm';
 
 @Exclude()
 export class UserEntity {
@@ -26,6 +28,7 @@ export class UserEntity {
   @Exclude()
   password: string;
 
+
   /**
    * Class constructor
    *
@@ -39,5 +42,7 @@ export class UserEntity {
     this.isMailConfirmed = partial.isMailConfirmed;
     this.password = partial.password;
   }
+
+  
   
 }

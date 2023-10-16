@@ -1,13 +1,18 @@
 import {
+  ConflictException,
     Injectable,
+    Logger,
     NotFoundException,
     UnprocessableEntityException,
   } from '@nestjs/common';
 import { User } from './user.types';
-import { Observable, defaultIfEmpty, filter, map, tap } from 'rxjs';
+import { Observable, defaultIfEmpty, filter, from, map, tap } from 'rxjs';
 import { UserDao } from './dao/user.dao';
 import { UserEntity } from './entities/user.entity';
 import { catchError, mergeMap, of, throwError } from 'rxjs';
+import { SignUpDto } from './dto/sign-up-user.dto';
+import { Sign } from 'crypto';
+import * as bcrypt from 'bcrypt';
 
 
 @Injectable()
@@ -80,6 +85,33 @@ this._userDao.findByMail(mail).pipe(
         ),
   ),
 );
+
+  /**
+   * Check if user already exists and add it in user list
+   *
+   * @param user to create
+   *
+   * @returns {Observable<UserEntity>}
+   */
+  create = (person: SignUpDto): Observable<UserEntity> =>
+    of(person).pipe(
+      mergeMap((newPreparedPerson: SignUpDto) =>
+        this._userDao.save(newPreparedPerson),
+      ),
+      catchError((e) =>
+        e.code === 11000
+          ? throwError(
+              () =>
+                new ConflictException(
+                  `User with mail '${person.mail}' already exists`,
+                ),
+            )
+          : throwError(() => new UnprocessableEntityException(e.message)),
+      ),
+      map((personCreated) => new UserEntity(personCreated)),
+    );
+
+
 
 
 
