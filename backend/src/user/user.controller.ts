@@ -69,6 +69,27 @@ export class UserController {
   }
 
 
+  /**
+   * Handler to answer to POST /user route
+   * Create a user
+   * 
+   * @param {SignUpDto} signUp data to create a user
+   *
+   * @returns {Observable<UserEntity>} The user created
+   */
+  @ApiOkResponse({
+    description: 'The user has been successfully created',
+    type: UserEntity,
+  })
+  @ApiBadRequestResponse({ description: 'Payload provided is not good' })
+  @ApiUnprocessableEntityResponse({
+    description: "The request can't be performed in the database",
+  })
+  @ApiParam({
+    name: 'SignUpDto',
+    description: 'Data to create a new user',
+    type: SignUpDto,
+  })
   @HttpCode(HttpStatus.OK)
   @Post()
   @Public()

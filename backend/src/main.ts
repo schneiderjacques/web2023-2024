@@ -10,6 +10,7 @@ import { AppConfig, SwaggerConfig } from './app.types';
 import { DocumentBuilder } from '@nestjs/swagger';
 import {SwaggerModule} from '@nestjs/swagger/dist/swagger-module';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 
 async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
@@ -42,7 +43,7 @@ async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
 
   // create swagger document
   const userDocument = SwaggerModule.createDocument(app, options, {
-    include: [UserModule],
+    include: [UserModule, AuthModule],
   });
 
   // setup swagger module
