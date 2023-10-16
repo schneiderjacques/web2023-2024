@@ -11,14 +11,10 @@ import { UserDao } from './dao/user.dao';
   ],
 
   controllers: [UserController],
-  providers: [
-    UserService,
-    UserDao,
-    Logger,
-    {
-      provide: 'APP_INTERCEPTOR',
-      useClass: ClassSerializerInterceptor,
-    },
-  ],
+  providers: [UserService, UserDao, Logger, {
+    provide: 'APP_INTERCEPTOR',
+    useClass: ClassSerializerInterceptor,
+  }],
+  exports: [UserService],
 })
 export class UserModule {}

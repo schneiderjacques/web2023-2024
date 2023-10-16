@@ -53,7 +53,6 @@ export class User{
     @Prop({
         type: String,
         required: true,
-        trim: true,
       })
       password: string;
 
@@ -63,3 +62,5 @@ export class User{
 
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+UserSchema.index({ mail:1 }, { unique: true });

@@ -1,11 +1,14 @@
-import { ClassSerializerInterceptor, Controller, Get, Logger, Param } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiTags, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
+import { Body, ClassSerializerInterceptor, Controller, Get, HttpCode, HttpStatus, Logger, Param, Post, UseGuards } from '@nestjs/common';
+import { ApiBadRequestResponse, ApiBody, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiTags, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
 import { HttpInterceptor } from 'src/interceptors/http.interceptor';
 import { UseInterceptors } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserEntity } from './entities/user.entity';
 import { Observable } from 'rxjs';
-import { HandlerParams } from '../shared/validators/handler-params';
+import { HandlerParams } from './validators/handler-params';
+import { AuthGuard } from 'src/auth/auth.guard';
+import { SignUpDto } from './dto/sign-up-user.dto';
+import { Public } from 'src/decorators/decorators';
 
 @ApiTags('users')
 @Controller('users')
@@ -63,6 +66,36 @@ export class UserController {
   @Get(':id')
   findOne(@Param('id') userId: string): Observable<UserEntity> {
     return this._userService.findOne(userId);
+  }
+
+
+  /**
+   * Handler to answer to POST /user route
+   * Create a user
+   * 
+   * @param {SignUpDto} signUp data to create a user
+   *
+   * @returns {Observable<UserEntity>} The user created
+   */
+  @ApiOkResponse({
+    description: 'The user has been successfully created',
+    type: UserEntity,
+  })
+  @ApiBadRequestResponse({ description: 'Payload provided is not good' })
+  @ApiUnprocessableEntityResponse({
+    description: "The request can't be performed in the database",
+  })
+  @ApiParam({
+    name: 'SignUpDto',
+    description: 'Data to create a new user',
+    type: SignUpDto,
+  })
+  @HttpCode(HttpStatus.OK)
+  @Post()
+  @Public()
+  signUp(@Body() signUp : SignUpDto): Observable<UserEntity> {
+    //Wait for the hash password to be done
+    return this._userService.create(signUp);
   }
   
 

@@ -14,6 +14,7 @@ import { AppConfig, SwaggerConfig } from './app.types';
 import { DocumentBuilder } from '@nestjs/swagger';
 import { SwaggerModule } from '@nestjs/swagger/dist/swagger-module';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
   // create NestJS application
@@ -22,6 +23,7 @@ async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
     new FastifyAdapter({ logger: true }),
   );
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+  app.useGlobalPipes(new ValidationPipe({  whitelist: true}));
 
   // enable CORS for NG Application's calls
   await app.enableCors({ origin: config.cors });
@@ -44,7 +46,7 @@ async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
 
   // create swagger document
   const userDocument = SwaggerModule.createDocument(app, options, {
-    include: [UserModule],
+    include: [UserModule, AuthModule],
   });
 
   // setup swagger module
