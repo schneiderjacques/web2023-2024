@@ -28,7 +28,7 @@ export class UserDao{
 // user.dao.ts
 find = (): Observable<User[]> =>
     
-    from(this._userModel.find({}).lean()).pipe(map((user) => 
+    from(this._userModel.find({})).pipe(map((user) => 
     
       [].concat(user)
 
@@ -47,7 +47,17 @@ find = (): Observable<User[]> =>
    */
   //Console.Log what is in the findbyid
       findById = (id: string): Observable<User | void> =>
-      from(this._userModel.findById(id).lean())
+      from(this._userModel.findById(id))
+
+            /**
+   * Returns one user of the list matching mail in parameter
+   *
+   * @param {string} mail of the user in the db
+   *
+   * @return {Observable<User | void>}
+   */
+  findByMail = (mail: string): Observable<User | void> =>
+  from(this._userModel.findOne({ mail: mail }))
   
       
     

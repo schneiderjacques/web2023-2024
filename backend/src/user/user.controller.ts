@@ -1,4 +1,4 @@
-import { ClassSerializerInterceptor, Controller, Get, Logger, Param } from '@nestjs/common';
+import { ClassSerializerInterceptor, Controller, Get, Logger, Param, UseGuards } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiTags, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
 import { HttpInterceptor } from 'src/interceptors/http.interceptor';
 import { UseInterceptors } from '@nestjs/common';
@@ -6,11 +6,13 @@ import { UserService } from './user.service';
 import { UserEntity } from './entities/user.entity';
 import { Observable } from 'rxjs';
 import { HandlerParams } from './validators/handler-params';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @ApiTags('users')
 @Controller('users')
 @UseInterceptors(ClassSerializerInterceptor)
 @UseInterceptors(HttpInterceptor)
+@UseGuards(AuthGuard)
 export class UserController {
 
       /**

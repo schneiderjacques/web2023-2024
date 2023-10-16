@@ -32,8 +32,12 @@ export class UserEntity {
    * @param partial data to insert in object instance
    */
   constructor(partial: Partial<User>) {
-    console.log('Partial data:', partial);
-    Object.assign(this, partial);
+    //Type 'ObjectId' is not assignable to type 'string'.
+    this._id = partial._id.toString();
+    this.mail = partial.mail;
+    this.pseudo = partial.pseudo;
+    this.isMailConfirmed = partial.isMailConfirmed;
+    this.password = partial.password;
   }
   
 }

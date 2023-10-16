@@ -18,6 +18,7 @@ import { UserDao } from './dao/user.dao';
     provide: 'APP_INTERCEPTOR',
     useClass: ClassSerializerInterceptor,
   }],
+  exports: [UserService],
 })
 export class UserModule {
 }

@@ -47,7 +47,6 @@ findAll = (): Observable<UserEntity[] | void> =>
    *
    * @returns {Observable<UserEntity>}
    */
-// user.service.ts
 findOne = (id: string): Observable<UserEntity> =>
 this._userDao.findById(id).pipe(
   catchError((e) =>
@@ -61,6 +60,27 @@ this._userDao.findById(id).pipe(
         ),
   ),
 );
+  /**
+   * Returns one user of the list matching mail in parameter
+   *
+   * @param {string} mail of the user
+   *
+   * @returns {Observable<UserEntity>}
+   */
+findOneByMail = (mail: string): Observable<UserEntity> =>
+this._userDao.findByMail(mail).pipe(
+  catchError((e) =>
+    throwError(() => new UnprocessableEntityException(e.message)),
+  ),
+  mergeMap((user) =>
+    !!user
+      ? of(new UserEntity(user))
+      : throwError(
+          () => new NotFoundException(`User with mail '${mail}' not found`),
+        ),
+  ),
+);
+
 
 
 

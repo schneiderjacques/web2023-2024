@@ -1,4 +1,30 @@
-import { Injectable } from '@nestjs/common';
+import { Dependencies, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { from, lastValueFrom } from 'rxjs';
+import { UserService } from 'src/user/user.service';
 
+@Dependencies(UserService, JwtService)
 @Injectable()
-export class AuthService {}
+export class AuthService {
+
+    private readonly userService: UserService;
+    private readonly jwtService: JwtService;
+
+    constructor(userService: UserService, jwtService: JwtService) {
+        this.userService = userService;
+        this.jwtService = jwtService;
+    }
+
+    async signIn(email: string, pass: string): Promise<any> {
+        const user = await lastValueFrom(this.userService.findOneByMail(email));
+        Logger.log('USER IS :' +  user);
+        if (!user || user.password !== pass) {
+            throw new UnauthorizedException();
+        }
+        
+        const payload = { sub: user._id, username: user.mail };
+        return {
+            access_token: this.jwtService.sign(payload),
+        };
+    }
+}
