@@ -5,7 +5,7 @@ import { UseInterceptors } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserEntity } from './entities/user.entity';
 import { Observable } from 'rxjs';
-import { HandlerParams } from './validators/handler-params';
+import { HandlerParams } from '../shared/validators/handler-params';
 
 @ApiTags('users')
 @Controller('users')

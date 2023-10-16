@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserService } from './user/user.service';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { EventModule } from './event/event.module';
 import * as Config from 'config';
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import * as Config from 'config';
         return connection;
         },
     }),
+    EventModule,
   ],
 })
 export class AppModule {}

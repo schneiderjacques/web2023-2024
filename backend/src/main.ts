@@ -1,5 +1,9 @@
 import { NestFactory, Reflector } from '@nestjs/core';
-import { ClassSerializerInterceptor, Logger, ValidationPipe } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  Logger,
+  ValidationPipe,
+} from '@nestjs/common';
 import {
   FastifyAdapter,
   NestFastifyApplication,
@@ -8,9 +12,8 @@ import { AppModule } from './app.module';
 import * as Config from 'config';
 import { AppConfig, SwaggerConfig } from './app.types';
 import { DocumentBuilder } from '@nestjs/swagger';
-import {SwaggerModule} from '@nestjs/swagger/dist/swagger-module';
+import { SwaggerModule } from '@nestjs/swagger/dist/swagger-module';
 import { UserModule } from './user/user.module';
-
 
 async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
   // create NestJS application

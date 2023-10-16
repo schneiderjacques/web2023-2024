@@ -12,12 +12,8 @@ export class UserDao{
    *
    * @param {Model<User>} _userModel instance of the model representing a User
    */
-  constructor(
-    @InjectModel(User.name)
-    
-    private  _userModel: Model<User>,
-  ) {
-    Logger.log('Name is : '+User.name)
+  constructor(@InjectModel(User.name)private _userModel: Model<User>) {
+    Logger.log('Name is : '+User.name);
   }
 
     /**
@@ -25,20 +21,13 @@ export class UserDao{
    *
    * @return {Observable<User[]>}
    */
-// user.dao.ts
-find = (): Observable<User[]> =>
-    
-    from(this._userModel.find({}).lean()).pipe(map((user) => 
-    
-      [].concat(user)
-
-      ));
+  // user.dao.ts
+  find = (): Observable<User[]>=> from(this._userModel.find({}).lean())
+  .pipe(map((user) =>[].concat(user)));
 
 
 
-
-
-      /**
+  /**
    * Returns one user of the list matching id in parameter
    *
    * @param {string} id of the user in the db
@@ -46,11 +35,6 @@ find = (): Observable<User[]> =>
    * @return {Observable<User | void>}
    */
   //Console.Log what is in the findbyid
-      findById = (id: string): Observable<User | void> =>
-      from(this._userModel.findById(id).lean())
-  
-      
-    
-
-    
+  findById = (id: string): Observable<User | void> =>
+  from(this._userModel.findById(id).lean()) ;  
 }

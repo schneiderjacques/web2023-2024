@@ -13,14 +13,13 @@ import { catchError, mergeMap, of, throwError } from 'rxjs';
 @Injectable()
 export class UserService {
 
-    //private property to store users
+  //private property to store users
+  private _user: User[];
 
-    private _user: User[];
+  constructor(private readonly _userDao: UserDao){
+      this._user = [];
 
-    constructor(private readonly _userDao: UserDao){
-        this._user = [];
-
-    }
+  }
 
 
   /**
@@ -34,7 +33,7 @@ findAll = (): Observable<UserEntity[] | void> =>
   this._userDao.find().pipe(
     filter(Boolean),
     map((users) => (users || []).map((user) => new UserEntity(user))),
-    
+  
     defaultIfEmpty(undefined),
   );
 

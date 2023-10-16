@@ -9,7 +9,7 @@ swagger:
   title: Documentation de notre API REST
   description: The user/event API description
   version: 1.0
-  tag: people
+  tag: user/event
   path: documentation
 mongodb:
   uri: mongodb://localhost:27017/projectDB
