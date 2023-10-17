@@ -4,10 +4,13 @@ import { EventService } from './event.service';
 import { EventDao } from './dao/event.dao';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Event, EventSchema } from './schemas/event.schema';
+import { UserModule } from 'src/user/user.module';
+import { UserService } from 'src/user/user.service';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Event.name, schema: EventSchema }]),
+    UserModule
   ],
 
   controllers: [EventController],
@@ -18,7 +21,6 @@ import { Event, EventSchema } from './schemas/event.schema';
       provide: 'APP_INTERCEPTOR',
       useClass: ClassSerializerInterceptor,
     },
-    EventDao,
-  ]
+    EventDao]
 })
 export class EventModule {}

@@ -14,6 +14,8 @@ export type EventDocument = Event & Document;
   },
   versionKey: false,
 })
+
+
 export class Event {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
@@ -26,15 +28,7 @@ export class Event {
     required: true,
   })
   userId: mongoose.Schema.Types.ObjectId;
-
-  @Prop({
-    type: String,
-    required: true,
-    minlength: 2,
-    trim: true,
-  })
-  firstname: string;
-
+   
   @Prop({
     type: String,
     required: true,
@@ -51,7 +45,6 @@ export class Event {
   @Prop({
     type: Date,
     required: true,
-    trim: true,
   })
   date_updated: string;
 
@@ -91,7 +84,7 @@ export class Event {
         },
     }),
   )
-  address: any;
+  location: any;
 
   @Prop({
     type: String,
@@ -100,7 +93,7 @@ export class Event {
   description: string;
 
   @Prop({
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
   })
   start_time: string;
 

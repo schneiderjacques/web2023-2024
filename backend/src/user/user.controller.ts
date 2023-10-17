@@ -69,7 +69,6 @@ export class UserController {
     return this._userService.findOne(userId);
   }
 
-
   /**
    * Handler to answer to POST /user route
    * Create a user
