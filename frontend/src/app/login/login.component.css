@@ -1,0 +1,17 @@
+.card-img-left {
+    width: 45%;
+    background: scroll center url('https://source.unsplash.com/414x512/?concert,festival,musician');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .main-container {
+    height: 100vh;
+    width: 100%;
+    flex: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .row{
+    width: 65%;
+  }

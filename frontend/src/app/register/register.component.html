@@ -1,0 +1,79 @@
+
+<div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-xl-9 mx-auto">
+        <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
+          <div class="card-img-left d-none d-md-flex">
+            <!-- Background image for card set in CSS! -->
+           
+          </div>
+          <div class="card-body p-4 p-sm-5">
+            <h5 class="card-title text-center mb-5 fw-light fs-5">Inscription</h5>
+            <form novalidate [formGroup]="form">
+
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" placeholder="pseudo" formControlName="pseudo" required autofocus>
+                <label for="floatingInputUsername">Pseudonyme</label>
+              </div>
+
+              <div class="alert alert-danger" role="alert" *ngIf="form.get('pseudo')?.dirty && form.get('pseudo')?.hasError('required')">
+                Le pseudonyme est obligatoire
+              </div>
+
+              <div class="alert alert-danger" role="alert" *ngIf="form.get('pseudo')?.dirty && form.get('pseudo')?.hasError('pattern')">
+                Le pseudonyme doit contenir entre 3 et 16 caractères
+                Il ne doit pas contenir de caractères spéciaux
+              </div>
+
+              
+
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" formControlName="mail" placeholder="name@example.com">
+                <label for="floatingInputEmail">Adresse e-mail</label>
+              </div>
+
+              <div class="alert alert-danger" role="alert" *ngIf="form.get('mail')?.dirty && form.get('mail')?.hasError('required')">
+                L'adresse e-mail est obligatoire
+              </div>
+
+              <div class="alert alert-danger" role="alert" *ngIf="form.get('mail')?.dirty && form.get('mail')?.hasError('email')">
+                L'adresse e-mail n'est pas valide
+              </div>
+
+              <hr>
+
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" placeholder="Mot de passe " formControlName="password">
+                <label for="floatingPassword">Mot de passe</label>
+              </div>
+
+              <div class="alert alert-danger" role="alert" *ngIf="form.get('password')?.dirty && form.get('password')?.hasError('required')">
+                Le mot de passe est obligatoire
+              </div>
+
+              <div class="alert alert-danger" role="alert" *ngIf="form.get('password')?.dirty && form.get('password')?.hasError('pattern')">
+                Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre
+              </div>
+
+              <div class="alert alert-danger" role="alert" *ngIf="errors != ''">
+                {{errors}}
+              </div>
+
+              <div class="alert alert-success" role="alert" *ngIf="success">
+                Un mail de confirmation vous a été envoyé, veuillez cliquer sur le lien pour confirmer votre inscription
+                </div>
+
+              <div class="d-grid mb-2">
+                <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit" [disabled]="form.invalid" (click)="register(form.value)">Inscription</button>
+              </div>
+
+              <a [routerLink]="['/login']"  class="d-block text-center mt-2 small" href="#">Vous avez déjà un compte ? Connectez-vous</a>
+
+              <hr class="my-4">
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
