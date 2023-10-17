@@ -6,7 +6,7 @@ import { User } from "../schemas/user.schema";
 import { UserEntity } from "../entities/user.entity";
 import { SignUpDto } from "../dto/sign-up-user.dto";
 import { Sign } from "crypto";
-import * as bcrypt from "bcrypt";
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UserDao{
   /**
