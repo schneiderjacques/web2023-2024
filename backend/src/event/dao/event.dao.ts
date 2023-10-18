@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Observable, from, map, mergeMap } from 'rxjs';
 import { CreateEventDto } from '../dto/create-event.dto';
 import { Event } from '../schemas/event.schema';
+import { UpdateEventDto } from '../dto/update-event.dto';
 
 @Injectable()
 export class EventDao {
@@ -39,10 +40,8 @@ export class EventDao {
   findById = (id: string): Observable<Event | void> =>
   from(this._eventModel.findById(id).lean())
 
-
-
   /**
-   * Find the event liked to the userId and remove it 
+   * Find the event with (id, userid) and remove it 
    *
    * @param {string} id the event id 
    *
@@ -53,6 +52,26 @@ export class EventDao {
    */
   findByIdAndUserIdAndRemove = (id : string, userId): Observable<Event | void> =>
     from(this._eventModel.findOneAndRemove({ _id: id , userId: userId}))
+
+
+  /**
+   * Find the event with (id, userid) and update it 
+   *
+   * @param {string} id the event id 
+   * @param {string} userId the user id 
+   *
+   * @return {Observable<User | void>}
+   */
+  findByIdAndUserIdAndUpdate = (id : string, userId : string, eventToUpdate :UpdateEventDto): Observable<Event | void> =>
+    from(
+      this._eventModel.findOneAndUpdate(
+        { _id: id , userId: userId},
+        eventToUpdate,
+        {
+          new: true,
+          runValidators: true,
+        }
+        ));
 
   /**
    * Save a new event
@@ -74,6 +93,9 @@ export class EventDao {
   findByIdAndRemove = (id: string): Observable<Event | void> =>
     from(this._eventModel.findByIdAndRemove(id));
 }
+
+
+
 
 
 

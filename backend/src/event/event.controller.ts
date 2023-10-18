@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Header, Param, Post, Request } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Header, Param, Post, Put, Request } from '@nestjs/common';
 import { Observable, of,  } from 'rxjs';
 import { EventService } from './event.service';
 import { ApiBadRequestResponse, ApiBody, ApiConflictResponse, ApiCreatedResponse, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
@@ -7,6 +7,7 @@ import { CreateEventDto } from './dto/create-event.dto';
 import { UserEntity } from 'src/user/entities/user.entity';
 import { Any } from 'typeorm';
 import { HandlerParams } from 'src/shared/validators/handler-params';
+import { UpdateEventDto } from './dto/update-event.dto';
 
 @Controller('events')
 export class EventController {
@@ -124,6 +125,54 @@ delete(@Param() params: HandlerParams,@Request() req): Observable<void> {
   const { username } = req.user;      
   return this._eventService.delete(params.id,username);
 }
+
+
+
+
+
+
+  /**
+   * Handler to answer to PUT /event/:id route
+   *
+   * @param {HandlerParams} params list of route params to take event id
+   * @param updateEventDto data to update
+   *
+   * @returns Observable<EventEntity>
+   */
+  @ApiOkResponse({
+    description: 'The event has been successfully updated',
+    type: EventEntity,
+  })
+  @ApiNotFoundResponse({
+    description: 'Evnet with the given "id" doesn\'t exist in the database',
+  })
+  @ApiUnprocessableEntityResponse({
+    description: "The request can't be performed in the database",
+  })
+  @ApiBadRequestResponse({
+    description: 'Parameter and/or payload provided are not good',
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'Unique identifier of the event in the database',
+    type: String,
+    allowEmptyValue: false,
+  })
+  @ApiBody({ description: 'Payload to update a person', type: UpdateEventDto })
+  @Put(':id')
+  update(
+    @Param() params: HandlerParams,
+    @Body() updateEventDto: UpdateEventDto,
+    @Request() req
+  ): Observable<EventEntity> {
+    const { username } = req.user;  
+    return this._eventService.update(params.id, updateEventDto,username);
+  }
+
+
+
+ 
+
 
 
 }

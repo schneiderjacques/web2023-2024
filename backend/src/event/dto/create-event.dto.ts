@@ -1,15 +1,16 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsInstance, IsNotEmpty, IsOptional, IsString, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
-import { EventLocationDto } from "./event-location.dto";
+import { EventLocationDto } from "./create-event-location.dto";
 
 export class CreateEventDto{
     @ApiProperty({
-        name: 'userId',
+        name: '',
         description: 'the id user that he ',
         example: 'IA conf',
     })
     @IsString()
+    @IsOptional()
     @IsNotEmpty()
     name: string
      
@@ -19,6 +20,7 @@ export class CreateEventDto{
         example: '20-07-2000',
     })
     @IsString()
+    @IsOptional()
     @IsNotEmpty()
     date: string
 
@@ -47,6 +49,7 @@ export class CreateEventDto{
         name: 'location',
         description: 'location of the event'
     })
+    @IsOptional()
     @IsInstance(EventLocationDto)
     @ValidateNested()
     @Type(() => EventLocationDto)
@@ -64,7 +67,7 @@ export class CreateEventDto{
 
     @ApiProperty({
         name: 'color',
-        description: 'the event color (it will be more usefull from the front)',
+        description: 'The event color (it will be more usefull from the front)',
         example: '#903920',
     })
     @IsOptional()

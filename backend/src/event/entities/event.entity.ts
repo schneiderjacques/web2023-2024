@@ -20,6 +20,11 @@ export class EventEntity {
   @Type(() => String)
   userId: string
 
+
+  @Expose()
+  @Type(() => String)
+  name: string;
+
   @Expose()
   @Type(() => String)
   date_created: string
@@ -68,7 +73,10 @@ export class EventEntity {
   constructor(partial: Partial<Event>) {
     console.log('Partial data:', partial);
     Object.assign(this, partial);
+
+    
     this.id = partial._id.toString();
+    this.name = partial.name;
     this.date = this.formatDateString(partial.date.toString());
     this.date_created = partial.date_created;
     this.date_updated = partial.date_updated;
@@ -86,7 +94,7 @@ export class EventEntity {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Mois commence à 0 (janvier = 0)
     const day = date.getDate().toString().padStart(2, '0');
-    return `${day}-${month}-${year}`;
+    return `${year}-${month}-${day}`;
   }
 
 }
