@@ -18,7 +18,6 @@ export class AuthService {
   private readonly _backendURL: any;
 
 
-
   constructor(private router: Router, private _http: HttpClient) {
     // Récupérer le token du stockage local lors du chargement du service
     const storedToken = localStorage.getItem('jwtToken');
@@ -81,14 +80,14 @@ setLoggedIn(value: boolean, token: string | null = null): void {
       console.log('redirectToLogin');
       this.router.navigate(['/login']);
     }
-  
+
 
     login(login: LoginType): Observable<boolean> {
       return this._http.post<String>(this._backendURL.login, login).pipe(
         map((res: any) => {
           this.setLoggedIn(true, res.access_token);
           return true;
-          
+
         }),
         catchError((error) => {
           console.error('Error during register:', error);
@@ -107,7 +106,7 @@ setLoggedIn(value: boolean, token: string | null = null): void {
           //throw error
           console.error('Error during register:', error);
           throw error;
-          
+
         })
       );
     }

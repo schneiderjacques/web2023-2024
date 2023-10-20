@@ -2,6 +2,7 @@ import { Component, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
 
 import { environment  } from '../../environements/environement';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-map',
@@ -11,10 +12,10 @@ import { environment  } from '../../environements/environement';
 export class MapComponent implements AfterViewInit {
   private map! : L.Map;
 
-  private initMap(): void {
-    this.map = L.map('map', {
-      //Use env variables here
-      center: environment.mapConfig.center,
+  private initMap(position : L.LatLngTuple): void {
+
+    this.map = L.map('map', {   // get the default location in the env
+      center: position ,
       zoom: environment.mapConfig.defaultZoom
     });
 
@@ -29,6 +30,14 @@ export class MapComponent implements AfterViewInit {
   constructor() { }
 
   ngAfterViewInit(): void {
-    this.initMap();
+    navigator.geolocation.getCurrentPosition(
+      position => {
+      const { latitude, longitude } = position.coords;
+      this.initMap([latitude,longitude] as L.LatLngTuple);
+      },
+      (error) => {
+        this.initMap(environment.mapConfig.center);
+      }
+    )
   }
 }
