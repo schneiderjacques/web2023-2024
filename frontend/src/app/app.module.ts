@@ -15,6 +15,7 @@ import { RegisterComponent } from './register/register.component';
 import {FormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SmallCardComponent } from './shared/component/small-card/small-card.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     HomeComponent,
     RegisterComponent,
+    SmallCardComponent,
     
   ],
   imports: [
