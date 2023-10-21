@@ -3,10 +3,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginType } from '../types/login.type';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environements/environement';
 import { Observable, catchError, map, of } from 'rxjs';
 import { registerType } from '../types/register.type';
+import { UserType } from '../types/user.type';
 
 @Injectable({
   providedIn: 'root',
@@ -70,46 +71,51 @@ setLoggedIn(value: boolean, token: string | null = null): void {
     localStorage.removeItem('jwtToken');
   }
 
-
   // Méthode pour récupérer le token actuel
   getToken(): string | null {
     return this.token;
   }
-    // Méthode pour rediriger vers la page de connexion si l'utilisateur n'est pas connecté
-    redirectToLogin(): void {
-      console.log('redirectToLogin');
-      this.router.navigate(['/login']);
-    }
 
+  // Méthode pour rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+  redirectToLogin(): void {
+    console.log('redirectToLogin');
+    this.router.navigate(['/login']);
+  }
 
-    login(login: LoginType): Observable<boolean> {
-      return this._http.post<String>(this._backendURL.login, login).pipe(
-        map((res: any) => {
-          this.setLoggedIn(true, res.access_token);
-          return true;
+  login(login: LoginType): Observable<boolean> {
+    return this._http.post<String>(this._backendURL.login, login).pipe(
+      map((res: any) => {
+        this.setLoggedIn(true, res.access_token);
+        return true;
 
-        }),
-        catchError((error) => {
-          console.error('Error during register:', error);
-          throw error;
-        })
-      );
-    }
+      }),
+      catchError((error) => {
+        console.error('Error during register:', error);
+        throw error;
+      })
+    );
+  }
 
-    register(register: registerType): Observable<boolean> {
-      return this._http.post<String>(this._backendURL.register, register).pipe(
-        map((res: any) => {
-          console.log(res);
-          return true;
-        }),
-        catchError((error) => {
-          //throw error
-          console.error('Error during register:', error);
-          throw error;
+  register(register: registerType): Observable<boolean> {
+    return this._http.post<String>(this._backendURL.register, register).pipe(
+      map((res: any) => {
+        console.log(res);
+        return true;
+      }),
+      catchError((error) => {
+        //throw error
+        console.error('Error during register:', error);
+        throw error;
 
-        })
-      );
-    }
+      })
+    );
+  }
 
+  authenticatedUser(): Observable<UserType> {
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${this.getToken()}`);
+    console.log(this.getToken())
+    return this._http.get<UserType>(this._backendURL.profil, {headers})
+  }
 
 }

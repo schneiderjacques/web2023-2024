@@ -79,7 +79,7 @@ create = (eventDto: CreateEventDto, username: string): Observable<EventEntity> =
 
   private _getUserId(username : string) : Observable<string>{
     return this._userService.findOneByMail(username)
-      .pipe(map((user)=> user._id));
+      .pipe(map((user)=> user.id));
   }
 
 

@@ -4,13 +4,16 @@ import { Get, Post, UseGuards } from '@nestjs/common/decorators';
 import { SignInDto } from 'src/user/dto/sign-in-user.dto';
 import { Public } from '../decorators/decorators';
 import { ApiBadRequestResponse, ApiBody, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiTags, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
+import { UserService } from 'src/user/user.service';
+import { User } from 'src/user/schemas/user.schema';
+import { Observable } from 'rxjs';
+import { UserEntity } from 'src/user/entities/user.entity';
 
 
 @Controller('auth')
-@Public()
 export class AuthController {
 
-    constructor(private authService: AuthService){}
+    constructor(private authService: AuthService,private _userService: UserService){}
     
 
             /**
@@ -41,9 +44,14 @@ export class AuthController {
     async login(@Body() signInDto: SignInDto): Promise<any> {
         return this.authService.signIn(signInDto.mail, signInDto.password);
     }
+
+
+
+    @HttpCode(HttpStatus.OK)
     @Get('profile')
-    getProfile(@Request() req) {
-      return req.user;
+    getProfile(@Request() req) : Observable<UserEntity>{
+      const { username } = req.user;
+      return this._userService.findOneByMail(username);
     }
 
 }

@@ -14,7 +14,7 @@ export class UserEntity {
   })
   @Expose()
   @Type(() => String)
-  _id: string;
+  id: string;
 
   @Expose()
   mail: string;
@@ -36,7 +36,7 @@ export class UserEntity {
    */
   constructor(partial: Partial<User>) {
     //Type 'ObjectId' is not assignable to type 'string'.
-    this._id = partial._id.toString();
+    this.id = partial._id.toString();
     this.mail = partial.mail;
     this.pseudo = partial.pseudo;
     this.isMailConfirmed = partial.isMailConfirmed;
