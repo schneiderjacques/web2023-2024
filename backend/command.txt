@@ -1,5 +1,7 @@
 sudo nano ~/.docker/config.json
 
- docker rmi -f mongo
+docker rmi -f mongo
+
 docker rm -f project_bd_container  
+
 docker compose up -d & node script.js
