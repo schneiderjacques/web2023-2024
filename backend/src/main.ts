@@ -13,9 +13,6 @@ import * as Config from 'config';
 import { AppConfig, SwaggerConfig } from './app.types';
 import { DocumentBuilder } from '@nestjs/swagger';
 import { SwaggerModule } from '@nestjs/swagger/dist/swagger-module';
-import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
-
 async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
   // create NestJS application
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -45,9 +42,7 @@ async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
     .build();
 
   // create swagger document
-  const userDocument = SwaggerModule.createDocument(app, options, {
-    include: [UserModule, AuthModule],
-  });
+  const userDocument = SwaggerModule.createDocument(app, options);
 
   // setup swagger module
   SwaggerModule.setup(swaggerConfig.path, app, userDocument);

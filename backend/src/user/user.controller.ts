@@ -10,6 +10,7 @@ import { AuthGuard } from 'src/auth/auth.guard';
 import { SignUpDto } from './dto/sign-up-user.dto';
 import { Public } from 'src/decorators/decorators';
 import { HandlerParams } from 'src/shared/validators/handler-params';
+import { ConfirmationService } from 'src/shared/confirmation/confirmation.service';
 
 @ApiTags('users')
 @Controller('users')
@@ -94,9 +95,10 @@ export class UserController {
   @Post()
   @Public()
   signUp(@Body() signUp : SignUpDto): Observable<UserEntity> {
-    //Wait for the hash password to be done
-    return this._userService.create(signUp);
+    return this._userService.create(signUp);;
   }
+
+  
   
 
 

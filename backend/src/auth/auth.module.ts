@@ -6,6 +6,7 @@ import { AuthController } from './auth.controller';
 import { jwtConstants } from './constants';
 import { AuthGuard } from './auth.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { ConfirmationService } from 'src/shared/confirmation/confirmation.service';
 
 @Module({
   imports: [
@@ -13,11 +14,11 @@ import { APP_GUARD } from '@nestjs/core';
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '600s' },
+      signOptions: { expiresIn: '86400s' },
     })
 
   ],
-  providers: [AuthService],
+  providers: [AuthService, ConfirmationService],
   controllers: [AuthController],
   exports: [AuthService],
 })

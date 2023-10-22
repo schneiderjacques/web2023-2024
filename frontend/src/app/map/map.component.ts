@@ -5,6 +5,7 @@ import { environment  } from '../../environements/environement';
 import {Event} from "../shared/types/event.type";
 import {DivIcon, icon, LatLngTuple} from "leaflet";
 import {buildMonths} from "@ng-bootstrap/ng-bootstrap/datepicker/datepicker-tools";
+import { SharedService } from '../shared/services/shared.service';
 
 @Component({
   selector: 'app-map',
@@ -16,10 +17,6 @@ export class MapComponent implements AfterViewInit {
 
   @Input()
   events :Event[] | undefined;
-
-
-
-
 
 
   private initMap(position : L.LatLngTuple): void {
@@ -38,7 +35,7 @@ export class MapComponent implements AfterViewInit {
   }
 
 
-  constructor() { }
+  constructor(private sharedService: SharedService) { }
 
   ngAfterViewInit(): void {
     navigator.geolocation.getCurrentPosition(
@@ -56,6 +53,9 @@ export class MapComponent implements AfterViewInit {
         }
       }
     )
+    this.sharedService.getEventObservable().subscribe((event: Event) => {
+      this.seeEvent(event);
+    });
 
 
   }
@@ -64,6 +64,10 @@ export class MapComponent implements AfterViewInit {
     const marker = L.marker([ event.location.latitude,event.location.longitude] as LatLngTuple,{icon : this.createIcon(event.color)});
     marker.addTo(this.mapLeaf);
     console.log( event);
+  }
+
+  seeEvent(event: Event){
+    this.mapLeaf.flyTo([event.location.latitude,event.location.longitude] as LatLngTuple,environment.mapConfig.defaultZoom);
   }
 
   private createIcon(colorEvent : string) : DivIcon{

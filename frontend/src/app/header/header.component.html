@@ -14,7 +14,7 @@
         </li>
       </ul>
 
-      <span class="navbar-text t dropdown">
+      <span class="navbar-text t dropdown" *ngIf="authUser">
         Bonjour {{ authUser.pseudo | titlecase }} 👋
         <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
         </button>

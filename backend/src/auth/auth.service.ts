@@ -23,6 +23,10 @@ export class AuthService {
         if (!user || !(await bcrypt.compare(pass, user.password))) {
             throw new UnauthorizedException();
         }
+
+        if (user.isMailConfirmed === false) {
+            throw new UnauthorizedException('Please confirm your email address.');
+        }
         
         const payload = { sub: user.id, username: user.mail };
         return {

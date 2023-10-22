@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Header, Param, Post, Put, Request } from '@nestjs/common';
 import { Observable, of,  } from 'rxjs';
 import { EventService } from './event.service';
-import { ApiBadRequestResponse, ApiBody, ApiConflictResponse, ApiCreatedResponse, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiBody, ApiConflictResponse, ApiCreatedResponse, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiTags, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
 import { EventEntity } from './entities/event.entity';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UserEntity } from 'src/user/entities/user.entity';
@@ -9,6 +9,8 @@ import { Any } from 'typeorm';
 import { HandlerParams } from 'src/shared/validators/handler-params';
 import { UpdateEventDto } from './dto/update-event.dto';
 
+
+@ApiTags('events')
 @Controller('events')
 export class EventController {
 

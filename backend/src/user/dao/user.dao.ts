@@ -1,7 +1,7 @@
 import { Injectable, Logger, NotFoundException, UnprocessableEntityException } from "@nestjs/common";
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { catchError, from, map, mergeMap, Observable, of, tap, throwError } from 'rxjs';
+import { catchError, filter, from, map, mergeMap, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { User } from "../schemas/user.schema";
 import { UserEntity } from "../entities/user.entity";
 import { SignUpDto } from "../dto/sign-up-user.dto";
@@ -74,6 +74,45 @@ find = (): Observable<User[]> =>
       return this._userModel.create(newUser);
       
     }
+
+/**
+ * Set isMailConfirmed to true of a user
+ *
+ * @param {string} user_id
+ *
+ */
+findByIdAndUpdateMail = (user_id: string) => {
+  from(
+    this._userModel.findOneAndUpdate(
+      { _id: user_id },
+      { $set: { isMailConfirmed: true } },
+      { new: true }
+    )
+  )
+    .toPromise()
+    .then(async (user) => {
+      if (user) {
+        console.log('User found and updated:', user);
+      } else {
+        console.log(`User with id '${user_id}' not found`);
+        throw new NotFoundException(`User with id '${user_id}' not found`);
+      }
+    })
+    .catch((err) => {
+      console.log('Error:', err);
+      throw new UnprocessableEntityException(err.message);
+    });
+};
+
+
+
+
+
+
+   
+   
+    
+
 
   
       

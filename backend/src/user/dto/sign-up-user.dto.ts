@@ -1,8 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsEmail, IsEmpty, IsNotEmpty, IsString } from "class-validator";
-import * as bcrypt from 'bcrypt';
-import { BeforeInsert } from "typeorm";
-import { Exclude } from "class-transformer";
+import { IsEmail, IsNotEmpty, IsString, Matches } from "class-validator";
+
 
 export class SignUpDto {
     @ApiProperty({
@@ -19,18 +17,26 @@ export class SignUpDto {
         name: 'pseudo',
         description: 'Pseudo of the account',
         example: 'test13',
+        pattern: '^[a-zA-Z0-9_-]{3,16}$',
       })
       @IsString()
       @IsNotEmpty()
+      @Matches(/^[a-zA-Z0-9_-]{3,16}$/, {
+        message: 'Pseudo should be between 3 and 16 characters and can only contain letters, numbers, underscores and dashes',
+      })
     pseudo: string;
 
     @ApiProperty({
         name: 'password',
         description: 'Password of the account',
-        example: 'test123',
+        example: 'Test1234',
+        pattern: '^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$',
       })
       @IsString()
       @IsNotEmpty()
+      @Matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}/, {
+        message: 'Password should be at least 8 characters long and contain at least one uppercase letter, one lowercase letter and one number',
+      })
     password: string;
   
 

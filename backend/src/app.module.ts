@@ -7,6 +7,7 @@ import { EventModule } from './event/event.module';
 import * as Config from 'config';
 import { AuthGuard } from './auth/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { EmailService } from './shared/email/email.service';
 @Module({
   imports: [
 
@@ -22,10 +23,13 @@ import { APP_GUARD } from '@nestjs/core';
         },
     }),
     EventModule,
+    
   ],
-  providers: [{
+  providers: [
+    {
     provide: APP_GUARD,
     useClass: AuthGuard,
-  }],
+  },
+    EmailService],
 })
 export class AppModule {}

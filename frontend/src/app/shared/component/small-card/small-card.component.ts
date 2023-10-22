@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Event} from "../../types/event.type";
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-small-card',
@@ -8,17 +9,22 @@ import {Event} from "../../types/event.type";
 })
 export class SmallCardComponent {
 
-  private _event : Event| undefined;
-  constructor() {
+  private _event! : Event
+  constructor(private sharedService: SharedService) {
   }
 
 
   @Input()
-  get event(): Event | undefined {
+  get event(): Event {
     return this._event;
   }
 
-  set event(value: Event | undefined) {
+  set event(value: Event) {
     this._event = value;
   }
+
+  seeEvent(){
+    this.sharedService.triggerSeeEvent(this._event);
+  }
+
 }

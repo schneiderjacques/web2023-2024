@@ -16,12 +16,28 @@ export class UserEntity {
   @Type(() => String)
   id: string;
 
+  @ApiProperty({
+    name: 'mail',
+    description: 'Mail of the account',
+    example: 'test@gmail.com',
+  })
   @Expose()
   mail: string;
 
+
+  @ApiProperty({
+    name: 'pseudo',
+    description: 'Pseudo of the account',
+    example: 'test13',
+  })
   @Expose()
   pseudo: string;
 
+  @ApiProperty({
+    name: 'isMailConfirmed',
+    description: 'Is the mail confirmed',
+    example: 'true',
+  })
   @Expose()
   isMailConfirmed: boolean;
 

@@ -11,17 +11,15 @@ import { UserDao } from './dao/user.dao';
 import { UserEntity } from './entities/user.entity';
 import { catchError, mergeMap, of, throwError } from 'rxjs';
 import { SignUpDto } from './dto/sign-up-user.dto';
-import { Sign } from 'crypto';
-import * as bcrypt from 'bcrypt';
+import { EmailService } from 'src/shared/email/email.service';
 
 
 @Injectable()
 export class UserService {
-
   //private property to store users
   private _user: User[];
 
-  constructor(private readonly _userDao: UserDao){
+  constructor(private readonly _userDao: UserDao, private readonly emailService: EmailService) {
       this._user = [];
 
   }
@@ -107,16 +105,25 @@ this._userDao.findByMail(mail).pipe(
             )
           : throwError(() => new UnprocessableEntityException(e.message)),
       ),
-      map((personCreated) => new UserEntity(personCreated)),
-    );
+      map((personCreated) => {
+        this.emailService.sendConfirmationEmail(personCreated.mail, personCreated._id);
+        return new UserEntity(personCreated)
+      }
+        ),
+    ); 
 
 
-
-
-
-
-
-
-
-
+  /**
+   * Send mail to user
+   * 
+   * @param user to send mail
+   * 
+   * @returns {boolean} true if mail is sent, false otherwise
+   * 
+   * @throws {Error} if user is undefined
+   * */
+  confirmUserEmail = (userId: string) => {
+    this._userDao.findByIdAndUpdateMail(userId);
+  }
 }
+

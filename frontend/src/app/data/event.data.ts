@@ -81,6 +81,106 @@ export const EVENTS: Event[] = [
     startTime: '12:30',
     color: 'yellow',
     type: 'Cyclisme',
+  },
+  {
+    id: "5",
+    "userId": "user5",
+    "name": "Nouvel événement 1",
+    "dateCreated": "2023-10-15T10:00:00",
+    "dateUpdated": "2023-10-15T10:00:00",
+    "date": "2023-10-20",
+    "location": {
+      "city": "Lyon",
+      "postalCode": "69000",
+      "street": "Place Bellecour",
+      "locationDetails": "Scène principale",
+      "longitude": 4.834,
+      "latitude": 45.753
+    },
+    "description": "Description du nouvel événement 1.",
+    "startTime": "18:00",
+    "color": "green",
+    "type": "Autre"
+  },
+  {
+    "id": "6",
+    "userId": "user6",
+    "name": "Nouvel événement 2",
+    "dateCreated": "2023-11-05T14:30:00",
+    "dateUpdated": "2023-11-05T14:30:00",
+    "date": "2023-11-10",
+    "location": {
+      "city": "Marseille",
+      "postalCode": "13000",
+      "street": "Vieux-Port",
+      "locationDetails": "Quai des Belges",
+      "longitude": 5.369,
+      "latitude": 43.296
+    },
+    "description": "Description du nouvel événement 2.",
+    "startTime": "19:00",
+    "color": "purple",
+    "type": "Autre"
+  },
+  {
+    "id": "7",
+    "userId": "user7",
+    "name": "Nouvel événement 3",
+    "dateCreated": "2023-12-20T08:45:00",
+    "dateUpdated": "2023-12-20T08:45:00",
+    "date": "2024-01-05",
+    "location": {
+      "city": "Toulouse",
+      "postalCode": "31000",
+      "street": "Place du Capitole",
+      "locationDetails": "Grande scène",
+      "longitude": 1.444,
+      "latitude": 43.604
+    },
+    "description": "Description du nouvel événement 3.",
+    "startTime": "16:30",
+    "color": "orange",
+    "type": "Festival"
+  },
+  {
+    "id": "8",
+    "userId": "user8",
+    "name": "Nouvel événement 4",
+    "dateCreated": "2023-12-30T12:15:00",
+    "dateUpdated": "2023-12-30T12:15:00",
+    "date": "2024-01-15",
+    "location": {
+      "city": "Strasbourg",
+      "postalCode": "67000",
+      "street": "Place Kléber",
+      "locationDetails": "Place de la Cathédrale",
+      "longitude": 7.752,
+      "latitude": 48.583
+    },
+    "description": "Description du nouvel événement 4.",
+    "startTime": "17:00",
+    "color": "pink",
+    "type": "Culture"
+  },
+  {
+    "id": "9",
+    "userId": "user9",
+    "name": "Nouvel événement 5",
+    "dateCreated": "2024-01-10T15:20:00",
+    "dateUpdated": "2024-01-10T15:20:00",
+    "date": "2024-01-25",
+    "location": {
+      "city": "Biarritz",
+      "postalCode": "64200",
+      "street": "Plage de la Côte des Basques",
+      "locationDetails": "Scène en plein air",
+      "longitude": -1.564,
+      "latitude": 43.480
+    },
+    "description": "Description du nouvel événement 5.",
+    "startTime": "20:30",
+    "color": "turquoise",
+    "type": "Musique"
   }
 ];
 
