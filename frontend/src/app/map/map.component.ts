@@ -1,10 +1,19 @@
-import {Component, AfterViewInit, Input} from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  Input,
+  ComponentFactoryResolver,
+  Injector,
+  ApplicationRef,
+  ComponentRef
+} from '@angular/core';
 import * as L from 'leaflet';
 
 import { environment  } from '../../environements/environement';
 import {Event} from "../shared/types/event.type";
-import {DivIcon, icon, LatLngTuple} from "leaflet";
-import {buildMonths} from "@ng-bootstrap/ng-bootstrap/datepicker/datepicker-tools";
+import {DivIcon,  LatLngTuple} from "leaflet";
+import {SmallCardComponent} from "../shared/component/small-card/small-card.component";
+import {PopupCardComponent} from "../shared/component/popup-card/popup-card.component";
 
 @Component({
   selector: 'app-map',
@@ -16,10 +25,6 @@ export class MapComponent implements AfterViewInit {
 
   @Input()
   events :Event[] | undefined;
-
-
-
-
 
 
   private initMap(position : L.LatLngTuple): void {
@@ -38,7 +43,7 @@ export class MapComponent implements AfterViewInit {
   }
 
 
-  constructor() { }
+  constructor(    private resolver: ComponentFactoryResolver,private injector: Injector,private appRef: ApplicationRef) { }
 
   ngAfterViewInit(): void {
     navigator.geolocation.getCurrentPosition(
@@ -56,15 +61,36 @@ export class MapComponent implements AfterViewInit {
         }
       }
     )
-
-
   }
 
   addMarker(event : Event) : void {
     const marker = L.marker([ event.location.latitude,event.location.longitude] as LatLngTuple,{icon : this.createIcon(event.color)});
+
+    const markerPopup = this.compilePopup(PopupCardComponent, (c: ComponentRef<SmallCardComponent>) => {
+      c.instance.event = event;
+    });
+    marker.bindPopup(markerPopup);
+    let start : number;
+    marker.on('mouseover', function(e){
+      e.target.openPopup();
+      start = new Date().getTime();
+    });
+
+    marker.on('mouseout', function(e){
+      var end = new Date().getTime();
+      var time = end - start;
+      console.log('Execution time: ' + time);
+      if(time > 700){
+        e.target.closePopup();
+      }
+    });
     marker.addTo(this.mapLeaf);
     console.log( event);
   }
+
+
+
+
 
   private createIcon(colorEvent : string) : DivIcon{
       const markerHtmlStyles = `
@@ -88,10 +114,19 @@ export class MapComponent implements AfterViewInit {
   }
 
 
+  private compilePopup( component: any, onAttach: any ): any {
+    const compFactory: any = this.resolver.resolveComponentFactory(component);
+    let compRef: any = compFactory.create(this.injector);
 
+    if (onAttach)
+      onAttach(compRef);
 
+    this.appRef.attachView(compRef.hostView);
+    compRef.onDestroy(() => this.appRef.detachView(compRef.hostView));
 
-
-
+    let div = document.createElement('div');
+    div.appendChild(compRef.location.nativeElement);
+    return div;
+  }
 
 }

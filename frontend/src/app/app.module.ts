@@ -16,6 +16,7 @@ import {FormsModule} from '@angular/forms';
 import {CommonModule, registerLocaleData} from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SmallCardComponent } from './shared/component/small-card/small-card.component';
+import { PopupCardComponent } from './shared/component/popup-card/popup-card.component';
 
 
 
@@ -29,6 +30,7 @@ import { SmallCardComponent } from './shared/component/small-card/small-card.com
     HomeComponent,
     RegisterComponent,
     SmallCardComponent,
+    PopupCardComponent,
 
   ],
   imports: [
@@ -46,6 +48,8 @@ import { SmallCardComponent } from './shared/component/small-card/small-card.com
       provide: HTTP_INTERCEPTORS, useClass:  AuthInterceptor, multi: true //Multi : true permet d'ajouter plusieurs intercepteurs sans écraser les précédents
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
+
+
 export class AppModule { }
