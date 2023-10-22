@@ -13,9 +13,10 @@ import { HomeComponent } from './home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterComponent } from './register/register.component';
 import {FormsModule} from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import {CommonModule, registerLocaleData} from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SmallCardComponent } from './shared/component/small-card/small-card.component';
+
 
 
 @NgModule({
@@ -28,7 +29,7 @@ import { SmallCardComponent } from './shared/component/small-card/small-card.com
     HomeComponent,
     RegisterComponent,
     SmallCardComponent,
-    
+
   ],
   imports: [
     BrowserModule,

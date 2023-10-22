@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Event} from "../shared/types/event.type";
 
 @Component({
   selector: 'app-sidebar',
@@ -7,4 +8,17 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
 
+
+  private _events : Event[] | undefined;
+
+  constructor() {
+  }
+  @Input()
+  get events(): Event[] | undefined {
+    return this._events;
+  }
+
+  set events(value: Event[] | undefined) {
+    this._events = value;
+  }
 }

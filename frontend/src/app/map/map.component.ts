@@ -1,8 +1,10 @@
-import { Component, AfterViewInit } from '@angular/core';
+import {Component, AfterViewInit, Input} from '@angular/core';
 import * as L from 'leaflet';
 
 import { environment  } from '../../environements/environement';
-import { tap } from 'rxjs';
+import {Event} from "../shared/types/event.type";
+import {DivIcon, icon, LatLngTuple} from "leaflet";
+import {buildMonths} from "@ng-bootstrap/ng-bootstrap/datepicker/datepicker-tools";
 
 @Component({
   selector: 'app-map',
@@ -10,11 +12,19 @@ import { tap } from 'rxjs';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements AfterViewInit {
-  private map! : L.Map;
+  private mapLeaf! : L.Map;
+
+  @Input()
+  events :Event[] | undefined;
+
+
+
+
+
 
   private initMap(position : L.LatLngTuple): void {
 
-    this.map = L.map('map', {   // get the default location in the env
+    this.mapLeaf = L.map('map', {   // get the default location in the env
       center: position ,
       zoom: environment.mapConfig.defaultZoom
     });
@@ -24,8 +34,9 @@ export class MapComponent implements AfterViewInit {
       minZoom: environment.mapConfig.minZoom,
     });
 
-    tiles.addTo(this.map);
+    tiles.addTo(this.mapLeaf);
   }
+
 
   constructor() { }
 
@@ -34,10 +45,53 @@ export class MapComponent implements AfterViewInit {
       position => {
       const { latitude, longitude } = position.coords;
       this.initMap([latitude,longitude] as L.LatLngTuple);
+        if (this.events) {
+          this.events.map(event => this.addMarker(event))
+        }
       },
-      (error) => {
+      () => {
         this.initMap(environment.mapConfig.center);
+        if (this.events) {
+          this.events.map(event => this.addMarker(event))
+        }
       }
     )
+
+
   }
+
+  addMarker(event : Event) : void {
+    const marker = L.marker([ event.location.latitude,event.location.longitude] as LatLngTuple,{icon : this.createIcon(event.color)});
+    marker.addTo(this.mapLeaf);
+    console.log( event);
+  }
+
+  private createIcon(colorEvent : string) : DivIcon{
+      const markerHtmlStyles = `
+      background-color: ${colorEvent};
+      width: 3rem;
+      height: 3rem;
+      display: block;
+      left: -1.5rem;
+      top: -1.5rem;
+      position: relative;
+      border-radius: 3rem 3rem 0;
+      transform: rotate(45deg);
+      border: 1px solid #FFFFFF`
+      return L.divIcon({
+      className: "my-custom-pin",
+      iconAnchor: [0, 24],
+      popupAnchor: [0, -36],
+      html: `<span style="${markerHtmlStyles}" />`
+    })
+
+  }
+
+
+
+
+
+
+
+
 }
