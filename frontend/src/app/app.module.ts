@@ -17,6 +17,9 @@ import {CommonModule, registerLocaleData} from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SmallCardComponent } from './shared/component/small-card/small-card.component';
 import { PopupCardComponent } from './shared/component/popup-card/popup-card.component';
+import {DialogModule} from "@angular/cdk/dialog";
+import {MatDialogModule} from "@angular/material/dialog";
+import { DialogComponent } from './shared/dialog/dialog.component';
 
 
 
@@ -31,6 +34,7 @@ import { PopupCardComponent } from './shared/component/popup-card/popup-card.com
     RegisterComponent,
     SmallCardComponent,
     PopupCardComponent,
+    DialogComponent,
 
   ],
   imports: [
@@ -40,8 +44,8 @@ import { PopupCardComponent } from './shared/component/popup-card/popup-card.com
     FormsModule,
     HttpClientModule,
     CommonModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   providers: [
     {

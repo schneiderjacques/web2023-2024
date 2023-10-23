@@ -1,0 +1,6 @@
+nano ~/.docker/config.json 
+
+docker rmi -f mongo
+docker rm -f project_bd_container
+
+node script.js
