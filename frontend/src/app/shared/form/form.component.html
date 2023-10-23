@@ -1,0 +1,59 @@
+<h2 mat-dialog-title>Ajouter un évènement</h2>
+<hr class="hr" />
+<mat-dialog-content>
+
+  <form class=" d-flex row">
+
+    <mat-form-field class="input-name">
+      <mat-label>Nom</mat-label>
+      <input matInput placeholder="Ex. nom de l'évènement" >
+    </mat-form-field>
+
+    <mat-form-field class="input-description">
+      <mat-label>Description</mat-label>
+      <textarea matInput placeholder="Ex. description  de l'évènement"></textarea>
+    </mat-form-field>
+
+
+    <div class="d-flex col justify-content-sm-center align-content-center">
+      <p> Lieu de l'évènement </p>
+    </div>
+    <mat-form-field class="input-name">
+      <mat-label>Adresse</mat-label>
+      <input matInput placeholder="Ex. 5 rue Jacques Callot" >
+    </mat-form-field>
+    <div class="d-flex col  justify-content-between align-content-center">
+      <mat-form-field class="input-name ">
+        <mat-label>Ville</mat-label>
+        <input matInput placeholder="Ex. Nancy" >
+      </mat-form-field>
+      <mat-form-field class="input-name">
+        <mat-label>Code Postal</mat-label>
+        <input matInput placeholder="Ex. 54000" >
+      </mat-form-field>
+    </div>
+    <mat-form-field class="input-description">
+      <mat-label>Complèment d'adresse</mat-label>
+      <textarea matInput placeholder="Ex. Au deuxième étage"></textarea>
+    </mat-form-field>
+
+    <hr class="hr mb-2" />
+    <div class="d-flex col justify-content-between align-content-center">
+      <mat-form-field class="input-name mt-2">
+        <mat-label>Type</mat-label>
+        <input matInput placeholder="Ex. Musique" >
+      </mat-form-field>
+      <div class="d-flex justify-content-center align-items-center">
+        <mat-label class="me-2">Couleur du Marquer</mat-label>
+        <input class="color-picker" type="color" name="head" value="#e66465" />
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button class="btn btn-primary"  type="button"  (click)="cancel()">Cancel</button>
+    <button class="btn btn-primary" type="button" (click)="add()">Save</button>
+  </div>
+</mat-dialog-actions>

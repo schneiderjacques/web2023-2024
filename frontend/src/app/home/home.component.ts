@@ -5,6 +5,7 @@ import {EVENTS} from "../data/event.data";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {DialogComponent} from "../shared/dialog/dialog.component";
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -41,12 +42,11 @@ export class HomeComponent implements OnInit {
 
 
   showDialog(): void {
-    // set dialog status
     this._dialogStatus = 'active';
 
     // open modal
     this._eventDialog = this._dialog.open(DialogComponent, {
-      width: '500px',
+      width: '700px',
       disableClose: true
     });
 
