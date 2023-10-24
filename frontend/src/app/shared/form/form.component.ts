@@ -14,8 +14,9 @@ export class FormComponent {
   private readonly _cancel$: EventEmitter<void>;
   // private property to store add$ value
   private readonly _add$: EventEmitter<Event>;
-  selectedTimes: any;
   private _color: string;
+  selectedTimes: any;
+  pickerC: any;
 
   constructor() {
     this._add$ = new EventEmitter<Event>();
@@ -48,7 +49,7 @@ export class FormComponent {
     this._add$.emit({} as Event);
   }
 
-  open() {
 
-  }
+
+
 }

@@ -25,6 +25,8 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatIconModule} from "@angular/material/icon";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatNativeDateModule} from "@angular/material/core";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {NgxMatTimepickerDirective, NgxMatTimepickerFieldComponent, NgxMatTimepickerModule} from "ngx-mat-timepicker";
 
 
 
@@ -41,7 +43,6 @@ import {MatNativeDateModule} from "@angular/material/core";
     PopupCardComponent,
     DialogComponent,
     FormComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -56,7 +57,11 @@ import {MatNativeDateModule} from "@angular/material/core";
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatIconModule
+    MatIconModule,
+    BrowserAnimationsModule,
+    NgxMatTimepickerFieldComponent,
+    NgxMatTimepickerModule,
+    NgxMatTimepickerDirective
   ],
   providers: [
     {
