@@ -1,4 +1,4 @@
-import {Component, EventEmitter} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Event} from "../types/event.type";
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -10,42 +10,74 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent {
-
-  // private property to store cancel$ value
   private readonly _cancel$: EventEmitter<void>;
-  // private property to store add$ value
-  private readonly _add$: EventEmitter<Event>;
+  private readonly _submit$: EventEmitter<Event>;
+  private _model: Event;
+
   //private readonly _form: FormGroup;
   private readonly _form: FormGroup;
 
 
-
   constructor() {
-    this._add$ = new EventEmitter<Event>();
+    this._model = {} as Event;
+    this._submit$ = new EventEmitter<Event>();
     this._cancel$ = new EventEmitter<void>();
     this._form = this._buildForm();
   }
 
 
 
+  /**
+   * Sets private property _model
+   */
+  @Input()
+  set model(model: Event) {
+    this._model = model;
+  }
+
+  /**
+   * Returns private property _model
+   */
+  get model(): Event {
+    return this._model;
+  }
+
+
+
+  /**
+   * Returns private property _cancel$
+   */
+  @Output('cancel')
+  get cancel$(): EventEmitter<void> {
+    return this._cancel$;
+  }
+
+  /**
+   * Returns private property _submit$
+   */
+  @Output('submit')
+  get submit$(): EventEmitter<Event> {
+    return this._submit$;
+  }
 
 
 
   /**
    * Function to emit event to cancel process
    */
-  cancel() {
+  cancel(): void {
     this._cancel$.emit();
-
   }
-
 
   /**
-   * Function to emit event to add new person
-   * */
-  add() {
-    this._add$.emit({} as Event);
+   * Function to emit event to submit form and event
+   */
+  submit(event: Event): void {
+    this._submit$.emit(event);
   }
+
+
+
 
 
   get form(): FormGroup {
@@ -68,10 +100,10 @@ export class FormComponent {
       ])),
 
       location: new FormGroup({
-        street: new FormControl('', Validators.required),
-        city: new FormControl('', Validators.required),
-        postalCode: new FormControl('', Validators.required),
-        locationDetails: new FormControl('', Validators.required),
+        street: new FormControl({value : '',  disabled: true}),
+        city: new FormControl({value : '',  disabled: true}),
+        postalCode: new FormControl({value : '',  disabled: true}),
+        locationDetails: new FormControl(''),
       }),
 
       type: new FormControl(''),

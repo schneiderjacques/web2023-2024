@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import {MatDialogRef} from "@angular/material/dialog";
+import {Component, Inject, Optional} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {Event} from "../types/event.type";
 
 @Component({
   selector: 'app-dialog',
@@ -11,13 +12,18 @@ export class DialogComponent {
   /**
    * Component constructor
    */
-  constructor(private _dialogRef: MatDialogRef<DialogComponent>) {
+  constructor(private _dialogRef: MatDialogRef<DialogComponent,Event>, @Optional() @Inject(MAT_DIALOG_DATA) private _event: Event) {
   }
 
   /**
    * OnInit implementation
    */
   ngOnInit(): void {
+  }
+
+
+  get event(): Event {
+    return this._event;
   }
 
   /**
@@ -27,6 +33,9 @@ export class DialogComponent {
     this._dialogRef.close();
   }
 
+  /**
+   * Function to close the modal and send person to parent
+   */
   /**
    * Function to close the modal and send person to parent
    */

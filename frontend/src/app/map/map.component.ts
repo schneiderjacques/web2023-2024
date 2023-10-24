@@ -48,18 +48,25 @@ export class MapComponent implements AfterViewInit {
       const latitude = e.latlng.lat;
       const longitude = e.latlng.lng;
 
-      this.handleDoubleClicAction(latitude, longitude);
+      this.addNewEvent(latitude, longitude);
     });
   }
 
-  handleDoubleClicAction(latitude: number, longitude: number) {
-    console.log('Double-clic détecté. Latitude : ' + latitude + ', Longitude : ' + longitude);
+  addNewEvent(latitude: number, longitude: number) {
+    let  event = {
+      location: {
+        longitude, // Assign the longitude value
+        latitude, // Assign the latitude value
+      },
+    } as Event;
+    this.sharedService.triggerAddEvent(event);
   }
 
-  constructor(private sharedService: SharedService, private resolver: ComponentFactoryResolver,private injector: Injector,private appRef: ApplicationRef) {
-
-
-  }
+  constructor(private sharedService: SharedService,
+              private resolver: ComponentFactoryResolver,
+              private injector: Injector,
+              private appRef: ApplicationRef
+              ) {}
 
   ngAfterViewInit(): void {
     navigator.geolocation.getCurrentPosition(
