@@ -32,7 +32,8 @@ export class MapComponent implements AfterViewInit {
 
     this.mapLeaf = L.map('map', {   // get the default location in the env
       center: position ,
-      zoom: environment.mapConfig.defaultZoom
+      zoom: environment.mapConfig.defaultZoom,
+      doubleClickZoom : false
     });
 
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -40,11 +41,25 @@ export class MapComponent implements AfterViewInit {
       minZoom: environment.mapConfig.minZoom,
     });
 
+
     tiles.addTo(this.mapLeaf);
+
+    this.mapLeaf.on('dblclick', (e: L.LeafletMouseEvent) => {
+      const latitude = e.latlng.lat;
+      const longitude = e.latlng.lng;
+
+      this.handleDoubleClicAction(latitude, longitude);
+    });
   }
 
+  handleDoubleClicAction(latitude: number, longitude: number) {
+    console.log('Double-clic détecté. Latitude : ' + latitude + ', Longitude : ' + longitude);
+  }
 
-  constructor(private sharedService: SharedService, private resolver: ComponentFactoryResolver,private injector: Injector,private appRef: ApplicationRef) { }
+  constructor(private sharedService: SharedService, private resolver: ComponentFactoryResolver,private injector: Injector,private appRef: ApplicationRef) {
+
+
+  }
 
   ngAfterViewInit(): void {
     navigator.geolocation.getCurrentPosition(
@@ -65,6 +80,8 @@ export class MapComponent implements AfterViewInit {
     this.sharedService.getEventObservable().subscribe((event: Event) => {
       this.seeEvent(event);
     });
+
+
   }
 
   addMarker(event : Event) : void {
@@ -116,7 +133,6 @@ export class MapComponent implements AfterViewInit {
     })
 
   }
-
 
   private compilePopup( component: any, onAttach: any ): any {
     const compFactory: any = this.resolver.resolveComponentFactory(component);
