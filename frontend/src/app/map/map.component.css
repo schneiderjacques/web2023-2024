@@ -2,12 +2,11 @@
   width: 100%;
   height: 100%;
   }
-
+  
   .map-frame {
     height: 100%;
   }
-
+  
   #map {
     height: 100%;
-    cursor: url("~src/assets/images/map-cursor.png")15 15 ,auto;
   }
