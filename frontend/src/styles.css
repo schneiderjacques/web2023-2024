@@ -4,4 +4,6 @@
 /* Importez les styles spécifiques dont vous avez besoin */
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import "~bootstrap-icons/font/bootstrap-icons.css";
-/* Ajoutez vos styles personnalisés ci-dessous */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+

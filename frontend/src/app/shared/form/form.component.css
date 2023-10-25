@@ -1,0 +1,21 @@
+hr{
+  margin: 0;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 100%;
+}
+
+
+.color-picker {
+  width: 60px; /* Vous pouvez ajuster cette valeur en fonction de la taille souhaitée */
+  height: 60px; /* Même valeur que la largeur pour obtenir un carré */
+}

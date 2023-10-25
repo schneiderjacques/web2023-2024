@@ -24,15 +24,15 @@ import { SharedService } from '../shared/services/shared.service';
 export class MapComponent implements AfterViewInit {
   private mapLeaf! : L.Map;
 
-  @Input()
-  events :Event[] | undefined;
+  private _events :Event[] | undefined;
 
 
   private initMap(position : L.LatLngTuple): void {
 
     this.mapLeaf = L.map('map', {   // get the default location in the env
       center: position ,
-      zoom: environment.mapConfig.defaultZoom
+      zoom: environment.mapConfig.defaultZoom,
+      doubleClickZoom : false
     });
 
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -40,13 +40,48 @@ export class MapComponent implements AfterViewInit {
       minZoom: environment.mapConfig.minZoom,
     });
 
+
     tiles.addTo(this.mapLeaf);
+
+    this.mapLeaf.on('dblclick', (e: L.LeafletMouseEvent) => {
+      const latitude = e.latlng.lat;
+      const longitude = e.latlng.lng;
+
+      this.addNewEvent(latitude, longitude);
+    });
   }
 
 
-  constructor(private sharedService: SharedService, private resolver: ComponentFactoryResolver,private injector: Injector,private appRef: ApplicationRef) { }
+  get events(): Event[] | undefined {
+    return this._events;
+  }
+
+  @Input()
+  set events(value: Event[] | undefined) {
+    this._events = value;
+    if(this.mapLeaf){
+      this.refreshMap();
+    }
+  }
+
+  addNewEvent(latitude: number, longitude: number) {
+    let  event = {
+      location: {
+        longitude, // Assign the longitude value
+        latitude, // Assign the latitude value
+      },
+    } as Event;
+    this.sharedService.triggerAddEvent(event);
+  }
+
+  constructor(private sharedService: SharedService,
+              private resolver: ComponentFactoryResolver,
+              private injector: Injector,
+              private appRef: ApplicationRef
+              ) { }
 
   ngAfterViewInit(): void {
+
     navigator.geolocation.getCurrentPosition(
       position => {
       const { latitude, longitude } = position.coords;
@@ -117,7 +152,6 @@ export class MapComponent implements AfterViewInit {
 
   }
 
-
   private compilePopup( component: any, onAttach: any ): any {
     const compFactory: any = this.resolver.resolveComponentFactory(component);
     let compRef: any = compFactory.create(this.injector);
@@ -131,6 +165,21 @@ export class MapComponent implements AfterViewInit {
     let div = document.createElement('div');
     div.appendChild(compRef.location.nativeElement);
     return div;
+  }
+
+  private refreshMap(){
+    this.clearMarkers();
+    this._events?.map((event) => this.addMarker(event));
+  }
+
+
+  private clearMarkers() {
+    // Loop through existing markers and remove them from the map.
+    this.mapLeaf.eachLayer((layer) => {
+      if (layer instanceof L.Marker) {
+        this.mapLeaf.removeLayer(layer);
+      }
+    });
   }
 
 }
