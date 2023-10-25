@@ -3,7 +3,7 @@ import {Event} from "../shared/types/event.type";
 import {EVENTS} from "../data/event.data";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {DialogComponent} from "../shared/dialog/dialog.component";
-import {filter, map, mergeMap, of} from "rxjs";
+import {delay, filter, map, mergeMap, of} from "rxjs";
 import {SharedService} from "../shared/services/shared.service";
 import {LocationService} from "../shared/services/location.service";
 

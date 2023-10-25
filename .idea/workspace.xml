@@ -36,7 +36,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "yarn",
-    "ts.external.directory.path": "/Users/zinedine/Library/Application Support/JetBrains/Toolbox/apps/WebStorm/ch-0/232.9921.42/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
+    "ts.external.directory.path": "/Users/zinedine/Desktop/cours-M2/tada-web/web2023-2024/frontend/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -68,6 +68,7 @@
       <workItem from="1698261308360" duration="241000" />
       <workItem from="1698264728769" duration="429000" />
       <workItem from="1698265958443" duration="4678000" />
+      <workItem from="1698270650756" duration="1588000" />
     </task>
     <servers />
   </component>
@@ -79,7 +80,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/frontend/src/app/map/map.component.ts</url>
-          <line>182</line>
+          <line>192</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
