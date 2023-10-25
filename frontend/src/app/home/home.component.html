@@ -4,18 +4,5 @@
     <app-sidebar [events]="events"></app-sidebar>
     <app-map [events]="events"></app-map>
   </div>
-  <button  class="bottom-right-add-button" *ngIf="dialogStatus === 'inactive'" mat-fab color="accent">
-    add
-  </button>
 </div>
 
-
-<mat-form-field class="example-full-width">
-  <mat-label>Choose a date</mat-label>
-  <input matInput [matDatepicker]="picker">
-  <mat-hint>MM/DD/YYYY</mat-hint>
-  <mat-datepicker-toggle matIconSuffix [for]="picker">
-    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-  </mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>

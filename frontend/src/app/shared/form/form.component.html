@@ -30,7 +30,6 @@
       <ngx-mat-timepicker-field color="warn" [format]="24" [defaultTime]="'12:15'"  formControlName="startTime" name="startTime">
         <mat-icon matPrefix class="custom-icon">watch</mat-icon>
       </ngx-mat-timepicker-field>
-
     </div>
 
     <mat-form-field class="input-description">
@@ -41,7 +40,6 @@
       </mat-error>
     </mat-form-field>
 
-
     <div formGroupName="location"   class="d-flex row"  >
       <div class="d-flex col justify-content-sm-center align-content-center">
         <p> Lieu de l'évènement </p>
@@ -49,9 +47,6 @@
       <mat-form-field class="input-name">
         <mat-label  >Adresse</mat-label>
         <input matInput placeholder="Ex. 5 rue Jacques Callot" formControlName="street"  name="street" >
-        <mat-error *ngIf="form.get('street')?.dirty && form.get('street')?.hasError('required')">
-          L'adresse de l'évènement est <strong>obligatoire</strong>
-        </mat-error>
       </mat-form-field>
       <div class="d-flex col  justify-content-between align-content-center">
         <mat-form-field class="input-name ">
@@ -67,7 +62,6 @@
         <mat-label>Complèment d'adresse </mat-label>
         <textarea matInput placeholder="Ex. Au deuxième étage" formControlName="locationDetails"  name="locationDetails" ></textarea>
       </mat-form-field>
-
     </div>
 
     <hr class="hr mb-2" />
@@ -96,6 +90,3 @@
     <button class="btn btn-primary" type="button" (click)="submit(form.value)"   [disabled]="form.invalid">Save</button>
   </div>
 </mat-dialog-actions>
-<p>
-  {{ form.value | json}}
-</p>

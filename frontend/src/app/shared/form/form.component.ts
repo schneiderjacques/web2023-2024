@@ -14,7 +14,7 @@ export class FormComponent implements OnInit{
   private readonly _submit$: EventEmitter<Event>;
   private _model: Event;
 
-  
+
 
   //private readonly _form: FormGroup;
   private _form!: FormGroup;
@@ -45,12 +45,10 @@ export class FormComponent implements OnInit{
   /**
    * Returns private property _model
    */
-  
+
   get model(): Event {
     return this._model;
   }
-
-
 
   /**
    * Returns private property _cancel$
@@ -69,7 +67,6 @@ export class FormComponent implements OnInit{
   }
 
 
-
   /**
    * Function to emit event to cancel process
    */
@@ -81,6 +78,9 @@ export class FormComponent implements OnInit{
    * Function to emit event to submit form and event
    */
   submit(event: Event): void {
+    event = { ... event,
+              ... this.model}
+
     this._submit$.emit(event);
   }
 

@@ -36,10 +36,7 @@ export class HomeComponent implements OnInit {
           this.showDialog(event);
         }
       )
-
-
     });
-
   }
 
   get events(): Event[] | undefined{
@@ -80,8 +77,10 @@ export class HomeComponent implements OnInit {
       })
     ).subscribe((event : any) => {
       if (event) {
-        console.log(event)
+
+        console.log("avant "+ this._events?.length);
         this._events = this._events?.concat(event as  Event);
+        console.log("apres "+ this._events?.length);
       }
     }, error => {
       this._dialogStatus = 'inactive';

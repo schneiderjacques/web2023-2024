@@ -45,8 +45,10 @@ export class DialogComponent {
    * Function to close the modal and send person to parent
    */
   onSave(event: Event): void {
+    console.log(event);
     this._dialogRef.close(event);
   }
 
-
 }
+
+

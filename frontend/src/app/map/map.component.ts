@@ -24,8 +24,7 @@ import { SharedService } from '../shared/services/shared.service';
 export class MapComponent implements AfterViewInit {
   private mapLeaf! : L.Map;
 
-  @Input()
-  events :Event[] | undefined;
+  private _events :Event[] | undefined;
 
 
   private initMap(position : L.LatLngTuple): void {
@@ -52,6 +51,19 @@ export class MapComponent implements AfterViewInit {
     });
   }
 
+
+  get events(): Event[] | undefined {
+    return this._events;
+  }
+
+  @Input()
+  set events(value: Event[] | undefined) {
+    this._events = value;
+    if(this.mapLeaf){
+      this.refreshMap();
+    }
+  }
+
   addNewEvent(latitude: number, longitude: number) {
     let  event = {
       location: {
@@ -66,9 +78,10 @@ export class MapComponent implements AfterViewInit {
               private resolver: ComponentFactoryResolver,
               private injector: Injector,
               private appRef: ApplicationRef
-              ) {}
+              ) { }
 
   ngAfterViewInit(): void {
+
     navigator.geolocation.getCurrentPosition(
       position => {
       const { latitude, longitude } = position.coords;
@@ -87,8 +100,6 @@ export class MapComponent implements AfterViewInit {
     this.sharedService.getEventObservable().subscribe((event: Event) => {
       this.seeEvent(event);
     });
-
-
   }
 
   addMarker(event : Event) : void {
@@ -154,6 +165,21 @@ export class MapComponent implements AfterViewInit {
     let div = document.createElement('div');
     div.appendChild(compRef.location.nativeElement);
     return div;
+  }
+
+  private refreshMap(){
+    this.clearMarkers();
+    this._events?.map((event) => this.addMarker(event));
+  }
+
+
+  private clearMarkers() {
+    // Loop through existing markers and remove them from the map.
+    this.mapLeaf.eachLayer((layer) => {
+      if (layer instanceof L.Marker) {
+        this.mapLeaf.removeLayer(layer);
+      }
+    });
   }
 
 }

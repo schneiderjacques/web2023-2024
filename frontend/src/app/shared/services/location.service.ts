@@ -39,15 +39,17 @@ export class LocationService {
     return this._http.get(apiUrl,{headers})
       .pipe(
         map( (response: any ) => {
-          console.log(response.results);
           if (response.results.length >= 1) {
-          
             const location = response.results[0];
             const components = location.components;
-            event.location.city = components.municipality;
-            event.location.street = components.road;
+            if(components.city)
+              event.location.city = components.city;
+            else if (components.town)
+              event.location.city = components.town;
+            else if (components.municipality)
+              event.location.city = components.municipality;
+            event.location.street = components['house_number'] ? components['house_number']+' '+components.road : components.road;
             event.location.postalCode = components.postcode;
-
           } else {
             //Si la géolocalisation ne trouve pas d'événement, on met des valeurs par défaut ?
           }
@@ -55,5 +57,4 @@ export class LocationService {
         })
       );
   }
-
 }
