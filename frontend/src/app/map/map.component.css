@@ -1,7 +1,8 @@
 .map-container {
   width: 100%;
   height: 100%;
-  }
+  position: relative;
+}
 
   .map-frame {
     height: 100%;
@@ -11,3 +12,13 @@
     height: 100%;
     cursor: url("~src/assets/images/map-cursor.png")15 15 ,auto;
   }
+
+
+.loading-section {
+  z-index: 2200;
+  /* Styles for the loading section */
+  position: absolute;
+  top: 50%; /* Vertically center the section */
+  left: 50%; /* Horizontally center the section */
+  transform: translate(-50%, -50%); /* Center it perfectly */
+}

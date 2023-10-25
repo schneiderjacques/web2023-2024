@@ -18,22 +18,25 @@ export class HomeComponent implements OnInit {
 
   // private property to store dialogStatus value
   private _dialogStatus: string;
+  private _isLoading!: boolean;
 
   // private property to store dialog reference
   private _eventDialog : MatDialogRef<DialogComponent, Event> | undefined;
   constructor(private _dialog: MatDialog,private sharedService : SharedService, private locationService : LocationService){
     this._events = EVENTS;
     this._dialogStatus = 'inactive';
+    this._isLoading = false;
   }
 
   ngOnInit(): void {
     this._events = EVENTS;
-
     this.sharedService.getEventToAddObservable().subscribe((event: Event) => {
+      this._isLoading = true;
       this.locationService.reverseGeocode(event).
       subscribe(
         (event: Event) => {
           this.showDialog(event);
+          this._isLoading =false;
         }
       )
     });
@@ -52,6 +55,13 @@ export class HomeComponent implements OnInit {
   }
 
 
+  get isLoading(): boolean {
+    return this._isLoading;
+  }
+
+  set isLoading(value: boolean) {
+    this._isLoading = value;
+  }
 
   showDialog( event :Event): void {
     this._dialogStatus = 'active';

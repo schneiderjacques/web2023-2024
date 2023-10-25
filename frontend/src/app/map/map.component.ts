@@ -11,10 +11,11 @@ import * as L from 'leaflet';
 
 import { environment  } from '../../environements/environement';
 import {Event} from "../shared/types/event.type";
-import {DivIcon,  LatLngTuple} from "leaflet";
+import {DivIcon, LatLngTuple, marker} from "leaflet";
 import {SmallCardComponent} from "../shared/component/small-card/small-card.component";
 import {PopupCardComponent} from "../shared/component/popup-card/popup-card.component";
 import { SharedService } from '../shared/services/shared.service';
+
 
 @Component({
   selector: 'app-map',
@@ -25,7 +26,16 @@ export class MapComponent implements AfterViewInit {
   private mapLeaf! : L.Map;
 
   private _events :Event[] | undefined;
+  private _isLoading!:Boolean;
 
+
+  get isLoading(): Boolean {
+    return this._isLoading;
+  }
+  @Input()
+  set isLoading(value: Boolean) {
+    this._isLoading = value;
+  }
 
   private initMap(position : L.LatLngTuple): void {
 
