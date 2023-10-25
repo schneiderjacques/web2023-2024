@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Event} from "../types/event.type";
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -9,19 +9,24 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
-export class FormComponent {
+export class FormComponent implements OnInit{
   private readonly _cancel$: EventEmitter<void>;
   private readonly _submit$: EventEmitter<Event>;
   private _model: Event;
 
+  
+
   //private readonly _form: FormGroup;
-  private readonly _form: FormGroup;
+  private _form!: FormGroup;
 
 
   constructor() {
     this._model = {} as Event;
     this._submit$ = new EventEmitter<Event>();
     this._cancel$ = new EventEmitter<void>();
+
+  }
+  ngOnInit(): void {
     this._form = this._buildForm();
   }
 
@@ -32,12 +37,15 @@ export class FormComponent {
    */
   @Input()
   set model(model: Event) {
+    console.log("model setter");
+    console.log(model);
     this._model = model;
   }
 
   /**
    * Returns private property _model
    */
+  
   get model(): Event {
     return this._model;
   }
@@ -100,9 +108,9 @@ export class FormComponent {
       ])),
 
       location: new FormGroup({
-        street: new FormControl({value : '',  disabled: true}),
-        city: new FormControl({value : '',  disabled: true}),
-        postalCode: new FormControl({value : '',  disabled: true}),
+        street: new FormControl({value : this.model.location.street,  disabled: true}),
+        city: new FormControl({value : this.model.location.city,  disabled: true}),
+        postalCode: new FormControl({value : this.model.location.postalCode,  disabled: true}),
         locationDetails: new FormControl(''),
       }),
 

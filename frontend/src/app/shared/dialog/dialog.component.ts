@@ -13,12 +13,17 @@ export class DialogComponent {
    * Component constructor
    */
   constructor(private _dialogRef: MatDialogRef<DialogComponent,Event>, @Optional() @Inject(MAT_DIALOG_DATA) private _event: Event) {
-  }
+
+    }
 
   /**
    * OnInit implementation
    */
   ngOnInit(): void {
+  }
+
+  set event(value: Event) {
+    this._event = value;
   }
 
 
