@@ -28,7 +28,6 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxMatTimepickerDirective, NgxMatTimepickerFieldComponent, NgxMatTimepickerModule} from "ngx-mat-timepicker";
 import { EventsComponent } from './events/events.component';
-import { GeocodingComponent } from './geocoding/geocoding.component';
 
 @NgModule({
   declarations: [
@@ -42,12 +41,11 @@ import { GeocodingComponent } from './geocoding/geocoding.component';
     SmallCardComponent,
     PopupCardComponent,
     DialogComponent,
-    FormComponent,    EventsComponent,
-    GeocodingComponent,
+    FormComponent,    
+    EventsComponent,
 
   ],
   imports: [
-
     BrowserModule,
     AppRoutingModule,
     NgbModule,
