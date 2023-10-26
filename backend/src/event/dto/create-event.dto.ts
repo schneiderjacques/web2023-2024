@@ -42,7 +42,7 @@ export class CreateEventDto{
     @IsOptional()
     @IsString()
     @IsNotEmpty()
-    start_time: string
+    startTime: string
 
 
     @ApiProperty({

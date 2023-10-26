@@ -42,8 +42,7 @@ export class UpdateEventDto{
     @IsOptional()
     @IsString()
     @IsNotEmpty()
-    start_time: string
-
+    startTime: string
 
     @ApiPropertyOptional({ name: 'address', description: 'Address' })
     @IsOptional()

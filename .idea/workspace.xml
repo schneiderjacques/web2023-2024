@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0f47f281-01f5-4274-99ca-4b1c60f89ce9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/command" beforeDir="false" afterPath="$PROJECT_DIR$/backend/command" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/command.txt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/command.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/dataBase/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/dataBase/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/event/dto/create-event.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/event/dto/create-event.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/event/dto/update-event.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/event/dto/update-event.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/event/entities/event.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/event/entities/event.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/event/schemas/event.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/event/schemas/event.schema.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2X9njiwP0j2x5sl6NKGDuqE7uyB" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/zinedine/Desktop/cours-M2/tada-web/web2023-2024&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/zinedine/Desktop/cours-M2/tada-web/web2023-2024/frontend/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/src/assets/images" />
+      <recent name="$PROJECT_DIR$/frontend/src/assets" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0f47f281-01f5-4274-99ca-4b1c60f89ce9" name="Changes" comment="" />
+      <created>1698050299524</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1698050299524</updated>
+      <workItem from="1698050300748" duration="8522000" />
+      <workItem from="1698063482159" duration="621000" />
+      <workItem from="1698068408198" duration="524000" />
+      <workItem from="1698074706984" duration="16902000" />
+      <workItem from="1698139557925" duration="5165000" />
+      <workItem from="1698148763486" duration="918000" />
+      <workItem from="1698149694027" duration="15999000" />
+      <workItem from="1698166873809" duration="124000" />
+      <workItem from="1698171699255" duration="6773000" />
+      <workItem from="1698243319518" duration="152000" />
+      <workItem from="1698250394473" duration="7930000" />
+      <workItem from="1698261308360" duration="241000" />
+      <workItem from="1698264728769" duration="429000" />
+      <workItem from="1698265958443" duration="4678000" />
+      <workItem from="1698270650756" duration="1588000" />
+      <workItem from="1698272387144" duration="1738000" />
+      <workItem from="1698324426644" duration="2104000" />
+      <workItem from="1698327341434" duration="827000" />
+      <workItem from="1698328241183" duration="2265000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/frontend/src/app/map/map.component.ts</url>
+          <line>192</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

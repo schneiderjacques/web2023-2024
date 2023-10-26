@@ -27,12 +27,12 @@ export class EventEntity {
 
   @Expose()
   @Type(() => String)
-  date_created: string
+  dateCreated: string;
 
   
   @Expose()
   @Type(() => String)
-  date_updated: string
+  dateUpdated: string
 
 
   @ApiProperty({
@@ -55,7 +55,7 @@ export class EventEntity {
   
   @Expose()
   @Type(() => String)
-  start_time: string
+  startTime: string
   
   @Expose()
   @Type(() => String)
@@ -78,10 +78,10 @@ export class EventEntity {
     this.id = partial._id.toString();
     this.name = partial.name;
     this.date = this.formatDateString(partial.date.toString());
-    this.date_created = partial.date_created;
-    this.date_updated = partial.date_updated;
+    this.dateCreated = partial.dateCreated;
+    this.dateUpdated = partial.dateUpdated;
     this.description = partial.description;
-    this.start_time = partial.start_time;
+    this.startTime = partial.startTime;
     this.type = partial.type;
     this.location = partial.location;
     this.color = partial.color;
