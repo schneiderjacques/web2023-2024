@@ -17,8 +17,8 @@ import {CommonModule, registerLocaleData} from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SmallCardComponent } from './shared/component/small-card/small-card.component';
 import { PopupCardComponent } from './shared/component/popup-card/popup-card.component';
-
-
+import { EventsComponent } from './events/events.component';
+import { GeocodingComponent } from './geocoding/geocoding.component';
 
 @NgModule({
   declarations: [
@@ -31,17 +31,19 @@ import { PopupCardComponent } from './shared/component/popup-card/popup-card.com
     RegisterComponent,
     SmallCardComponent,
     PopupCardComponent,
+    EventsComponent,
+    GeocodingComponent,
 
   ],
   imports: [
+
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
     HttpClientModule,
     CommonModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
   ],
   providers: [
     {

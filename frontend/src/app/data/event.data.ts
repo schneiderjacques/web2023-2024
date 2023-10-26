@@ -17,7 +17,7 @@ export const EVENTS: Event[] = [
       longitude: 2.295, // Exemple de coordonnées GPS pour Paris
       latitude: 48.873, // Exemple de coordonnées GPS pour Paris
     },
-    description: 'Une journée de musique dans les rues de Paris.',
+    description: 'Une journée de musique dans les rues de Paris. Venez nombreux ! Il y en aura pour tous les goûts festifs. Regardez le programme sur le site officiel.',
     startTime: '15:00',
     color: 'blue',
     type: 'Musique',
