@@ -68,7 +68,7 @@ create = (eventDto: CreateEventDto, username: string): Observable<EventEntity> =
           userId: _userId, // Now you have the user ID from _getUserId
           dateCreated: new Date().toISOString(),
           dateUpdated: new Date().toISOString(),
-          date : this._parseDate(eventDto.date).toString()
+          date : new Date(eventDto.date).getTime().toString()
         } as CreateEventDto)),
         catchError((e) => throwError(() => new UnprocessableEntityException(e.message))),
         map((eventCreated) => new EventEntity(eventCreated))
@@ -143,7 +143,7 @@ delete = (id: string, username: string): Observable<void> =>
         this._eventDao.findByIdAndUserIdAndUpdate(id,_userId,
           {...event,
             dateUpdated : new Date().toISOString(),
-            date: event.date ? this._parseDate(event.date).toString() : null         
+            date : new Date(event.date).getTime().toString()
           } as UpdateEventDto).pipe(
           catchError((e) =>
             throwError(() => new UnprocessableEntityException(e.message))
