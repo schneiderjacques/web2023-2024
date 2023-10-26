@@ -79,10 +79,12 @@ export class FormComponent implements OnInit{
    */
   submit(event: Event): void {
     console.log('je suis la ')
-    console.log(this.model.location)
+    console.log(this.model)
+    //Set property locationDetails in this.model
+    this.model.location.locationDetails = event.location.locationDetails;
 
     event = { ... event,
-              ... this.model}
+              ... this.model} // merge model and event
     this._submit$.emit(event);
   }
 

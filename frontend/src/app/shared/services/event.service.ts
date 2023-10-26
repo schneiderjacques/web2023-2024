@@ -50,6 +50,8 @@ export class EventService {
    * Function to create a new event
    */
   create(event: Event): Observable<any> {
+    console.log("create event");
+    console.log(event);
     return this._http.post<Event>(this._backendURL.allEvents, event, this._options());
   }
 
