@@ -9,7 +9,10 @@ export const environment = {
         endpoints: {
             login: '/auth/login',
             profil: '/auth/profile',
-            register: '/users'
+            register: '/users',
+            allEvents: '/events',
+            oneEvent: '/events/:id',
+
         }
     },
     mapConfig: {
