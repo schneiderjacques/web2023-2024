@@ -10,6 +10,8 @@ export interface Event {
   startTime: string
   color: string
   type: string
+
+  [key: string]: string | Location;
 }
 
 export interface Location {
