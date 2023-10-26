@@ -40,13 +40,13 @@ export class Event {
     type: Date,
     required: true,
   })
-  date_created: string;
+  dateCreated: string;
 
   @Prop({
     type: Date,
     required: true,
   })
-  date_updated: string;
+  dateUpdated: string;
 
   @Prop({
     type: Date,
@@ -95,7 +95,7 @@ export class Event {
   @Prop({
     type: String,
   })
-  start_time: string;
+  startTime: string;
 
   @Prop({
     type: String,

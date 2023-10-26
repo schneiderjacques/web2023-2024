@@ -66,8 +66,8 @@ create = (eventDto: CreateEventDto, username: string): Observable<EventEntity> =
         mergeMap((eventDto: CreateEventDto) => this._eventDao.save({
           ...eventDto,
           userId: _userId, // Now you have the user ID from _getUserId
-          date_created: new Date().toISOString(),
-          date_updated: new Date().toISOString(),
+          dateCreated: new Date().toISOString(),
+          dateUpdated: new Date().toISOString(),
           date : this._parseDate(eventDto.date).toString()
         } as CreateEventDto)),
         catchError((e) => throwError(() => new UnprocessableEntityException(e.message))),
@@ -142,7 +142,7 @@ delete = (id: string, username: string): Observable<void> =>
       mergeMap((_userId) =>
         this._eventDao.findByIdAndUserIdAndUpdate(id,_userId,
           {...event,
-            date_updated : new Date().toISOString(),
+            dateUpdated : new Date().toISOString(),
             date: event.date ? this._parseDate(event.date).toString() : null         
           } as UpdateEventDto).pipe(
           catchError((e) =>

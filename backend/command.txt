@@ -1,7 +1,9 @@
 sudo nano ~/.docker/config.json
 
 docker rmi -f mongo
+docker rm -f project_bd_container
 
-docker rm -f project_bd_container  
+--> ìf we restart we should delete the data folder
 
-docker compose up -d & node script.js
+docker compose up -d
+node script.js

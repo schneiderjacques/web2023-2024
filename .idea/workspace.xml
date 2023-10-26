@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f47f281-01f5-4274-99ca-4b1c60f89ce9" name="Changes" comment="" />
+    <list default="true" id="0f47f281-01f5-4274-99ca-4b1c60f89ce9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/command" beforeDir="false" afterPath="$PROJECT_DIR$/backend/command" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/command.txt" beforeDir="false" afterPath="$PROJECT_DIR$/backend/command.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/dataBase/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/dataBase/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/event/dto/create-event.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/event/dto/create-event.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/event/dto/update-event.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/event/dto/update-event.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/event/entities/event.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/event/entities/event.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/event/schemas/event.schema.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/event/schemas/event.schema.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,22 +33,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/zinedine/Desktop/cours-M2/tada-web/web2023-2024",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "ts.external.directory.path": "/Users/zinedine/Desktop/cours-M2/tada-web/web2023-2024/frontend/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/zinedine/Desktop/cours-M2/tada-web/web2023-2024&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/zinedine/Desktop/cours-M2/tada-web/web2023-2024/frontend/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/frontend/src/assets/images" />
@@ -69,6 +78,10 @@
       <workItem from="1698264728769" duration="429000" />
       <workItem from="1698265958443" duration="4678000" />
       <workItem from="1698270650756" duration="1588000" />
+      <workItem from="1698272387144" duration="1738000" />
+      <workItem from="1698324426644" duration="2104000" />
+      <workItem from="1698327341434" duration="827000" />
+      <workItem from="1698328241183" duration="2265000" />
     </task>
     <servers />
   </component>
