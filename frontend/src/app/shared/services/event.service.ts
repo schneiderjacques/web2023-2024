@@ -59,8 +59,7 @@ export class EventService {
    */
   private _options(headerList: object = {}): any {
     const headers = new HttpHeaders()
-
-      //.set('Authorization', `Bearer ${this.authService.getToken()}`)
+      .set('Authorization', `Bearer ${this.authService.getToken()}`)
       .set('Content-Type', 'application/json');
     return { headers };
   }

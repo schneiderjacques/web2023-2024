@@ -59,8 +59,11 @@
         </mat-form-field>
       </div>
       <mat-form-field class="input-description">
-        <mat-label>Complèment d'adresse </mat-label>
-        <textarea matInput placeholder="Ex. Au deuxième étage" formControlName="locationDetails"  name="locationDetails" ></textarea>
+      <mat-label>Complèment d'adresse </mat-label>
+        <textarea matInput placeholder="Ex. Au deuxième étage"
+                  formControlName="locationDetails"
+                  name="locationDetails">
+        </textarea>
       </mat-form-field>
     </div>
 
@@ -90,3 +93,7 @@
     <button class="btn btn-primary" type="button" (click)="submit(form.value)"   [disabled]="form.invalid">Save</button>
   </div>
 </mat-dialog-actions>
+
+<p>
+  {{form.value | json}}
+</p>

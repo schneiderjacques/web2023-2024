@@ -78,9 +78,11 @@ export class FormComponent implements OnInit{
    * Function to emit event to submit form and event
    */
   submit(event: Event): void {
+    console.log('je suis la ')
+    console.log(this.model.location)
+
     event = { ... event,
               ... this.model}
-
     this._submit$.emit(event);
   }
 
@@ -108,12 +110,11 @@ export class FormComponent implements OnInit{
       ])),
 
       location: new FormGroup({
-        street: new FormControl({value : this.model.location.street,  disabled: true}),
+        street: new FormControl({value : this.model.location.street,  disabled: false}),
         city: new FormControl({value : this.model.location.city,  disabled: true}),
         postalCode: new FormControl({value : this.model.location.postalCode,  disabled: true}),
-        locationDetails: new FormControl(''),
+        locationDetails: new FormControl('')
       }),
-
       type: new FormControl(''),
       color: new FormControl('#e66465'),
     });
