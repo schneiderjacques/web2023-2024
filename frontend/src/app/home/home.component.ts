@@ -3,9 +3,10 @@ import {Event} from "../shared/types/event.type";
 import {EVENTS} from "../data/event.data";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {DialogComponent} from "../shared/dialog/dialog.component";
-import {delay, filter, map, mergeMap, of} from "rxjs";
+import {delay, filter, map, mergeMap, Observable, of} from "rxjs";
 import {SharedService} from "../shared/services/shared.service";
 import {LocationService} from "../shared/services/location.service";
+import {EventService} from "../shared/services/event.service";
 
 
 @Component({
@@ -22,7 +23,10 @@ export class HomeComponent implements OnInit {
 
   // private property to store dialog reference
   private _eventDialog : MatDialogRef<DialogComponent, Event> | undefined;
-  constructor(private _dialog: MatDialog,private sharedService : SharedService, private locationService : LocationService){
+  constructor(private _dialog: MatDialog,
+              private sharedService : SharedService,
+              private locationService : LocationService,
+              private _eventService :EventService){
     this._events = EVENTS;
     this._dialogStatus = 'inactive';
     this._isLoading = false;
@@ -30,6 +34,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this._events = EVENTS;
+    this._eventService
+      .fetch()
+      .subscribe({ next: (events: Event[]) => this._events = events });
+
     this.sharedService.getEventToAddObservable().subscribe((event: Event) => {
       this._isLoading = true;
       this.locationService.reverseGeocode(event).
@@ -59,9 +67,7 @@ export class HomeComponent implements OnInit {
     return this._isLoading;
   }
 
-  set isLoading(value: boolean) {
-    this._isLoading = value;
-  }
+
 
   showDialog( event :Event): void {
     this._dialogStatus = 'active';
@@ -73,30 +79,32 @@ export class HomeComponent implements OnInit {
       data: event
     });
 
-
     this._eventDialog.afterClosed().pipe(
       filter((event: Event | undefined) => !!event),
       map((event: Event | undefined) => {
-          // delete obsolete attributes in original object which are not required in the API
-          if (event) {
-            // Create a new object without the optional properties
-            const { id, userId, dateCreated, dateUpdated, ...newEvent } = event;
-            return newEvent;
-          }
-          return undefined
-      })
-    ).subscribe((event : any) => {
-      if (event) {
-
-        console.log("avant "+ this._events?.length);
-        this._events = this._events?.concat(event as  Event);
-        console.log("apres "+ this._events?.length);
-      }
+        if (event) {
+          // Create a new object without the optional properties
+          const { id, userId, dateCreated, dateUpdated, ...newEvent } = event;
+          return newEvent as Event; // Cast newEvent to the Event type
+        }
+        return undefined;
+      }),
+      mergeMap((event: Event | undefined) => this._add(event))
+    ).subscribe(
+      (event: Event) => {
+        if (event) {
+          this._events = this._events?.concat(event);
+        }
     }, error => {
-      this._dialogStatus = 'inactive';
+        console.log("hello")
+        this._dialogStatus = 'inactive';
     }, () => {
-      this._dialogStatus = 'inactive';
+        this._dialogStatus = 'inactive';
     });
+  }
+
+  private _add(event : Event | undefined): Observable<Event> {
+    return this._eventService.create(event as Event);
   }
 
 }

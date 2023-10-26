@@ -87,7 +87,6 @@ setLoggedIn(value: boolean, token: string | null = null): void {
       map((res: any) => {
         this.setLoggedIn(true, res.access_token);
         return true;
-
       }),
       catchError((error) => {
         console.error('Error during register:', error);
@@ -114,7 +113,6 @@ setLoggedIn(value: boolean, token: string | null = null): void {
   authenticatedUser(): Observable<UserType> {
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${this.getToken()}`);
-    console.log(this.getToken())
     return this._http.get<UserType>(this._backendURL.profil, {headers})
   }
 

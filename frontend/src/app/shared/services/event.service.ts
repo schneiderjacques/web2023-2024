@@ -11,7 +11,8 @@ import {AuthService} from "./auth.service";
 export class EventService {
   private readonly _backendURL: any;
 
-  constructor(private _http : HttpClient, private authService : AuthService) {
+  constructor(private _http : HttpClient,
+              private authService : AuthService) {
     this._backendURL = {};
     // build backend base url
     let baseUrl = `${environment.backend.protocol}://${environment.backend.host}`;
@@ -58,9 +59,10 @@ export class EventService {
    */
   private _options(headerList: object = {}): any {
     const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${this.authService.getToken()}`)
+
+      //.set('Authorization', `Bearer ${this.authService.getToken()}`)
       .set('Content-Type', 'application/json');
-    return { headers, headerList };
+    return { headers };
   }
 
 }
