@@ -28,6 +28,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxMatTimepickerDirective, NgxMatTimepickerFieldComponent, NgxMatTimepickerModule} from "ngx-mat-timepicker";
 import { EventsComponent } from './events/events.component';
+import { MailConfirmationComponent } from './mail-confirmation/mail-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { EventsComponent } from './events/events.component';
     PopupCardComponent,
     DialogComponent,
     FormComponent,    
-    EventsComponent,
+    EventsComponent, MailConfirmationComponent,
 
   ],
   imports: [
