@@ -11,7 +11,7 @@ export interface Event {
   color: string
   type: string
 
-  [key: string]: string | Location;
+  [key: string]: string | Location; 
 }
 
 export interface Location {

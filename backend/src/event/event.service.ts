@@ -29,6 +29,26 @@ export class EventService {
       defaultIfEmpty(undefined),
     );
 
+      /**
+   * Return all the events created by a user
+   *
+   * @returns {Observable<EventEntity[] | void>}
+   */
+
+      findAllByUserId = (userId : string): Observable<EventEntity[] | void> =>
+      this._eventDao.findByUserId(userId).pipe(
+        filter(Boolean),
+        map((events) => (events || []).map((event) => new EventEntity(event))),
+        defaultIfEmpty(undefined),
+      );
+
+
+
+
+
+
+
+
   /**
    * Returns one event of the list matching id in parameter
    *

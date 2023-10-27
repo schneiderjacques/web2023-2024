@@ -28,7 +28,10 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxMatTimepickerDirective, NgxMatTimepickerFieldComponent, NgxMatTimepickerModule} from "ngx-mat-timepicker";
 import { EventsComponent } from './events/events.component';
+
 import { MailConfirmationComponent } from './mail-confirmation/mail-confirmation.component';
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { DeleteComponent } from './shared/dialog/delete/delete.component';
 
 @NgModule({
   declarations: [
@@ -42,9 +45,9 @@ import { MailConfirmationComponent } from './mail-confirmation/mail-confirmation
     SmallCardComponent,
     PopupCardComponent,
     DialogComponent,
-    FormComponent,    
+    FormComponent,
     EventsComponent, MailConfirmationComponent,
-
+    EventsComponent, DeleteComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,8 @@ import { MailConfirmationComponent } from './mail-confirmation/mail-confirmation
     BrowserAnimationsModule,
     NgxMatTimepickerFieldComponent,
     NgxMatTimepickerModule,
-    NgxMatTimepickerDirective
+    NgxMatTimepickerDirective,
+MatAutocompleteModule
   ],
   providers: [
     {

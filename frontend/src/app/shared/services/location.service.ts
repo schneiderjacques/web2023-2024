@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable, map} from 'rxjs';
 import { LatLngTuple } from 'leaflet';
 import {Event} from "../types/event.type";
-
+//GEt key from environement
+import {environment} from "../../../environements/environement";
+import {Location} from "../types/event.type";
 @Injectable({
   providedIn: 'root'
 })
@@ -27,16 +29,10 @@ export class LocationService {
 
 
   reverseGeocode(event : Event): Observable<Event> {
-    const apiKey = 'aeb1aaa0cba148d48eb67f53cc30eeeb'; // Remplacez par votre clé API OpenCage Geocoding
-    const apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${event.location.latitude}+${event.location.longitude}&key=${apiKey}`;
-    const headers = new HttpHeaders({
-      'Access-Control-Allow-Headers': '*',
-      'Access-Control-Allow-Credentials': 'true',
-      'Access-Control-Allow-Methods' : 'GET',
-      'Access-Control-Allow-Origin': '*'
-    });
 
-    return this._http.get(apiUrl,{headers})
+    const apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${event.location.latitude}+${event.location.longitude}&key=${environment.geocode.apiKey}`;
+
+    return this._http.get(apiUrl)
       .pipe(
         map( (response: any ) => {
           if (response.results.length >= 1) {
@@ -57,4 +53,27 @@ export class LocationService {
         })
       );
   }
+
+  getLatAndLng(query: string): Observable<LatLngTuple> {
+    //encode query
+    query = encodeURIComponent(query);
+    const apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${query}&key=${environment.geocode.apiKey}&no_annotations=1&language=fr&no_annotations=1&pretty=1&limit=1&address_only=1`;
+    console.log(apiUrl);
+    return this._http.get(apiUrl)
+      .pipe(
+        map( (response: any ) => {
+          if (response.results.length >= 1) {
+            const location = response.results[0];
+            return [location.geometry.lat,location.geometry.lng]as LatLngTuple ;
+          } else {
+            return [0,0] as LatLngTuple;
+          }
+        } 
+        )
+
+      );
+
+  }
+
+
 }

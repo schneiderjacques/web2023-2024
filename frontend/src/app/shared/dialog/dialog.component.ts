@@ -12,23 +12,32 @@ export class DialogComponent {
   /**
    * Component constructor
    */
-  constructor(private _dialogRef: MatDialogRef<DialogComponent,Event>, @Optional() @Inject(MAT_DIALOG_DATA) private _event: Event) {
+  _event!: Event;
+  isUpdating!: boolean;
 
+  constructor(private _dialogRef: MatDialogRef<DialogComponent,Event>, @Optional() @Inject(MAT_DIALOG_DATA) private data: any,
+  ) {
+    //event will be undefined when creating a new event
+    if (!data.isUpdating && data.hasModel) {
+      this._event = data.event;
+      this.isUpdating = data.isUpdating;
+    } else if (!data.isUpdating && !data.hasModel) {
+      this._event = undefined as any;
+      this.isUpdating = false;
+    } else {
+      this._event = data.event;
+      this.isUpdating = data.isUpdating;
+    }
+  }
+
+    get event(): Event {
+      return this._event;
     }
 
   /**
    * OnInit implementation
    */
   ngOnInit(): void {
-  }
-
-  set event(value: Event) {
-    this._event = value;
-  }
-
-
-  get event(): Event {
-    return this._event;
   }
 
   /**
@@ -45,7 +54,6 @@ export class DialogComponent {
    * Function to close the modal and send person to parent
    */
   onSave(event: Event): void {
-    console.log(event);
     this._dialogRef.close(event);
   }
 
