@@ -30,6 +30,17 @@ export class EventDao {
     ));
 
   /**
+  * Call mongoose method, call toJSON on each result and returns EventModel[]
+  *
+  * @return {Observable<Event[]>}
+  */
+  findByUserId = (userId : string): Observable<Event[]> =>
+    from(this._eventModel.find({userId}).lean()).pipe(map((event) => 
+      [].concat(event)
+    ));
+
+
+  /**
    * Returns one user of the list matching id in parameter
    *
    * @param {string} id of the user in the db

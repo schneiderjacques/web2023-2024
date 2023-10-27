@@ -40,6 +40,17 @@ export class EventService {
   }
 
   /**
+   * Function to return list of events associated to a user from the backEnd Api
+   */
+  fetchByUserId(userId: string): Observable<Event[]> {
+    return this._http.get<Event[]>(this._backendURL.allEventsByUserId.replace(':id', userId))
+      .pipe(
+        filter((events: Event[]) => !!events),
+        defaultIfEmpty([])
+      );
+  }
+
+  /**
    * Function to return one event for current id
    */
   fetchOne(id: string): Observable<Event> {
@@ -54,6 +65,22 @@ export class EventService {
     console.log(event);
     return this._http.post<Event>(this._backendURL.allEvents, event, this._options());
   }
+
+  /**
+   * Function to update one event
+   */
+  update(event: Event): Observable<any> {
+    return this._http.put<Event>(this._backendURL.updateOneEvent.replace(':id', event.id), event, this._options());
+  }
+
+  /**
+   * Function to delete one event for current id
+   */
+  delete(id: string): Observable<any> {
+    return this._http.delete(this._backendURL.deleteOneEvent.replace(':id', id), this._options())
+  }
+
+
 
 
   /**

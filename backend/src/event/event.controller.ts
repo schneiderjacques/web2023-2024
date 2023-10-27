@@ -32,6 +32,23 @@ export class EventController {
       const events = this._eventService.findAll();
       return events;
     }
+
+        /**
+   * Handler to answer to GET /event route
+   *
+   * @returns Observable<UserEntity[] | void>
+   */
+        @ApiOkResponse({
+          description: 'Returns an array of event of a specific user',
+          type: EventEntity,
+          isArray: true,
+        })
+        @ApiNoContentResponse({ description: 'No envent exists in database' })
+    @Get('user/:id')
+    findAllByUserId(@Param('id') userId: string) : Observable<EventEntity[] | void> {
+      const events = this._eventService.findAllByUserId(userId);
+      return events;
+    }
  
 
 

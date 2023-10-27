@@ -28,6 +28,8 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxMatTimepickerDirective, NgxMatTimepickerFieldComponent, NgxMatTimepickerModule} from "ngx-mat-timepicker";
 import { EventsComponent } from './events/events.component';
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { DeleteComponent } from './shared/dialog/delete/delete.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { EventsComponent } from './events/events.component';
     PopupCardComponent,
     DialogComponent,
     FormComponent,    
-    EventsComponent,
+    EventsComponent, DeleteComponent,
+
+    
 
   ],
   imports: [
@@ -62,7 +66,8 @@ import { EventsComponent } from './events/events.component';
     BrowserAnimationsModule,
     NgxMatTimepickerFieldComponent,
     NgxMatTimepickerModule,
-    NgxMatTimepickerDirective
+    NgxMatTimepickerDirective,
+MatAutocompleteModule
   ],
   providers: [
     {

@@ -2,6 +2,10 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Event} from "../types/event.type";
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { Observable } from 'rxjs';
+import { LocationService } from '../services/location.service';
+import { Location } from '../types/event.type';
+import { LatLng, LatLngTuple, latLng } from 'leaflet';
 
 
 @Component({
@@ -13,23 +17,51 @@ export class FormComponent implements OnInit{
   private readonly _cancel$: EventEmitter<void>;
   private readonly _submit$: EventEmitter<Event>;
   private _model: Event;
+  adresses: Location[] = [];
 
 
 
   //private readonly _form: FormGroup;
   private _form!: FormGroup;
+  @Input() isUpdating!: boolean;
+  text: string = "Ajouter un évènement";
+  buttonText: string = "Ajouter";
 
 
-  constructor() {
+  constructor(private _locationService: LocationService) {
     this._model = {} as Event;
     this._submit$ = new EventEmitter<Event>();
     this._cancel$ = new EventEmitter<void>();
 
+
   }
   ngOnInit(): void {
     this._form = this._buildForm();
-  }
+    if (this.isUpdating) {
+      this.text = "Modifier l'évènement";
+      this.buttonText = "Modifier"
+      //set form values
+      console.log("Model is ")
+      console.log(this.model.id)
+      this._form.setValue({
+        name: this.model.name,
+        startTime: this.model.startTime,
+        date: this.model.date,
+        description: this.model.description,
+        location: {
+          street: this.model.location.street,
+          city: this.model.location.city,
+          postalCode: this.model.location.postalCode,
+          locationDetails: this.model.location.locationDetails
+        },
+        type: this.model.type,
+        color: this.model.color
+      })
 
+    }
+    
+  
+  }
 
 
   /**
@@ -37,8 +69,6 @@ export class FormComponent implements OnInit{
    */
   @Input()
   set model(model: Event) {
-    console.log("model setter");
-    console.log(model);
     this._model = model;
   }
 
@@ -78,14 +108,39 @@ export class FormComponent implements OnInit{
    * Function to emit event to submit form and event
    */
   submit(event: Event): void {
-    console.log('je suis la ')
-    console.log(this.model)
+    if (this.model != undefined && !this.isUpdating) {
     //Set property locationDetails in this.model
+    console.log("Ajout d'évènement par double click sur la map");
+
     this.model.location.locationDetails = event.location.locationDetails;
 
     event = { ... event,
               ... this.model} // merge model and event
     this._submit$.emit(event);
+    } else if (this.model != undefined && this.isUpdating){
+      event.id = this.model.id;
+      event.location.locationDetails = this._form.value.location.locationDetails;
+      this._locationService.getLatAndLng(event.location.street + ' ' + event.location.city + ' ' + event.location.postalCode)
+      .subscribe((data) => {
+        event.location.latitude = data[0];
+        event.location.longitude = data[1];
+        event.location.postalCode = event.location.postalCode.toString();
+        this._submit$.emit(event);
+      }
+      );
+
+    } else {
+      event.location.locationDetails = this._form.value.location.locationDetails;
+      this._locationService.getLatAndLng(event.location.street + ' ' + event.location.city + ' ' + event.location.postalCode)
+      .subscribe((data) => {
+        event.location.latitude = data[0];
+        event.location.longitude = data[1];
+        event.location.postalCode = event.location.postalCode.toString();
+        this._submit$.emit(event);
+      }
+      );
+    }
+
   }
 
 
@@ -99,6 +154,8 @@ export class FormComponent implements OnInit{
 
 
   private _buildForm(): FormGroup {
+    console.log("Model is ")
+    console.log(this.model)
     return new FormGroup({
       name:  new FormControl('', Validators.compose([
         Validators.required, Validators.minLength(2)
@@ -110,13 +167,15 @@ export class FormComponent implements OnInit{
       description:  new FormControl('', Validators.compose([
         Validators.required
       ])),
-
       location: new FormGroup({
-        street: new FormControl({value : this.model.location.street,  disabled: false}),
-        city: new FormControl({value : this.model.location.city,  disabled: true}),
-        postalCode: new FormControl({value : this.model.location.postalCode,  disabled: true}),
+        street: new FormControl({value : this.model != undefined ? this.model.location.street : '',  disabled: this.model != undefined && !this.isUpdating}),
+        city: new FormControl({value : this.model != undefined ? this.model.location.city : '',  disabled: this.model != undefined &&!this.isUpdating}),
+        postalCode: new FormControl({value : this.model != undefined ? this.model.location.postalCode : '',  disabled: this.model != undefined && !this.isUpdating}),
         locationDetails: new FormControl('')
-      }),
+      })
+
+      
+      ,
       type: new FormControl(''),
       color: new FormControl('#e66465'),
     });

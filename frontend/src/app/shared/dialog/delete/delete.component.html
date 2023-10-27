@@ -1,0 +1,13 @@
+<div class="d-flex flex-column p-3">
+    <h2>Supprimer un évènement</h2>
+    <hr class="my-3">
+    <p class="mt-2 ">Êtes-vous sûr de vouloir supprimer cet évènement ?</p>
+    <div class="d-flex w-100 flex-row align-items-end justify-content-end">
+        <button class="btn btn-secondary mx-2" (click)="cancel()">
+            Annuler
+        </button>
+        <button class="btn btn-danger" (click)="confirm()">
+            Supprimer
+        </button>
+    </div>
+</div>

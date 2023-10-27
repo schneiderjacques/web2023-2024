@@ -1,8 +1,10 @@
 
 /* src/styles.css ou src/styles.scss */
 
-/* Importez les styles spécifiques dont vous avez besoin */
-@import '~bootstrap/dist/css/bootstrap.min.css';
+/* Importez les styles spécifiques dont vous avez besoin 
+
+*/
+/*Import bundles so i can have popper.js and jquery in my app*/
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 

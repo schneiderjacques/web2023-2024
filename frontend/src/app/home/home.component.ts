@@ -76,7 +76,11 @@ export class HomeComponent implements OnInit {
     this._eventDialog = this._dialog.open(DialogComponent, {
       width: '700px',
       disableClose: true,
-      data: event
+      data: {
+        isUpdating: false,
+        hasModel : true,
+        event: event,
+      }
     });
 
     this._eventDialog.afterClosed().pipe(

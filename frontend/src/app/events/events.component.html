@@ -7,8 +7,7 @@
       <button
         type="button"
         class="btn btn-primary d-flex justify-content-center align-items-center"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
+        (click)="createEvent()"
       >
         <i class="bi bi-plus h3 mb-0 ml-5 me-1"></i>
         Ajouter un évènement
@@ -18,7 +17,7 @@
   <div
     class="d-flex flex-row mt-2 justify-content-center align-items-center"
   ></div>
-  <table class="mt-4 border table table-bordered border-light">
+  <table class="mt-4 border table table-bordered border-light" *ngIf="eventList.length > 0">
     <thead>
       <tr scope="row">
         <th scope="col">
@@ -102,12 +101,12 @@
             </button>
             <ul class="dropdown-menu">
               <li class="">
-                <button type="button" class="dropdown-item" (click)="editEvent(event)">
+                <button type="button" class="dropdown-item" (click)="updateEvent(event)">
                   <i class="bi bi-pencil mx-2"></i>
                   Modifier</button>
               </li>
               <li class="">
-                <button type="button" class="dropdown-item" (click)="editEvent(event)">
+                <button type="button" class="dropdown-item" (click)="deleteEvent(event)">
                   <i class="bi bi-trash mx-2"></i>
                   Supprimer</button>
               </li>
@@ -117,5 +116,6 @@
       </tr>
     </tbody>
   </table>
+  <h2 *ngIf="eventList.length === 0">Vous n'avez pas encore d'évènement</h2>
 </div>
 </div>
