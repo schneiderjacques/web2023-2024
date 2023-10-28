@@ -8,6 +8,7 @@ export const environment = {
         port: 3000,
         endpoints: {
             login: '/auth/login',
+            mailConfirm: '/auth',
             profil: '/auth/profile',
             register: '/users',
             allEvents: '/events',

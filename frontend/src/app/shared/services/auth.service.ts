@@ -3,7 +3,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginType } from '../types/login.type';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { environment } from 'src/environements/environement';
 import { Observable, catchError, map, of } from 'rxjs';
 import { registerType } from '../types/register.type';
@@ -115,5 +115,21 @@ setLoggedIn(value: boolean, token: string | null = null): void {
       .set('Authorization', `Bearer ${this.getToken()}`);
     return this._http.get<UserType>(this._backendURL.profil, {headers})
   }
+
+  mailConfirmation(token: string): Observable<string> {
+    const params = new HttpParams().set("token", token);
+    return this._http.get<string>(this._backendURL.mailConfirm, { params}).pipe(
+      map((payload) => {
+        console.log(payload);
+        console.log('mail sent');
+        return payload;
+      }),
+      catchError((error) => {
+        console.error('Error checking mail:', error);
+        throw error;
+      })
+    );
+  }
+
 
 }

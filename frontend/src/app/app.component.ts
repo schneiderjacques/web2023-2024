@@ -11,15 +11,15 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit{
   title = 'frontend';
 
-  constructor(private _authService: AuthService, private _router: Router, 
+  constructor(private _authService: AuthService, private _router: Router,
     ) {
 
    }
 
     ngOnInit(): void {
-      if (!this._authService.isLoggedIn()) {
-        this._authService.redirectToLogin();
-      }
+      //if (!this._authService.isLoggedIn()) {
+      //  this._authService.redirectToLogin();
+      //}
     }
 
 }

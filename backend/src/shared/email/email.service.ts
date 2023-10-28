@@ -24,10 +24,13 @@ export class EmailService {
   }
 
   async sendConfirmationEmail(to: string, id: mongoose.Types.ObjectId) {
-    var host = Config.get<string>('server.host');
-    var port = Config.get<string>('server.port');
-    const confirmationLink = 'http://' + host + ':' + port + '/auth?token='
-     + this.generateVerificationToken(id);
+    //var host = Config.get<string>('server.host');
+    //var port = Config.get<string>('server.port');
+    //const confirmationLink = 'http://' + host + ':' + port + '/auth?token='
+    // + this.generateVerificationToken(id);
+    const confirmationLink = 'http://localhost:4200/mailConfirm/' + this.generateVerificationToken(id);
+
+
     const mailOptions = {
       from: 'ismael.dicki18@ethereal.email',
       to: to,

@@ -46,8 +46,10 @@ import { DeleteComponent } from './shared/dialog/delete/delete.component';
     PopupCardComponent,
     DialogComponent,
     FormComponent,
-    EventsComponent, MailConfirmationComponent,
-    EventsComponent, DeleteComponent,
+    EventsComponent,
+    MailConfirmationComponent,
+    EventsComponent,
+    DeleteComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,7 +69,7 @@ import { DeleteComponent } from './shared/dialog/delete/delete.component';
     NgxMatTimepickerFieldComponent,
     NgxMatTimepickerModule,
     NgxMatTimepickerDirective,
-MatAutocompleteModule
+    MatAutocompleteModule
   ],
   providers: [
     {
