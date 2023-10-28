@@ -6,11 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="0f47f281-01f5-4274-99ca-4b1c60f89ce9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/home/home.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/home/home.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/home/home.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/home/home.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/services/shared.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/services/shared.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/types/app.type.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/types/app.type.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/sidebar/sidebar.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/sidebar/sidebar.component.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/sidebar/sidebar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/sidebar/sidebar.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/sidebar/sidebar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/sidebar/sidebar.component.ts" afterDir="false" />
     </list>
@@ -91,7 +88,7 @@
       <workItem from="1698328241183" duration="2904000" />
       <workItem from="1698331200983" duration="9371000" />
       <workItem from="1698438171797" duration="4286000" />
-      <workItem from="1698483657276" duration="19371000" />
+      <workItem from="1698483657276" duration="22792000" />
     </task>
     <servers />
   </component>

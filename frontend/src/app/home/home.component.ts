@@ -76,7 +76,6 @@ export class HomeComponent implements OnInit {
 
   showDialog( event :Event): void {
     this._dialogStatus = 'active';
-
     // open modal
     this._eventDialog = this._dialog.open(DialogComponent, {
       width: '700px',

@@ -17,12 +17,14 @@ export class SidebarComponent implements OnInit{
 
   private _events : Event[] | undefined;
   private _searchedEvent : Event[] | undefined;
-
   private _searchBy !: SearchBy;
+  private _keyWord !: string;
+
   searchByEntries = Object.entries(SearchBy);
 
   constructor() {
     this._searchBy = SearchBy.ALL;
+    this.keyWord = ""
   }
 
   ngOnInit(): void {
@@ -38,7 +40,6 @@ export class SidebarComponent implements OnInit{
   set events(value: Event[] | undefined) {
     this._events = value;
     this.onSearchBy(this.searchBy)
-
   }
 
 
@@ -52,14 +53,15 @@ export class SidebarComponent implements OnInit{
 
   onSearchBy(key : string){
     this._searchBy = key as SearchBy;
-    const currentDate = new Date();
+    const  data = this._keyWord != "" ?  this._searchedEvent : this._events;
 
+    const currentDate = new Date();
     switch (key) {
       case SearchBy.ALL:
-        this._searchedEvent = this._events;
+        this._searchedEvent = data;
         break;
       case SearchBy.TODAY:
-        this._searchedEvent = this._events?.filter(event => {
+        this._searchedEvent = data?.filter(event => {
           const eventDate = this.buildDate(event.date, event.startTime);
           return (
             eventDate.getFullYear() === currentDate.getFullYear() &&
@@ -69,14 +71,24 @@ export class SidebarComponent implements OnInit{
         });
         break;
       case SearchBy.FUTURE:
-        this._searchedEvent = this._events?.filter(event =>  this.buildDate(event.date,event.startTime) > currentDate)
+        this._searchedEvent = data?.filter(event =>  this.buildDate(event.date,event.startTime) > currentDate)
         break;
       case SearchBy.PAST:
-        this._searchedEvent = this._events?.filter(event =>  this.buildDate(event.date,event.startTime) < currentDate)
+        this._searchedEvent = data?.filter(event =>  this.buildDate(event.date,event.startTime) < currentDate)
         break;
       default:
-        this._searchedEvent = this._events;
+        this._searchedEvent = data;
     }
+  }
+
+  onSearchByKeyWord(keyword : string){
+    this._keyWord = keyword
+
+    this._searchedEvent =  this._events?.filter(
+      (event) => {
+        return event.name.toLowerCase().includes(keyword.toLowerCase())
+      }
+    )
   }
 
 
@@ -86,6 +98,15 @@ export class SidebarComponent implements OnInit{
 
   set searchedEvent(value: Event[] | undefined) {
     this._searchedEvent = value;
+  }
+
+
+  get keyWord(): string {
+    return this._keyWord;
+  }
+
+  set keyWord(value: string) {
+    this._keyWord = value;
   }
 
   private buildDate(date: string, time : string): Date{
