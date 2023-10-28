@@ -125,6 +125,16 @@ export class MapComponent implements AfterViewInit {
       start = new Date().getTime();
     });
 
+
+    this.sharedService.getEventDisplayAfterFlyMap().subscribe(
+      (payload) => {
+        if (payload.id === event.id){
+          marker.openPopup();
+          start = new Date().getTime();
+        }
+      }
+    )
+
     marker.on('mouseout', function(e){
       var end = new Date().getTime();
       var time = end - start;
@@ -139,6 +149,7 @@ export class MapComponent implements AfterViewInit {
 
   seeEvent(event: Event){
     this.mapLeaf.flyTo([event.location.latitude,event.location.longitude] as LatLngTuple,environment.mapConfig.defaultZoom);
+    this.sharedService.triggerEventDisplayAfterFlyMap(event);
   }
 
   private createIcon(colorEvent : string) : DivIcon{

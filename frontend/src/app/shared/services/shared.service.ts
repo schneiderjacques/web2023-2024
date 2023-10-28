@@ -10,7 +10,7 @@ import {SearchBy} from "../types/app.type";
 export class SharedService {
   private eventSubject = new Subject<Event>();
   private eventToAddSubject = new Subject<Event>();
-  private eventSearchBy = new Subject<SearchBy>();
+  private eventDisplayAfterFlyMap = new Subject<Event>();
 
   public triggerSeeEvent(event: Event) {
     this.eventSubject.next(event);
@@ -18,6 +18,9 @@ export class SharedService {
 
   public triggerAddEvent(event: Event) {
     this.eventToAddSubject.next(event);
+  }
+  public triggerEventDisplayAfterFlyMap(event: Event) {
+    this.eventDisplayAfterFlyMap.next(event);
   }
 
 
@@ -28,5 +31,10 @@ export class SharedService {
   public getEventToAddObservable(): Observable<Event> {
     return this.eventToAddSubject.asObservable();
   }
+
+  public getEventDisplayAfterFlyMap(): Observable<Event> {
+    return this.eventDisplayAfterFlyMap.asObservable();
+  }
+
 
 }

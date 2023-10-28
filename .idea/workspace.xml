@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="0f47f281-01f5-4274-99ca-4b1c60f89ce9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/home/home.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/sidebar/sidebar.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/sidebar/sidebar.component.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/sidebar/sidebar.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/sidebar/sidebar.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/sidebar/sidebar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/sidebar/sidebar.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/map/map.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/map/map.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/services/shared.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/services/shared.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +86,7 @@
       <workItem from="1698328241183" duration="2904000" />
       <workItem from="1698331200983" duration="9371000" />
       <workItem from="1698438171797" duration="4286000" />
-      <workItem from="1698483657276" duration="22792000" />
+      <workItem from="1698483657276" duration="24417000" />
     </task>
     <servers />
   </component>
@@ -100,8 +98,14 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/frontend/src/app/map/map.component.ts</url>
-          <line>192</line>
+          <line>203</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/frontend/src/app/map/map.component.ts</url>
+          <line>39</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
