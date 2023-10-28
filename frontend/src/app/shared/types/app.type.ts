@@ -3,3 +3,8 @@ export enum LoadingState{
   LOADED,
   ERROR
 }
+
+export enum HeaderLink{
+  HOME,
+  EVENTS
+}

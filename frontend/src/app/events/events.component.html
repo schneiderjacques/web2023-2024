@@ -1,6 +1,6 @@
 <app-header class="mb-2"></app-header>
 <div class="w-100 bg-light">
-<div class="d-flex flex-column m-5 border-top">
+<div class="d-flex flex-column m-5 mt-3 border-top">
   <div class="d-flex mt-3 justify-content-between align-items-center ">
     <h1>Mes évènements</h1>
     <div class="btn-group" role="group">
@@ -70,16 +70,16 @@
         </th>
         <th scrope="col" class="text-center align-middle">
           <i class="bi bi-gear-fill"></i>
-        </th>        
+        </th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let event of eventList">
         <td scope="row">{{ event.name }}</td>
         <td class="">
-          {{ event.location.city }} - 
+          {{ event.location.city }} -
           <i>{{ event.location.street }}</i>
-          
+
         </td>
         <td>
           <div class="overflow-hidden" style="max-height: 100px;">

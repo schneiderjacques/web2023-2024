@@ -1,0 +1,23 @@
+.nav-link{
+    display: inline;
+    position: relative;
+    color: rgba(0, 0, 0, 0.55);
+    text-decoration: none;
+}
+
+
+.nav-link:after{
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    width: 0%;
+    left: 0px;
+    height: 5px;
+    transition: 0.25s cubic-bezier(0.72,-0.01, 0.19, 0.92);
+    background: rgba(0, 0, 0, 0.61);
+}
+
+.nav-link:hover:after{
+    width: 100%;
+}

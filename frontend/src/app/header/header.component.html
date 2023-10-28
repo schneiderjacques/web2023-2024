@@ -1,16 +1,28 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">ShareEvent</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-2 ">
+    <div class="container-fluid">
+      <div class="d-flex justify-content-center me-5 ms-3" >
+        <a class="navbar-brand">ShareEvent</a>
+      <img ngSrc="assets/images/shareEventIcon.png" alt="" height="40" width="40">
+    </div>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+        <li class="nav-item me-2">
+          <a class="nav-link " (click)="navigateToHome()"
+             [ngClass]="{'active': headerLink === HeaderLink.HOME,
+                        'activated-link': headerLink === HeaderLink.HOME}">
+              Accueil
+          </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/events']">Evènements</a>
+        <li class="nav-item me-5">
+          <a class="nav-link " (click)="navigateToEvent()"
+             [ngClass]="{'active': headerLink === HeaderLink.EVENTS,
+                        'activated-link': headerLink === HeaderLink.EVENTS}">
+              Evènements
+          </a>
         </li>
       </ul>
 
@@ -23,7 +35,6 @@
           <li><button class="dropdown-item" (click)="logout()" type="button">Se déconnecter </button></li>
         </ul>
       </span>
-
     </div>
   </div>
 </nav>
