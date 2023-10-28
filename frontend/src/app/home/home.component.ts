@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Event} from "../shared/types/event.type";
-import {EVENTS} from "../data/event.data";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {DialogComponent} from "../shared/dialog/dialog.component";
-import {delay, filter, map, mergeMap, Observable, of} from "rxjs";
+import {filter, from, map, mergeMap, Observable} from "rxjs";
 import {SharedService} from "../shared/services/shared.service";
 import {LocationService} from "../shared/services/location.service";
 import {EventService} from "../shared/services/event.service";
+import {SearchBy} from "../shared/types/app.type";
 
 
 @Component({
@@ -27,16 +27,17 @@ export class HomeComponent implements OnInit {
               private sharedService : SharedService,
               private locationService : LocationService,
               private _eventService :EventService){
-    this._events = EVENTS;
     this._dialogStatus = 'inactive';
     this._isLoading = false;
   }
 
   ngOnInit(): void {
-    this._events = EVENTS;
     this._eventService
       .fetch()
-      .subscribe({ next: (events: Event[]) => this._events = events });
+      .subscribe({ next: (events: Event[]) => {
+          this._events = events
+        }
+    });
 
     this.sharedService.getEventToAddObservable().subscribe((event: Event) => {
       this._isLoading = true;
@@ -48,7 +49,11 @@ export class HomeComponent implements OnInit {
         }
       )
     });
+
+
   }
+
+
 
   get events(): Event[] | undefined{
     return this._events;
@@ -110,5 +115,9 @@ export class HomeComponent implements OnInit {
   private _add(event : Event | undefined): Observable<Event> {
     return this._eventService.create(event as Event);
   }
+
+
+
+
 
 }

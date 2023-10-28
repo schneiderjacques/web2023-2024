@@ -1,12 +1,22 @@
-<div class="card text-center ms-2 me-2 h-auto">
+<div class="card text-center ms-2 me-2 h-auto ">
   <div class="card-header">
-    <ul class="nav nav-pills card-header-pills">
-      <li class="nav-item ">
-        <a class="nav-link active" href="#">Tout</a>
-      </li>
+    <ul class="nav nav-pills card-header-pills ">
+        <div class="btn-group">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                {{searchBy}}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li *ngFor="let searchType of searchByEntries" >
+                    <a class="dropdown-item"  (click)="onSearchBy(searchType[1])">{{searchType[1]}}</a>
+                </li>
+            </ul>
+        </div>
+
     </ul>
   </div>
+
   <div class="scroll" style="max-height: 80vh; overflow-y: auto; overflow-x: hidden;">
-    <app-small-card *ngFor="let e of events"  [event]="e" role="button"></app-small-card>
+    <app-small-card *ngFor="let e of searchedEvent"  [event]="e" role="button"></app-small-card>
+    <p *ngIf="searchedEvent?.length == 0" class="m-5"> <strong>Aucun </strong>   évènement trouvé</p>
   </div>
 </div>
