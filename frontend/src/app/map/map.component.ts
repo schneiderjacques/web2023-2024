@@ -264,4 +264,13 @@ export class MapComponent implements AfterViewInit {
     });
   }
 
+  onFlyToMyCurrentPosition() {
+
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude } = position.coords;
+        this.mapLeaf.flyTo([latitude,longitude] as LatLngTuple,environment.mapConfig.defaultZoom);
+      }
+      )
+  }
 }

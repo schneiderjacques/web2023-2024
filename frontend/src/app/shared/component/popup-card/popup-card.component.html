@@ -32,8 +32,8 @@
         <span class="fw-bold mt-5 custom-span-size">À propos</span>
         <span class="mt-2 text-justify">{{event.description}}</span>
 
-        <button class="btn btn-primary mt-2 py-3 rounded-2 d-flex justify-content-center relative align-items-center">
-            <span (click)="redirectToGoogleMap()" class="text-uppercase fw-bold">voir le trajet</span>
+        <button (click)="redirectToGoogleMap()" class="btn btn-primary mt-2 py-3 rounded-2 d-flex justify-content-center relative align-items-center">
+            <span  class="text-uppercase fw-bold">voir le trajet</span>
             <i  class="bi bi-arrow-right px-2 py-1 arrow rounded"></i>
         </button>
 
