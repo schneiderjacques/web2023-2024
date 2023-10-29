@@ -187,7 +187,7 @@ export class MapComponent implements AfterViewInit {
       background-color: rgb(232, 178, 178);
       border-radius: 50%;
       position: relative;
-      animation: pulsation 2s infinite;
+      animation: pulsation 1s infinite;
     `;
 
     const iconMarker = L.divIcon({

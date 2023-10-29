@@ -2,7 +2,7 @@
 
     <div class="d-flex flex-row justify-content-around align-items-center">
         <h1>{{event.name}}</h1>
-        <span class="badge mx-2 p-2" 
+        <span class="badge mx-2 p-2"
         [ngStyle]="{'background-color': event.color}"
         >{{event.type}}</span>
     </div>
@@ -33,8 +33,8 @@
         <span class="mt-2 text-justify">{{event.description}}</span>
 
         <button class="btn btn-primary mt-2 py-3 rounded-2 d-flex justify-content-center relative align-items-center">
-            <span class="text-uppercase fw-bold">voir le trajet</span>
-            <i class="bi bi-arrow-right px-2 py-1 arrow rounded"></i>
+            <span (click)="redirectToGoogleMap()" class="text-uppercase fw-bold">voir le trajet</span>
+            <i  class="bi bi-arrow-right px-2 py-1 arrow rounded"></i>
         </button>
 
 

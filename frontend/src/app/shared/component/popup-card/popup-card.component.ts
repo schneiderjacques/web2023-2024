@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Event} from "../../types/event.type";
+import {LocationService} from "../../services/location.service";
 
 @Component({
   selector: 'app-popup-card',
@@ -11,7 +12,7 @@ export class PopupCardComponent implements OnInit{
   private _event! : Event;
   date: string = '';
   jour: string = '';
-  constructor() {
+  constructor(private _locationService : LocationService) {
   }
 
   ngOnInit(): void {
@@ -30,5 +31,16 @@ export class PopupCardComponent implements OnInit{
   }
   set event(value: Event) {
     this._event = value;
+  }
+
+
+
+  redirectToGoogleMap(){
+
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude } = position.coords;
+        window.open(`https://www.google.com/maps/dir/${latitude},${longitude}/${this._event.location.latitude},${this._event.location.longitude}`, '_blank');
+      })
   }
 }
