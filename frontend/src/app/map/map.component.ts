@@ -95,9 +95,13 @@ export class MapComponent implements AfterViewInit {
     navigator.geolocation.getCurrentPosition(
       position => {
       const { latitude, longitude } = position.coords;
+
+
+
       this.initMap([latitude,longitude] as L.LatLngTuple);
         if (this.events) {
           this.events.map(event => this.addMarker(event))
+          this.createCurrentLocationMarker([latitude,longitude]).addTo(this.mapLeaf);
         }
       },
       () => {
@@ -107,6 +111,8 @@ export class MapComponent implements AfterViewInit {
         }
       }
     )
+
+
     this.sharedService.getEventObservable().subscribe((event: Event) => {
       this.seeEvent(event);
     });
@@ -125,7 +131,6 @@ export class MapComponent implements AfterViewInit {
       start = new Date().getTime();
     });
 
-
     this.sharedService.getEventDisplayAfterFlyMap().subscribe(
       (payload) => {
         if (payload.id === event.id){
@@ -134,7 +139,6 @@ export class MapComponent implements AfterViewInit {
         }
       }
     )
-
     marker.on('mouseout', function(e){
       var end = new Date().getTime();
       var time = end - start;
@@ -170,8 +174,65 @@ export class MapComponent implements AfterViewInit {
       popupAnchor: [0, -36],
       html: `<span style="${markerHtmlStyles}" />`
     })
-
   }
+
+
+
+
+  private createCurrentLocationMarker(position : L.LatLngTuple): L.Marker {
+    const markerHtmlStyles = `
+      width: 2rem;
+      height: 2rem;
+      display: block;
+      background-color: rgb(232, 178, 178);
+      border-radius: 50%;
+      position: relative;
+      animation: pulsation 2s infinite;
+    `;
+
+    const iconMarker = L.divIcon({
+      className: "my-custom-pin",
+      iconAnchor: [1.5, 1.5], // Ajustez les coordonnées pour le centrage
+      popupAnchor: [0, 0], // Ajustez les coordonnées pour le centrage
+      html: `
+            <style>
+              @keyframes pulsation {
+                0% {
+                  transform: scale(1);
+                }
+                50% {
+                  transform: scale(1.2);
+                  opacity: 0.5;
+                }
+                100% {
+                  transform: scale(1);
+                }
+              }
+            </style>
+
+          <span style="${markerHtmlStyles}">
+            <span class="inner-circle" style="
+                width: 20px;
+                height: 20px;
+                background-color: rgba(255,0,68,0.75);
+                border-radius: 50%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+              "></span>
+          </span>
+         `
+    });
+    return L.marker(position,{icon : iconMarker});
+  }
+
+
+
+
+
+
+
 
   private compilePopup( component: any, onAttach: any ): any {
     const compFactory: any = this.resolver.resolveComponentFactory(component);
