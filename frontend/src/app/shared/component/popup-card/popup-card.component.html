@@ -1,32 +1,42 @@
-<div class="card  mt-1 mb-1 ms-2 me-2" style="max-width: 540px;">
-    <div class="row g-0">
-        <div class=" card-body ">
-            <h5 class="card-title">{{event?.name}}</h5>
-            <hr class="hr hr-blurry" />
+<div class="d-flex flex-column" style="max-width:  700px;">
 
-
-            <div class="">
-                <div class="d-flex col">
-                    <i class="bi bi-calendar-date me-2" style="font-size: 16px;"></i>
-                    <p class=""><small class=""> {{event?.date  | date:'d MMMM y'}}</small></p>
-                </div>
-
-                <div class="d-flex col">
-                    <i class="bi bi-clock me-2" style="font-size: 16px;"></i>
-                    <p class=""><small class=""> {{event?.startTime }}</small></p>
-                </div>
-
-                <div class="d-flex col">
-                    <i class="bi bi-geo-fill me-2" style="font-size: 16px;"></i>
-                    <p class=""><small class=""> {{event?.location?.street}}</small></p>
-                </div>
-
-                <div class="d-flex col">
-                    <i class="bi bi-tag-fill me-2" style="font-size: 16px;"></i>
-                    <p class=""><small class=""> {{event?.type}}</small></p>
-                </div>
-            </div>
-
-        </div>
+    <div class="d-flex flex-row justify-content-around align-items-center">
+        <h1>{{event.name}}</h1>
+        <span class="badge mx-2 p-2" 
+        [ngStyle]="{'background-color': event.color}"
+        >{{event.type}}</span>
     </div>
-</div>
+
+        <div class="d-flex align-items-center mt-2">
+            <div class="p-4 ">
+                <i class="bi bi-calendar-date custom-card p-2 rounded-2"
+                style="font-size: 22px;"
+                ></i>
+            </div>
+            <div class="d-flex flex-column justify-content-between align-items-baseline gap-2">
+                <span class="fw-bold custom-span-size">{{date}}</span>
+                <span class="main-color-light">{{jour}} à {{event.startTime.replace(':','H')}}</span>
+            </div>
+        </div>
+        <div class="d-flex align-items-center">
+            <div class="p-4 ">
+                <i class="bi bi-geo-alt-fill custom-card p-2 rounded-2"
+                style="font-size: 22px;"
+                ></i>
+            </div>
+            <div class="d-flex flex-column justify-content-between align-items-baseline gap-2">
+                <span class="fw-bold custom-span-size">{{event.location.street}}</span>
+                <span class="main-color-light">{{event.location.city}}, {{event.location.postalCode}} - {{event.location.locationDetails}}</span>
+            </div>
+        </div>
+        <span class="fw-bold mt-5 custom-span-size">À propos</span>
+        <span class="mt-2 text-justify">{{event.description}}</span>
+
+        <button class="btn btn-primary mt-2 py-3 rounded-2 d-flex justify-content-center relative align-items-center">
+            <span class="text-uppercase fw-bold">voir le trajet</span>
+            <i class="bi bi-arrow-right px-2 py-1 arrow rounded"></i>
+        </button>
+
+
+    </div>
+

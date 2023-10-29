@@ -7,5 +7,62 @@
 /*Import bundles so i can have popper.js and jquery in my app*/
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@font-face {
+    font-family: 'Airbnb Cereal App';
+    src: url('./assets/fonts/AirbnbCereal_W_Lt.otf') format('opentype');
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Airbnb Cereal App';
+    src: url('./assets/fonts/AirbnbCereal_W_Md.otf') format('opentype');
+    font-weight: 500
+}
+*{
+    font-family: 'Airbnb Cereal App', sans-serif;
+}
 
+:root{
+    --main-color: #2596be;
+    --main-color-light: #747688;
+    --main-color-dark: #1f7ea0;
+    --span-title-size: 16px;
+}
 
+.main-color {
+    color: var(--main-color);
+}
+.main-color-light {
+    color: var(--main-color-light);
+}
+.main-background-color {
+    background-color: var(--main-color);
+}
+.custom-card{
+    background-color: rgba(86, 105, 255,0.12);
+    color: #5669FF;
+    border-radius: 12px;
+    /*Add a little shadow under the card*/
+    
+    box-shadow:0px 10px 5px 0 rgba(0,0,0,0.12);
+}
+.custom-span-size{
+    font-size: var(--span-title-size);
+}
+.custom-btn {
+    color: white;
+    background-color: var(--main-color);
+    border-color: var(--main-color-dark);
+    font-weight: bold;
+    letter-spacing: 0.05em;
+  }
+
+  
+  .custom-btn:hover,
+  .custom-btn:active,
+  .custom-btn:focus,
+  .custom-btn.active {
+    background: var(--main-color-dark);
+    color: #ffffff;
+    border-color: var(--main-color-dark);
+    
+  }

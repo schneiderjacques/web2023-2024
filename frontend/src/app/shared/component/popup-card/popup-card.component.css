@@ -8,3 +8,8 @@ p{
 .card-body{
     background-color: rgba(190, 190, 190, 0.3);
 }
+.arrow{
+    background: #3D56F0;
+    position: absolute;
+    right: 35px;
+}

@@ -22,7 +22,7 @@ export const environment = {
     mapConfig: {
         maxZoom: 18, // max zoom level
         minZoom: 3, // min zoom level
-        defaultZoom: 14, // default zoom level
+        defaultZoom: 17, // default zoom level
         center : [ 48.661118, 6.17376 ] as LatLngTuple, // center of Vandoeuvre
     },
     geocode:{
