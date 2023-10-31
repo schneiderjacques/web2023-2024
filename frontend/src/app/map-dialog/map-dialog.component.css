@@ -1,0 +1,16 @@
+.map-container {
+
+  width: 95%;
+  height: 450px;
+  margin: 20px;
+}
+
+.map-frame {
+  border: 2px solid black;
+  height: 100%;
+}
+
+#map2 {
+  height: 100%;
+  cursor: url("~src/assets/images/map-cursor.png")15 15 ,auto;
+}

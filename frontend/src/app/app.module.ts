@@ -32,6 +32,7 @@ import { EventsComponent } from './events/events.component';
 import { MailConfirmationComponent } from './mail-confirmation/mail-confirmation.component';
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { DeleteComponent } from './shared/dialog/delete/delete.component';
+import { MapDialogComponent } from './map-dialog/map-dialog.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { DeleteComponent } from './shared/dialog/delete/delete.component';
     MailConfirmationComponent,
     EventsComponent,
     DeleteComponent,
+    MapDialogComponent,
   ],
   imports: [
     BrowserModule,

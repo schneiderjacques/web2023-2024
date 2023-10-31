@@ -27,7 +27,7 @@ export class EventsComponent implements OnInit {
   private user!: UserType;
 
   private _eventDialog : MatDialogRef<DialogComponent, Event> | undefined;
-  
+
   constructor(private _eventService: EventService, private _authService: AuthService, private _dialog: MatDialog) {
     this._authService.authenticatedUser().subscribe(
       (data: UserType) => {
@@ -67,7 +67,7 @@ export class EventsComponent implements OnInit {
       )
 
     });
-    
+
   }
 
   updateEvent(event: Event) {
@@ -99,7 +99,7 @@ export class EventsComponent implements OnInit {
       )
 
     });
-    
+
 
   }
 
@@ -164,7 +164,7 @@ export class EventsComponent implements OnInit {
       this._eventService.delete(event.id).subscribe(
        // { next: (events: Event[]) => this.eventList = events }
        // close the dialog
-      
+
        {
         next: () => {
           dialogRef.close();
@@ -176,7 +176,6 @@ export class EventsComponent implements OnInit {
       )
     }
     );
-
     dialogRef.componentInstance.cancel$.subscribe(() => {
       dialogRef.close();
     }

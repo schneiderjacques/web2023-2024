@@ -56,7 +56,6 @@ export class MapComponent implements AfterViewInit {
     this.mapLeaf.on('dblclick', (e: L.LeafletMouseEvent) => {
       const latitude = e.latlng.lat;
       const longitude = e.latlng.lng;
-
       this.addNewEvent(latitude, longitude);
     });
   }

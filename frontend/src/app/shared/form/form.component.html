@@ -58,8 +58,6 @@
 
 
 
-
-
       <div class="d-flex col  justify-content-between align-content-center">
         <mat-form-field class="input-name ">
           <mat-label>Ville</mat-label>
@@ -78,6 +76,8 @@
         </textarea>
       </mat-form-field>
     </div>
+    <app-map-dialog [event]="model" [color]="form.get('color')?.value"></app-map-dialog>
+
 
     <hr class="hr mb-2" />
     <div class="d-flex col justify-content-between align-content-center">
@@ -105,3 +105,7 @@
     <button class="btn btn-primary" type="button" (click)="submit(form.value)"   [disabled]="form.invalid">{{ buttonText }}</button>
   </div>
 </mat-dialog-actions>
+
+
+
+<p>{{ form.value | json }}</p>
