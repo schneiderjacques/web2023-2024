@@ -75,20 +75,19 @@
     </thead>
     <tbody>
       <tr *ngFor="let event of eventList">
-        <td scope="row">{{ event.name }}</td>
+        <td scope="row">{{ event.name | titlecase}}</td>
         <td class="">
-          {{ event.location.city }} -
-          <i>{{ event.location.street }}</i>
+          {{ event.location.city | titlecase}} -
+          <i>{{ event.location.street | titlecase }}</i>
 
         </td>
         <td>
           <div class="overflow-hidden" style="max-height: 100px;">
-            <!--If desclength > 50 we add '...' else we just print the desc-->
-            {{ event.description.length > 50 ? event.description.substring(0, 50) + '...' : event.description }}
+            {{ event.description.length > 50 ? event.description.substring(0, 50) + '...' : event.description | titlecase}}
           </div>
         </td>
         <td>{{ event.date | date : "dd/MM/yyyy" }}</td>
-        <td>{{ event.startTime }}H</td>
+        <td>{{ event.startTime.replace(':','H') }}</td>
         <td>
           <span class="badge" [style.backgroundColor]="event.color">{{
             event.type
