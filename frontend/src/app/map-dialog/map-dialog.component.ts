@@ -26,13 +26,14 @@ export class MapDialogComponent implements  AfterViewInit {
 
 
   private initMap(): void {
-
-    const position = this._event ? [this._event.location.latitude, this._event.location.longitude] as L.LatLngTuple: environment.mapConfig.center;
+    var condition = (this._event.location.longitude && this._event.location.latitude)
+    const position =  condition ? [this._event.location.latitude, this._event.location.longitude] as L.LatLngTuple: environment.mapConfig.center;
     this.map = L.map('map2', {
       center:position,
       zoom: 12,
       doubleClickZoom : false
     });
+
 
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
@@ -40,19 +41,13 @@ export class MapDialogComponent implements  AfterViewInit {
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
 
-    if (this.event) {
+    if (this.event && condition) {
       this.addMarker(this.event)
     }
     tiles.addTo(this.map);
 
     this.map.on('dblclick', (e: L.LeafletMouseEvent) => {
-      if(!this.event)
-        this.event = {
-          location : {
-
-          }
-        } as Event;
-
+      console.log(this.event)
       this.event.location.latitude = e.latlng.lat;
       this.event.location.longitude =  e.latlng.lng;
 
@@ -65,8 +60,6 @@ export class MapDialogComponent implements  AfterViewInit {
           this.changeLocation();
         }
       )
-
-
     });
   }
 
@@ -75,25 +68,27 @@ export class MapDialogComponent implements  AfterViewInit {
               private injector: Injector,
               private appRef: ApplicationRef,
               private locationService : LocationService
-  ) {
-  }
+  ){ }
 
   ngAfterViewInit(): void {
     this.initMap();
   }
 
-
   get event(): Event {
     return this._event;
   }
+
   @Input()
   set event(value: Event) {
-    console.log(value.color);
-    this._event = value;
+    if(!value){
+      this.event = {
+        location : {
+        }
+      } as Event;
+    }else {
+      this._event = value;
+    }
   }
-
-
-
 
   private createIcon(colorEvent : string) : DivIcon{
     const markerHtmlStyles = `
@@ -116,8 +111,11 @@ export class MapDialogComponent implements  AfterViewInit {
   }
 
   addMarker(event : Event) : void {
-    const marker = L.marker([ event.location.latitude,event.location.longitude] as LatLngTuple,{icon : this.createIcon(this.eventForm.color)});
-    marker.addTo(this.map);
+    var condition = (this._event.location.longitude && this._event.location.latitude)
+    if (this.map && condition ){
+      L.marker([ event.location.latitude,event.location.longitude] as LatLngTuple,{icon : this.createIcon(this.eventForm.color)}).addTo(this.map);
+    }
+
   }
 
   private changeLocation() {
