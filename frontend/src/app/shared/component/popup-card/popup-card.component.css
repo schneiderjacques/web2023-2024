@@ -13,3 +13,6 @@ p{
     position: absolute;
     right: 35px;
 }
+.desc{
+    text-align: justify;
+}
