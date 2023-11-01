@@ -2,7 +2,7 @@
 <hr class="hr" />
 <mat-dialog-content>
 
-  <form  novalidate [formGroup]="form" class=" d-flex row">
+  <form  novalidate [formGroup]="form" class="d-flex row gx-0">
 
     <mat-form-field class="input-name">
       <mat-label>Nom</mat-label>
@@ -92,7 +92,7 @@
         </mat-error>
       </mat-form-field>
       <div class="d-flex justify-content-center align-items-center">
-        <mat-label class="me-2">Couleur du marqueur</mat-label>
+        <mat-label>Couleur du marqueur</mat-label>
         <input class="color-picker" type="color"   name="color" formControlName="color" />
       </div>
     </div>
@@ -101,7 +101,7 @@
 
 <mat-dialog-actions align="end">
   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <button class="btn btn-primary"  type="button"  (click)="cancel()">Cancel</button>
+    <button class="btn btn-primary"  type="button"  (click)="cancel()">Annuler</button>
     <button class="btn btn-primary" type="button" (click)="submit(form.value)"   [disabled]="form.invalid">{{ buttonText }}</button>
   </div>
 </mat-dialog-actions>
