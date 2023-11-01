@@ -6,8 +6,8 @@ server:
     - "http://127.0.0.1:4200"
     - "http://localhost:4200"
 swagger:
-  title: Documentation de notre API REST
-  description: The user/event API description
+  title: Documentation de ShareEvent
+  description: ShareEvent est une application de partage d'événements sur une carte interactive
   version: 1.0
   tag: user/event
   path: documentation

@@ -1,6 +1,16 @@
 
 
 .hover :hover{
-    background: #a7c896;
-    color: #fff;
+    background: #f5f5f5;
+    cursor: pointer;
+}
+.point{
+    height: 10px;
+    width: 10px;
+    border-radius: 100%;
+}
+.bar{
+    width: 95%;
+    color: #1f7ea0;
+    background: #1f7ea0;
 }

@@ -50,4 +50,12 @@ app-map{
   background-color: #0056b3;
 }
 
+.responsive{
+  display: block;
+}
+@media (max-width: 1000px) {
+  .responsive{
+    display: none;
+  }  
+}
 

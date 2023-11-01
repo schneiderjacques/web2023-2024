@@ -10,6 +10,7 @@ import { SharedService } from '../../services/shared.service';
 export class SmallCardComponent {
 
   private _event! : Event
+  formattedDate: string = '';
   constructor(private sharedService: SharedService) {
   }
 
@@ -21,10 +22,16 @@ export class SmallCardComponent {
 
   set event(value: Event) {
     this._event = value;
+    this.formatStringToFrDate(this._event.date);
   }
 
   seeEvent(){
     this.sharedService.triggerSeeEvent(this._event);
+  }
+  formatStringToFrDate(date: string): void {
+    this.formattedDate = new Date(this._event.date).toLocaleDateString('fr-FR', {year: 'numeric', month: 'long', day: 'numeric'});
+  
+    
   }
 
 }

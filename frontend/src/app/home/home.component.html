@@ -1,7 +1,7 @@
 <div class="main-container">
-  <app-header class="mb-2"></app-header>
+  <app-header></app-header>
   <div class="sub-container">
-    <app-sidebar  [events]="events"></app-sidebar>
+    <app-sidebar class="responsive"  [events]="events"></app-sidebar>
     <app-map [events]="events"  [isLoading]="isLoading"></app-map>
   </div>
 </div>

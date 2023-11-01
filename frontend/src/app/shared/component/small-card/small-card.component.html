@@ -1,14 +1,19 @@
-<div class="card  mt-1 mb-1 ms-2 me-2" (click)="seeEvent()" style="max-width: 540px;">
-  <div class="hover">
-  <div class="row g-0 overflow-hidden">
-    <div class="col-md-3 d-flex justify-content-center align-items-center  ">
-      <i class="bi bi-geo-alt-fill" style="font-size: 2em;"></i>
+<div class="mt-1 hover rounded-2 mb-2 ms-2 me-2 position-relative" (click)="seeEvent()" style="max-width: 540px;">
+  <div class="d-flex  p-3 flex-column justify-content-start align-items-start position-relative">
+    <div class="d-flex align-items-center justify-content-start">
+      <span class="point" [ngStyle]=" {'background-color': event.color}"></span>
+      <span class="text-secondary ms-2">
+        {{formattedDate}} à {{event.startTime}}
+      </span>
     </div>
-    <div class="card-body col-md-9 d-flex row justify-content-center align-content-start">
-        <h5 class="card-title">{{event.name}}</h5>
-        <p class="card-text">
-          <small class="text-muted"> {{event.date  | date:'d MMMM y'}} à {{event.startTime}}</small></p>
-    </div>
+    <span class="fw-bold text-start">
+      {{event.name.length > 20 ? event.name.substring(0, 20) + '...' : event.name}}
+    </span>
+    <span class="text-secondary text-start">
+      {{event.description.length > 40 ? event.description.substring(0, 40) + '...' : event.description}}
+    </span>
+
   </div>
-  </div>
+  <hr class="m-0 bar position-absolute bottom-0 start-50 translate-middle">
 </div>
+

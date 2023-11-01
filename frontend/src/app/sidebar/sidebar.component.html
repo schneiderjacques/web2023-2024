@@ -1,33 +1,65 @@
-<div class="card text-center ms-2 me-2 h-90 ">
+<div class="card text-center ms-2 me-2 h-90">
   <div class="card-header d-flex col">
-    <ul class="nav nav-pills card-header-pills d-flex col justify-content-around align-self-center  mb-2  mt-2">
+    <ul
+      class="nav nav-pills card-header-pills d-flex col justify-content-around align-self-center mb-2 mt-2"
+    >
       <li class="mb-2 mt-2">
-            <div class="btn-group">
-                <button class="main-background-color  text-white px-2 py-1 border-0 rounded-1 dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{searchBy}}
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li *ngFor="let searchType of searchByEntries"  >
-                        <a class="dropdown-item" role="button"  (click)="onSearchBy(searchType[1])">{{searchType[1]}}</a>
-                    </li>
-                </ul>
-            </div>
-        </li>
+        <div class="btn-group">
+          <button
+            class="main-background-color text-white px-2 py-1 border-0 rounded-1 dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            {{ searchBy }}
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li *ngFor="let searchType of searchByEntries">
+              <a
+                class="dropdown-item"
+                role="button"
+                (click)="onSearchBy(searchType[1])"
+                >{{ searchType[1] }}</a
+              >
+            </li>
+          </ul>
+        </div>
+      </li>
 
-        <li class="mb-2 mt-2 w-50">
-            <div class="input-group ">
-                <input type="text" class="form-control" placeholder="Rechercher..." aria-label="Username" aria-describedby="basic-addon1" (ngModelChange)="onSearchByKeyWord($event)" [(ngModel)]="keyWord">
-                <span class="input-group-text  main-background-color" id="basic-addon1 " >
-                    <i class="bi bi-search icon-search"  ></i>
-                </span>
-            </div>
-        </li>
+      <li class="mb-2 mt-2 w-50">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Rechercher..."
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+            (ngModelChange)="onSearchByKeyWord($event)"
+            [(ngModel)]="keyWord"
+          />
+          <span
+            class="input-group-text main-background-color"
+            id="basic-addon1 "
+          >
+            <i class="bi bi-search icon-search"></i>
+          </span>
+        </div>
+      </li>
     </ul>
-
   </div>
 
-  <div class="scroll" style="max-height: 80vh; overflow-y: auto; overflow-x: hidden;">
-    <app-small-card *ngFor="let e of searchedEvent"  [event]="e" role="button"></app-small-card>
-    <p *ngIf="searchedEvent?.length == 0" class="m-5"> <strong>Aucun </strong>   évènement trouvé</p>
+  <div
+    class="scroll"
+    style="max-height: 80vh; overflow-y: auto; overflow-x: hidden"
+  >
+    <app-small-card
+      *ngFor="let e of searchedEvent"
+      [event]="e"
+      role="button"
+    ></app-small-card>
+    <p *ngIf="searchedEvent?.length == 0" class="m-5">
+      <strong>Aucun </strong> évènement trouvé
+    </p>
   </div>
 </div>

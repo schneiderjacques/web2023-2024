@@ -8,11 +8,11 @@ import {
   Input
 } from '@angular/core';
 import * as L from 'leaflet';
-import {Event} from "../shared/types/event.type";
-import {environment} from "../../environements/environement";
+import {Event} from "../../types/event.type";
+import {environment} from "../../../../environements/environement";
 import {DivIcon, LatLngTuple, marker} from "leaflet";
-import {SharedService} from "../shared/services/shared.service";
-import {LocationService} from "../shared/services/location.service";
+import {SharedService} from "../../services/shared.service";
+import {LocationService} from "../../services/location.service";
 
 @Component({
   selector: 'app-map-dialog',
