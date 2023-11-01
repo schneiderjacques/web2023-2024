@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { LocationService } from '../services/location.service';
 import { Location } from '../types/event.type';
 import { LatLng, LatLngTuple, latLng } from 'leaflet';
+import {SharedService} from "../services/shared.service";
 
 
 @Component({
@@ -17,7 +18,6 @@ export class FormComponent implements OnInit{
   private readonly _cancel$: EventEmitter<void>;
   private readonly _submit$: EventEmitter<Event>;
   private _model: Event;
-  adresses: Location[] = [];
 
 
 
@@ -28,7 +28,7 @@ export class FormComponent implements OnInit{
   buttonText: string = "Ajouter";
 
 
-  constructor(private _locationService: LocationService) {
+  constructor(private _locationService: LocationService, private sharedService : SharedService) {
     this._model = {} as Event;
     this._submit$ = new EventEmitter<Event>();
     this._cancel$ = new EventEmitter<void>();
@@ -57,10 +57,16 @@ export class FormComponent implements OnInit{
         type: this.model.type,
         color: this.model.color
       })
-
     }
-    
-  
+
+    this.sharedService.getChangeLocation()
+      .subscribe(
+        (event) => {
+            this._form.get('location')?.get('city')?.setValue(event.location.city);
+            this._form.get('location')?.get('street')?.setValue(event.location.street);
+            this._form.get('location')?.get('postalCode')?.setValue(event.location.postalCode);
+        }
+      )
   }
 
 
@@ -108,6 +114,13 @@ export class FormComponent implements OnInit{
    * Function to emit event to submit form and event
    */
   submit(event: Event): void {
+
+    console.log("Model is " )
+    console.log(event)
+    event.location.street = this._form.get('location')?.get('street')?.value;
+    event.location.city =this._form.get('location')?.get('city')?.value;
+    event.location.postalCode =this._form.get('location')?.get('postalCode')?.value;
+
     if (this.model != undefined && !this.isUpdating) {
     //Set property locationDetails in this.model
     console.log("Ajout d'évènement par double click sur la map");
@@ -140,23 +153,17 @@ export class FormComponent implements OnInit{
       }
       );
     }
-
   }
-
-
-
-
 
   get form(): FormGroup {
     return this._form;
   }
 
-
-
   private _buildForm(): FormGroup {
-    console.log("Model is ")
+
+
     console.log(this.model)
-    return new FormGroup({
+    this._form = new FormGroup({
       name:  new FormControl('', Validators.compose([
         Validators.required, Validators.minLength(2)
       ])),
@@ -168,20 +175,15 @@ export class FormComponent implements OnInit{
         Validators.required
       ])),
       location: new FormGroup({
-        street: new FormControl({value : this.model != undefined ? this.model.location.street : '',  disabled: this.model != undefined && !this.isUpdating}),
-        city: new FormControl({value : this.model != undefined ? this.model.location.city : '',  disabled: this.model != undefined &&!this.isUpdating}),
-        postalCode: new FormControl({value : this.model != undefined ? this.model.location.postalCode : '',  disabled: this.model != undefined && !this.isUpdating}),
+        street: new FormControl({value : this.model != undefined ? this.model.location.street : '',  disabled: true}),
+        city: new FormControl({value : this.model != undefined ? this.model.location.city : '',  disabled: true}),
+        postalCode: new FormControl({value : this.model != undefined ? this.model.location.postalCode : '',  disabled: true}),
         locationDetails: new FormControl('')
       })
-
-      
       ,
       type: new FormControl(''),
       color: new FormControl('#e66465'),
     });
+    return this._form;
   }
-
-
-
-
 }

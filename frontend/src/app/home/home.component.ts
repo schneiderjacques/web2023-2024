@@ -43,7 +43,11 @@ export class HomeComponent implements OnInit {
       this._isLoading = true;
       this.locationService.reverseGeocode(event).
       subscribe(
-        (event: Event) => {
+        (location) => {
+          event.location = {
+            ...event.location,
+            ... location
+          };
           this.showDialog(event);
           this._isLoading =false;
         }

@@ -11,6 +11,7 @@ export class SharedService {
   private eventSubject = new Subject<Event>();
   private eventToAddSubject = new Subject<Event>();
   private eventDisplayAfterFlyMap = new Subject<Event>();
+  private changeEventLocation = new Subject<Event>();
 
   public triggerSeeEvent(event: Event) {
     this.eventSubject.next(event);
@@ -21,6 +22,10 @@ export class SharedService {
   }
   public triggerEventDisplayAfterFlyMap(event: Event) {
     this.eventDisplayAfterFlyMap.next(event);
+  }
+
+  public triggerChangeLocation(event: Event) {
+    this.changeEventLocation.next(event);
   }
 
 
@@ -36,5 +41,9 @@ export class SharedService {
     return this.eventDisplayAfterFlyMap.asObservable();
   }
 
+
+  public getChangeLocation(): Observable<Event> {
+    return this.changeEventLocation.asObservable();
+  }
 
 }

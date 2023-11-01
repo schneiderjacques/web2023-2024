@@ -10,8 +10,10 @@ import {
 import * as L from 'leaflet';
 import {Event} from "../shared/types/event.type";
 import {environment} from "../../environements/environement";
-import {DivIcon, LatLngTuple} from "leaflet";
+import {DivIcon, LatLngTuple, marker} from "leaflet";
 import {SharedService} from "../shared/services/shared.service";
+import {LocationService} from "../shared/services/location.service";
+
 @Component({
   selector: 'app-map-dialog',
   templateUrl: './map-dialog.component.html',
@@ -20,8 +22,7 @@ import {SharedService} from "../shared/services/shared.service";
 export class MapDialogComponent implements  AfterViewInit {
   private map !:L.Map ;
   private _event !:Event;
-  private _color !:string;
-
+  private _eventForm !:Event;
 
 
   private initMap(): void {
@@ -45,17 +46,35 @@ export class MapDialogComponent implements  AfterViewInit {
     tiles.addTo(this.map);
 
     this.map.on('dblclick', (e: L.LeafletMouseEvent) => {
-      const latitude = e.latlng.lat;
-      const longitude = e.latlng.lng;
+      if(!this.event)
+        this.event = {
+          location : {
 
-      this.changeLocation(latitude, longitude);
+          }
+        } as Event;
+
+      this.event.location.latitude = e.latlng.lat;
+      this.event.location.longitude =  e.latlng.lng;
+
+      this.locationService.reverseGeocode(this.event).
+      subscribe(
+        (location) => {
+          this.eventForm.location.city = location.city
+          this.eventForm.location.street = location.street
+          this.eventForm.location.postalCode = location.postalCode
+          this.changeLocation();
+        }
+      )
+
+
     });
   }
 
   constructor(private sharedService: SharedService,
               private resolver: ComponentFactoryResolver,
               private injector: Injector,
-              private appRef: ApplicationRef
+              private appRef: ApplicationRef,
+              private locationService : LocationService
   ) {
   }
 
@@ -97,15 +116,13 @@ export class MapDialogComponent implements  AfterViewInit {
   }
 
   addMarker(event : Event) : void {
-    const marker = L.marker([ event.location.latitude,event.location.longitude] as LatLngTuple,{icon : this.createIcon(this.color)});
+    const marker = L.marker([ event.location.latitude,event.location.longitude] as LatLngTuple,{icon : this.createIcon(this.eventForm.color)});
     marker.addTo(this.map);
   }
 
-
-  private changeLocation(latitude: number, longitude: number) {
-    this.event.location.latitude = latitude;
-    this.event.location.longitude = longitude;
+  private changeLocation() {
     this.refresh()
+    this.sharedService.triggerChangeLocation(this.eventForm)
   }
 
   private refresh() {
@@ -116,21 +133,21 @@ export class MapDialogComponent implements  AfterViewInit {
 
 
   private clearMarkers() {
-    // Loop through existing markers and remove them from the map.
-    this.map.eachLayer((layer) => {
-      if (layer instanceof L.Marker) {
-        this.map.removeLayer(layer);
-      }
-    });
+    if (this.map)
+      this.map.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+          this.map.removeLayer(layer);
+        }
+      });
   }
 
-
-  get color(): string {
-    return this._color;
+  get eventForm(): Event {
+    return this._eventForm;
   }
+
   @Input()
-  set color(value: string) {
-    this._color = value;
+  set eventForm(value: Event) {
+    this._eventForm = value;
     this.refresh()
   }
 }

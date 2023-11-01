@@ -76,7 +76,7 @@
         </textarea>
       </mat-form-field>
     </div>
-    <app-map-dialog [event]="model" [color]="form.get('color')?.value"></app-map-dialog>
+    <app-map-dialog [event]="model"  [eventForm]="form.value" ></app-map-dialog>
 
 
     <hr class="hr mb-2" />
@@ -105,7 +105,3 @@
     <button class="btn btn-primary" type="button" (click)="submit(form.value)"   [disabled]="form.invalid">{{ buttonText }}</button>
   </div>
 </mat-dialog-actions>
-
-
-
-<p>{{ form.value | json }}</p>

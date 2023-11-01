@@ -16,3 +16,5 @@ export enum SearchBy {
   FUTURE = "Future",
   PAST = "Passé"
 }
+
+

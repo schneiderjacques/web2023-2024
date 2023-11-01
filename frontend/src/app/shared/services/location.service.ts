@@ -28,10 +28,16 @@ export class LocationService {
   }
 
 
-  reverseGeocode(event : Event): Observable<Event> {
+
+
+
+
+  reverseGeocode(event : Event): Observable<Location> {
 
     const apiUrl = `https://api.opencagedata.com/geocode/v1/json?q=${event.location.latitude}+${event.location.longitude}&key=${environment.geocode.apiKey}`;
-
+    var result = {} as Location;
+    result.latitude =event.location.latitude;
+    result.longitude=event.location.longitude;
     return this._http.get(apiUrl)
       .pipe(
         map( (response: any ) => {
@@ -39,20 +45,21 @@ export class LocationService {
             const location = response.results[0];
             const components = location.components;
             if(components.city)
-              event.location.city = components.city;
+              result.city = components.city;
             else if (components.town)
-              event.location.city = components.town;
+              result.city = components.town;
             else if (components.municipality)
-              event.location.city = components.municipality;
-            event.location.street = components['house_number'] ? components['house_number']+' '+components.road : components.road;
-            event.location.postalCode = components.postcode;
+              result.city = components.municipality;
+            result.street = components['house_number'] ? components['house_number']+' '+components.road : components.road;
+            result.postalCode = components.postcode;
           } else {
             //Si la géolocalisation ne trouve pas d'événement, on met des valeurs par défaut ?
           }
-          return event
+          return result
         })
       );
   }
+
 
   getLatAndLng(query: string): Observable<LatLngTuple> {
     //encode query
@@ -68,7 +75,7 @@ export class LocationService {
           } else {
             return [0,0] as LatLngTuple;
           }
-        } 
+        }
         )
 
       );

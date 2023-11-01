@@ -6,9 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="0f47f281-01f5-4274-99ca-4b1c60f89ce9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/map/map.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/map/map.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/component/popup-card/popup-card.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/component/popup-card/popup-card.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/component/popup-card/popup-card.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/component/popup-card/popup-card.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/home/home.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/map-dialog/map-dialog.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/map-dialog/map-dialog.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/form/form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/form/form.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/form/form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/form/form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/services/location.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/services/location.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/services/shared.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/services/shared.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/shared/types/app.type.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/shared/types/app.type.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +93,7 @@
       <workItem from="1698438171797" duration="4286000" />
       <workItem from="1698483657276" duration="24417000" />
       <workItem from="1698611686018" duration="1037000" />
+      <workItem from="1698835455156" duration="10153000" />
     </task>
     <servers />
   </component>
@@ -98,16 +103,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/frontend/src/app/map/map.component.ts</url>
-          <line>264</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/frontend/src/app/map/map.component.ts</url>
-          <line>39</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/backend/src/event/entities/event.entity.ts</url>
           <line>18</line>
