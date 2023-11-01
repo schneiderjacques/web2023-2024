@@ -11,3 +11,10 @@ export type SwaggerConfig = {
   tag: string;
   path: string;
 };
+
+export type AuthMailServiceConfig = {
+  host: string;
+  port: number;
+  user: string;
+  password: string;
+};

@@ -1,5 +1,26 @@
-import { Body, ClassSerializerInterceptor, Controller, Get, HttpCode, HttpStatus, Logger, Param, Post, UseGuards } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiBody, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiTags, ApiUnprocessableEntityResponse } from '@nestjs/swagger';
+import {
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Logger,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import {
+  ApiBadRequestResponse,
+  ApiBody,
+  ApiNoContentResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+  ApiUnprocessableEntityResponse,
+} from '@nestjs/swagger';
 import { HttpInterceptor } from 'src/interceptors/http.interceptor';
 import { UseInterceptors } from '@nestjs/common';
 import { UserService } from './user.service';
@@ -17,31 +38,32 @@ import { ConfirmationService } from 'src/shared/confirmation/confirmation.servic
 @UseInterceptors(ClassSerializerInterceptor)
 @UseInterceptors(HttpInterceptor)
 export class UserController {
-
-      /**
+  /**
    * Class constructor
    * @param _userService
    */
   constructor(private readonly _userService: UserService) {}
 
-    /**
+  /**
    * Handler to answer to GET /people route
    *
    * @returns Observable<UserEntity[] | void>
    */
-    @ApiOkResponse({
-        description: 'Returns an array of user',
-        type: UserEntity,
-        isArray: true,
-      })
-      @ApiNoContentResponse({ description: 'No user exists in database' })
-      @Get()
-      findAll(): Observable<UserEntity[] | void> {
-        const users = this._userService.findAll();
-        return users;
-      }
-      
-        /**
+  @ApiOkResponse({
+    description: 'Returns an array of user',
+    type: UserEntity,
+    isArray: true,
+  })
+  @ApiNoContentResponse({ description: 'No user exists in database' })
+  @ApiOperation({ summary: 'Get all users' })
+
+  @Get()
+  findAll(): Observable<UserEntity[] | void> {
+    const users = this._userService.findAll();
+    return users;
+  }
+
+  /**
    * Handler to answer to GET /user/:id route
    *
    * @param {HandlerParams} params list of route params to take user id
@@ -65,6 +87,7 @@ export class UserController {
     type: String,
     allowEmptyValue: false,
   })
+  @ApiOperation({ summary: 'Get one user' })
   @Get(':id')
   findOne(@Param('id') userId: string): Observable<UserEntity> {
     return this._userService.findOne(userId);
@@ -73,7 +96,7 @@ export class UserController {
   /**
    * Handler to answer to POST /user route
    * Create a user
-   * 
+   *
    * @param {SignUpDto} signUp data to create a user
    *
    * @returns {Observable<UserEntity>} The user created
@@ -91,17 +114,11 @@ export class UserController {
     description: 'Data to create a new user',
     type: SignUpDto,
   })
+  @ApiOperation({ summary: 'Create a new user' })
   @HttpCode(HttpStatus.OK)
   @Post()
   @Public()
-  signUp(@Body() signUp : SignUpDto): Observable<UserEntity> {
-    return this._userService.create(signUp);;
+  signUp(@Body() signUp: SignUpDto): Observable<UserEntity> {
+    return this._userService.create(signUp);
   }
-
-  
-  
-
-
-
-
 }

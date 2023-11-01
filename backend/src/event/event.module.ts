@@ -10,7 +10,7 @@ import { UserService } from 'src/user/user.service';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Event.name, schema: EventSchema }]),
-    UserModule
+    UserModule,
   ],
 
   controllers: [EventController],
@@ -21,6 +21,7 @@ import { UserService } from 'src/user/user.service';
       provide: 'APP_INTERCEPTOR',
       useClass: ClassSerializerInterceptor,
     },
-    EventDao]
+    EventDao,
+  ],
 })
 export class EventModule {}

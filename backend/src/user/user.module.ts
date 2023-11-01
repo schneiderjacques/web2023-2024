@@ -6,19 +6,22 @@ import { UserService } from './user.service';
 import { UserDao } from './dao/user.dao';
 import { EmailService } from 'src/shared/email/email.service';
 
-
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
 
   controllers: [UserController],
-  providers: [UserService, UserDao, Logger, {
-    provide: 'APP_INTERCEPTOR',
-    useClass: ClassSerializerInterceptor,
-
-
-  },    EmailService],
+  providers: [
+    UserService,
+    UserDao,
+    Logger,
+    {
+      provide: 'APP_INTERCEPTOR',
+      useClass: ClassSerializerInterceptor,
+    },
+    EmailService,
+  ],
   exports: [UserService],
 })
 export class UserModule {}

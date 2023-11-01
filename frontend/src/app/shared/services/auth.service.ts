@@ -44,6 +44,10 @@ export class AuthService {
     );
   }
 
+  hasTokenInLocalStorage(): boolean {
+    return localStorage.getItem('jwtToken') !== null;
+  }
+
   // Méthode pour vérifier l'état de connexion
   isLoggedIn(): boolean {
     return this.isAuthenticated;

@@ -1,5 +1,21 @@
-import { Injectable, NotFoundException, Param, Put, UnprocessableEntityException } from '@nestjs/common';
-import { Observable, catchError, defaultIfEmpty, filter, map, mergeMap, of, throwError } from 'rxjs';
+import {
+  Injectable,
+  Logger,
+  NotFoundException,
+  Param,
+  Put,
+  UnprocessableEntityException,
+} from '@nestjs/common';
+import {
+  Observable,
+  catchError,
+  defaultIfEmpty,
+  filter,
+  map,
+  mergeMap,
+  of,
+  throwError,
+} from 'rxjs';
 import { EventEntity } from './entities/event.entity';
 import { EventDao } from './dao/event.dao';
 import { CreateEventDto } from './dto/create-event.dto';
@@ -8,10 +24,13 @@ import { UpdateEventDto } from './dto/update-event.dto';
 
 @Injectable()
 export class EventService {
-  private _events : Event[];
+  private _events: Event[];
 
-  constructor(private readonly _eventDao: EventDao,private readonly _userService : UserService){
-      this._events = [];
+  constructor(
+    private readonly _eventDao: EventDao,
+    private readonly _userService: UserService,
+  ) {
+    this._events = [];
   }
 
   /**
@@ -22,32 +41,25 @@ export class EventService {
   // event.service.ts
 
   findAll = (): Observable<EventEntity[] | void> =>
-  //Then console log the events
+    //Then console log the events
     this._eventDao.find().pipe(
       filter(Boolean),
       map((events) => (events || []).map((event) => new EventEntity(event))),
       defaultIfEmpty(undefined),
     );
 
-      /**
+  /**
    * Return all the events created by a user
    *
    * @returns {Observable<EventEntity[] | void>}
    */
 
-      findAllByUserId = (userId : string): Observable<EventEntity[] | void> =>
-      this._eventDao.findByUserId(userId).pipe(
-        filter(Boolean),
-        map((events) => (events || []).map((event) => new EventEntity(event))),
-        defaultIfEmpty(undefined),
-      );
-
-
-
-
-
-
-
+  findAllByUserId = (userId: string): Observable<EventEntity[] | void> =>
+    this._eventDao.findByUserId(userId).pipe(
+      filter(Boolean),
+      map((events) => (events || []).map((event) => new EventEntity(event))),
+      defaultIfEmpty(undefined),
+    );
 
   /**
    * Returns one event of the list matching id in parameter
@@ -56,52 +68,62 @@ export class EventService {
    *
    * @returns {Observable<EventEntity>}
    */
-// event.service.ts
+  // event.service.ts
 
-findOne = (id: string): Observable<EventEntity> =>
-this._eventDao.findById(id).pipe(
-  catchError((e) =>
-    throwError(() => new UnprocessableEntityException(e.message)),
-  ),
-  mergeMap((user) =>
-    !!user
-      ? of(new EventEntity(user))
-      : throwError(
-          () => new NotFoundException(`User with id '${id}' not found`),
+  findOne = (id: string): Observable<EventEntity> =>
+    this._eventDao.findById(id).pipe(
+      catchError((e) =>
+        throwError(() => new UnprocessableEntityException(e.message)),
       ),
-  ),
-); 
+      mergeMap((user) =>
+        !!user
+          ? of(new EventEntity(user))
+          : throwError(
+              () => new NotFoundException(`User with id '${id}' not found`),
+            ),
+      ),
+    );
 
-/**
- * create a new event :
- *
- * @param event to create
- * @param username the owner of the event to update 
- * @returns {Observable<EventEntity>}
- */
-create = (eventDto: CreateEventDto, username: string): Observable<EventEntity> => {
-  return this._getUserId(username).pipe(
-    mergeMap((_userId) => {
-      return of(eventDto).pipe(
-        mergeMap((eventDto: CreateEventDto) => this._eventDao.save({
-          ...eventDto,
-          userId: _userId, // Now you have the user ID from _getUserId
-          dateCreated: new Date().toISOString(),
-          dateUpdated: new Date().toISOString(),
-          date : new Date(eventDto.date).getTime().toString()
-        } as CreateEventDto)),
-        catchError((e) => throwError(() => new UnprocessableEntityException(e.message))),
-        map((eventCreated) => new EventEntity(eventCreated))
-      );
-    })
-  );
-}
+  /**
+   * create a new event :
+   *
+   * @param event to create
+   * @param username the owner of the event to update
+   * @returns {Observable<EventEntity>}
+   */
+  create = (
+    eventDto: CreateEventDto,
+    username: string,
+  ): Observable<EventEntity> => {
+    return this._getUserId(username).pipe(
+      mergeMap((_userId) => {
+        return of(eventDto).pipe(
+          mergeMap((eventDto: CreateEventDto) => {
+            Logger.log(eventDto, 'EventService');
+            return this._eventDao.save({
+              ...eventDto,
+              userId: _userId, // Now you have the user ID from _getUserId
+              //locationDetails is not required so we need to check if it exists,
+              dateCreated: new Date().toISOString(),
+              dateUpdated: new Date().toISOString(),
+              date: new Date(eventDto.date).getTime().toString(),
+            } as CreateEventDto);
+          }),
+          catchError((e) => {
+            Logger.log(e.message, 'EventService');
+            return throwError(() => new UnprocessableEntityException(e));
+          }),
+          map((eventCreated) => new EventEntity(eventCreated)),
+        );
+      }),
+    );
+  };
 
-  private _getUserId(username : string) : Observable<string>{
-    return this._userService.findOneByMail(username)
-      .pipe(map((user)=> user.id));
+  private _getUserId(username: string): Observable<string> {
+    return this._userService
+      .findOneByMail(username)
+      .pipe(map((user) => user.id));
   }
-
 
   /**
    * Function to parse date and return timestamp
@@ -111,74 +133,77 @@ create = (eventDto: CreateEventDto, username: string): Observable<EventEntity> =
    *
    * @private
    */
-    private _parseDate = (date: string): number => {
-      const dates = date.split('-');
-      return new Date(dates[0] + '-' + dates[1] + '-' +dates[2]  ).getTime();
-    };
+  private _parseDate = (date: string): number => {
+    const dates = date.split('-');
+    return new Date(dates[0] + '-' + dates[1] + '-' + dates[2]).getTime();
+  };
 
-
-
-/**
- * Deletes one event 
- *
- * @param {string} id of the person to delete
- * @param username the owner of the event to update 
- *
- * @returns {Observable<void>}
- */
-delete = (id: string, username: string): Observable<void> =>
-  this._getUserId(username).pipe(
-    mergeMap((_userId) =>
-      this._eventDao.findByIdAndUserIdAndRemove(id,_userId).pipe(
-        catchError((e) =>
-          throwError(() => new UnprocessableEntityException(e.message))
+  /**
+   * Deletes one event
+   *
+   * @param {string} id of the person to delete
+   * @param username the owner of the event to update
+   *
+   * @returns {Observable<void>}
+   */
+  delete = (id: string, username: string): Observable<void> =>
+    this._getUserId(username).pipe(
+      mergeMap((_userId) =>
+        this._eventDao.findByIdAndUserIdAndRemove(id, _userId).pipe(
+          catchError((e) =>
+            throwError(() => new UnprocessableEntityException(e.message)),
+          ),
+          mergeMap((eventDeleted) =>
+            !!eventDeleted
+              ? of(undefined)
+              : throwError(
+                  () =>
+                    new NotFoundException(
+                      `Event with id ='${id}' and userId ='${_userId}' not found`,
+                    ),
+                ),
+          ),
         ),
-        mergeMap((eventDeleted) =>
-          !!eventDeleted
-            ? of(undefined)
-            : throwError(
-                () => new NotFoundException(`Event with id ='${id}' and userId ='${_userId}' not found`)
-            )
-        )
-      )
-    )
-  );
+      ),
+    );
 
-
-
-
-   /**
-   * Update a Event 
+  /**
+   * Update a Event
    *
    * @param {string} id of the event to update
    * @param event data to update
-   * @param username the owner of the event to update 
+   * @param username the owner of the event to update
    *
    * @returns {Observable<EventDaoEntity>}
    */
-   update = (id: string, event: UpdateEventDto, username : string): Observable<EventEntity> =>
-    
-   this._getUserId(username).pipe(
+  update = (
+    id: string,
+    event: UpdateEventDto,
+    username: string,
+  ): Observable<EventEntity> =>
+    this._getUserId(username).pipe(
       mergeMap((_userId) =>
-        this._eventDao.findByIdAndUserIdAndUpdate(id,_userId,
-          {...event,
-            dateUpdated : new Date().toISOString(),
-            date : new Date(event.date).getTime().toString()
-          } as UpdateEventDto).pipe(
-          catchError((e) =>
-            throwError(() => new UnprocessableEntityException(e.message))
+        this._eventDao
+          .findByIdAndUserIdAndUpdate(id, _userId, {
+            ...event,
+            dateUpdated: new Date().toISOString(),
+            date: new Date(event.date).getTime().toString(),
+          } as UpdateEventDto)
+          .pipe(
+            catchError((e) =>
+              throwError(() => new UnprocessableEntityException(e.message)),
+            ),
+            mergeMap((eventUpdate) =>
+              !!eventUpdate
+                ? of(new EventEntity(eventUpdate))
+                : throwError(
+                    () =>
+                      new NotFoundException(
+                        `Event with id ='${id}' and userId ='${_userId}' not found`,
+                      ),
+                  ),
+            ),
           ),
-          mergeMap((eventUpdate) =>
-            !!eventUpdate
-              ? of(new EventEntity(eventUpdate))
-              : throwError(
-                  () => new NotFoundException(`Event with id ='${id}' and userId ='${_userId}' not found`)
-                )
-          )
-        )
-      )
+      ),
     );
-
-
 }
-

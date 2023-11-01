@@ -14,3 +14,9 @@ swagger:
 mongodb:
   uri: mongodb://localhost:27017/projectDB
   dbname: projectDB
+mail:
+  host: smtp.ethereal.email
+  port: 587
+  user: ismsmael.dicki18@ethereal.email
+  pass: 5gphWRrjNcU8ZzGTyp
+  

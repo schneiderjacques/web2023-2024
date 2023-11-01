@@ -1,2 +1,4 @@
 <router-outlet></router-outlet>
-
+<div class="alert p-2 alert-danger position-absolute top-50 start-50 translate-middle" style="z-index: 999;" role="alert" *ngIf="hasTokenExpired">
+    Attention votre session à expiré <a (click)="disconnect()" role="button" class="alert-link ">Se connecter</a>.
+</div>

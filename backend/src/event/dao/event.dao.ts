@@ -8,37 +8,35 @@ import { UpdateEventDto } from '../dto/update-event.dto';
 
 @Injectable()
 export class EventDao {
-
   /**
    * Class constructor
    *
    * @param {Model<Event>} _eventModel instance of the model representing a Event
    */
-  constructor(@InjectModel(Event.name) private  _eventModel: Model<Event>){
-    Logger.log('Name is : '+Event.name)
+  constructor(@InjectModel(Event.name) private _eventModel: Model<Event>) {
+    Logger.log('Name is : ' + Event.name);
   }
 
   /**
-  * Call mongoose method, call toJSON on each result and returns EventModel[]
-  *
-  * @return {Observable<Event[]>}
-  */
+   * Call mongoose method, call toJSON on each result and returns EventModel[]
+   *
+   * @return {Observable<Event[]>}
+   */
   //event.dao.ts
   find = (): Observable<Event[]> =>
-    from(this._eventModel.find({}).lean()).pipe(map((event) => 
-      [].concat(event)
-    ));
+    from(this._eventModel.find({}).lean()).pipe(
+      map((event) => [].concat(event)),
+    );
 
   /**
-  * Call mongoose method, call toJSON on each result and returns EventModel[]
-  *
-  * @return {Observable<Event[]>}
-  */
-  findByUserId = (userId : string): Observable<Event[]> =>
-    from(this._eventModel.find({userId}).lean()).pipe(map((event) => 
-      [].concat(event)
-    ));
-
+   * Call mongoose method, call toJSON on each result and returns EventModel[]
+   *
+   * @return {Observable<Event[]>}
+   */
+  findByUserId = (userId: string): Observable<Event[]> =>
+    from(this._eventModel.find({ userId }).lean()).pipe(
+      map((event) => [].concat(event)),
+    );
 
   /**
    * Returns one user of the list matching id in parameter
@@ -49,65 +47,62 @@ export class EventDao {
    */
   //Console.Log what is in the findbyid
   findById = (id: string): Observable<Event | void> =>
-  from(this._eventModel.findById(id).lean())
+    from(this._eventModel.findById(id).lean());
 
   /**
-   * Find the event with (id, userid) and remove it 
+   * Find the event with (id, userid) and remove it
    *
-   * @param {string} id the event id 
+   * @param {string} id the event id
    *
-   * 
-   * @param {string} userId the user id 
+   *
+   * @param {string} userId the user id
    *
    * @return {Observable<User | void>}
    */
-  findByIdAndUserIdAndRemove = (id : string, userId): Observable<Event | void> =>
-    from(this._eventModel.findOneAndRemove({ _id: id , userId: userId}))
-
+  findByIdAndUserIdAndRemove = (id: string, userId): Observable<Event | void> =>
+    from(this._eventModel.findOneAndRemove({ _id: id, userId: userId }));
 
   /**
-   * Find the event with (id, userid) and update it 
+   * Find the event with (id, userid) and update it
    *
-   * @param {string} id the event id 
-   * @param {string} userId the user id 
+   * @param {string} id the event id
+   * @param {string} userId the user id
    *
    * @return {Observable<User | void>}
    */
-  findByIdAndUserIdAndUpdate = (id : string, userId : string, eventToUpdate :UpdateEventDto): Observable<Event | void> =>
+  findByIdAndUserIdAndUpdate = (
+    id: string,
+    userId: string,
+    eventToUpdate: UpdateEventDto,
+  ): Observable<Event | void> =>
     from(
       this._eventModel.findOneAndUpdate(
-        { _id: id , userId: userId},
+        { _id: id, userId: userId },
         eventToUpdate,
         {
           new: true,
           runValidators: true,
-        }
-        ));
+        },
+      ),
+    );
 
   /**
    * Save a new event
-   * 
+   *
    * @param {CreateEventDto} event to create
    *
    * @return {Observable<Event>}
    */
-  save = (event:  CreateEventDto): Observable<Event> =>
+  save = (event: CreateEventDto): Observable<Event> =>
     from(new this._eventModel(event).save());
 
   /**
-     * Delete a event 
-     *
-     * @param {string} id
-     *
-     * @return {Observable<Event | void>}
-  */
+   * Delete a event
+   *
+   * @param {string} id
+   *
+   * @return {Observable<Event | void>}
+   */
   findByIdAndRemove = (id: string): Observable<Event | void> =>
     from(this._eventModel.findByIdAndRemove(id));
 }
-
-
-
-
-
-
-

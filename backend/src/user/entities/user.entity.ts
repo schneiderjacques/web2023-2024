@@ -6,7 +6,6 @@ import { BeforeInsert } from 'typeorm';
 
 @Exclude()
 export class UserEntity {
-
   @ApiProperty({
     name: 'id',
     description: 'Unique identifier in the database',
@@ -23,7 +22,6 @@ export class UserEntity {
   })
   @Expose()
   mail: string;
-
 
   @ApiProperty({
     name: 'pseudo',
@@ -44,7 +42,6 @@ export class UserEntity {
   @Exclude()
   password: string;
 
-
   /**
    * Class constructor
    *
@@ -58,7 +55,4 @@ export class UserEntity {
     this.isMailConfirmed = partial.isMailConfirmed;
     this.password = partial.password;
   }
-
-  
-  
 }

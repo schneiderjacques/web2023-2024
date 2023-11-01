@@ -14,53 +14,44 @@ export type UserDocument = User & Document;
         delete ret._id;
       }
     },
-    
   },
-  versionKey: false
+  versionKey: false,
 })
-
-export class User{
-
+export class User {
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
     auto: true,
   })
   _id: mongoose.Types.ObjectId;
-  
 
-    @Prop({
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-      })
-    mail: string;
+  @Prop({
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+  })
+  mail: string;
 
-    @Prop({
-        type: String,
-        required: true,
-        trim: true,
+  @Prop({
+    type: String,
+    required: true,
+    trim: true,
+  })
+  pseudo: string;
 
-      })
-      pseudo: string;
+  @Prop({
+    type: Boolean,
+    default: false,
+  })
+  isMailConfirmed: boolean;
 
-    @Prop({
-        type: Boolean,
-        default: false,
-      })
-    isMailConfirmed: boolean;
-
-    @Prop({
-        type: String,
-        required: true,
-      })
-      password: string;
-
-
+  @Prop({
+    type: String,
+    required: true,
+  })
+  password: string;
 }
-
-
 
 export const UserSchema = SchemaFactory.createForClass(User);
 
-UserSchema.index({ mail:1 }, { unique: true });
+UserSchema.index({ mail: 1 }, { unique: true });

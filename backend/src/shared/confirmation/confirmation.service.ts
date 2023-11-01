@@ -7,6 +7,14 @@ import { UserService } from 'src/user/user.service';
 import { throwError } from 'rxjs';
 
 @Injectable()
+/**
+ * 
+ * @class ConfirmationService
+ * @description Service de confirmation de l'e-mail de l'utilisateur
+ * @method verifyToken Vérifie le token de confirmation de l'e-mail
+ * @method confirmUserEmail Confirme l'e-mail de l'utilisateur
+ * 
+ */
 export class ConfirmationService {
   constructor(private readonly _userService: UserService) {}
 

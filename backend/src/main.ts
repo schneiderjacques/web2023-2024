@@ -20,7 +20,7 @@ async function bootstrap(config: AppConfig, swaggerConfig: SwaggerConfig) {
     new FastifyAdapter({ logger: true }),
   );
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
-  app.useGlobalPipes(new ValidationPipe({  whitelist: true}));
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
   // enable CORS for NG Application's calls
   await app.enableCors({ origin: config.cors });

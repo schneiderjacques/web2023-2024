@@ -12,12 +12,15 @@ import { Public } from '../decorators/decorators';
 import {
   ApiBadRequestResponse,
   ApiBody,
+  ApiCreatedResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
+  ApiOperation,
   ApiParam,
   ApiResponse,
   ApiTags,
+  ApiUnauthorizedResponse,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
 import { UserService } from 'src/user/user.service';
@@ -29,6 +32,12 @@ import { ConfirmationService } from 'src/shared/confirmation/confirmation.servic
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
+  /**
+   * Class constructor
+   * @param {AuthService} authService instance of the AuthService
+   * @param {UserService} _userService instance of the UserService
+   * @param {ConfirmationService} confirmationService instance of the ConfirmationService
+   */
   constructor(
     private authService: AuthService,
     private _userService: UserService,
@@ -50,12 +59,29 @@ export class AuthController {
     description: "User with mail doesn't exist in the database",
   })
   @ApiUnprocessableEntityResponse({
-    description: "The request can't be performed in the database",
+    description: 'Incorrect mail/password couple',
+  })
+  @ApiUnprocessableEntityResponse({
+    description: 'User mail must be confirmed before login',
+  })
+  @ApiBadRequestResponse({
+    description: 'Password or mail is incorrect',
   })
   @ApiParam({
     name: 'SigninDto',
     required: true,
     description: 'Mail and password',
+  })
+  @ApiCreatedResponse({
+    description: 'The user has been successfully created.',
+    type: SignInDto,
+  })
+  @ApiBody({
+    description: 'User information (mail, password)',
+    type: SignInDto,
+  })
+  @ApiOperation({
+    summary: 'Login the user',
   })
   @HttpCode(HttpStatus.OK)
   @Post('login')
@@ -66,14 +92,30 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Get('profile')
-  getProfile(@Request() req): Observable<UserEntity> {
-    const { username } = req.user;
+  @ApiOkResponse({
+    description: 'Returns the user profile',
+    type: UserEntity,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Token is invalid',
+  })
+  @ApiOperation({
+    summary: 'Get the profile of the user',
+  })
+  @ApiParam({
+    name: 'user',
+    required: true,
+    description: 'User token',
+    type: UserEntity,
+  })
+  getProfile(@Request() user): Observable<UserEntity> {
+    const { username } = user.user;
     return this._userService.findOneByMail(username);
   }
 
   @ApiResponse({
     status: 200,
-    description: 'The user has been successfully confirmed.',
+    description: 'The user mail has been successfully confirmed.',
   })
   @ApiBadRequestResponse({
     description: 'Invalid confirmation token.',
@@ -86,6 +128,9 @@ export class AuthController {
   })
   @ApiUnprocessableEntityResponse({
     description: "The request can't be performed in the database",
+  })
+  @ApiOperation({
+    summary: 'Confirm the user email',
   })
   @HttpCode(HttpStatus.OK)
   @Get()

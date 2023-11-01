@@ -15,14 +15,10 @@ import { ConfirmationService } from 'src/shared/confirmation/confirmation.servic
       global: true,
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '86400s' },
-    })
-
+    }),
   ],
   providers: [AuthService, ConfirmationService],
   controllers: [AuthController],
   exports: [AuthService],
 })
-
 export class AuthModule {}
-
-

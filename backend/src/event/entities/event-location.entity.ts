@@ -14,10 +14,10 @@ export class EventLocationEntity {
 
   @Expose()
   locationDetails: string;
-  
-  @Expose()
-  longitude : number
 
   @Expose()
-  latitude : number
+  longitude: number;
+
+  @Expose()
+  latitude: number;
 }
