@@ -7,10 +7,10 @@
     <mat-form-field class="input-name">
       <mat-label>Nom</mat-label>
       <input matInput  placeholder="Ex. nom de l'évènement" formControlName="name" minlength="2" required name="name" >
-      <mat-error *ngIf="form.get('name')?.dirty && form.get('name')?.hasError('required')">
+      <mat-error *ngIf="(form.get('name')?.dirty || form.get('name')?.touched)  && form.get('name')?.hasError('required')">
         Le nom de l'évènement est <strong>obligatoire</strong>
       </mat-error>
-      <mat-error *ngIf="form.get('name')?.dirty && form.get('name')?.hasError('minlength')">
+      <mat-error *ngIf="(form.get('name')?.dirty || form.get('name')?.touched) && form.get('name')?.hasError('minlength')">
         Le nom de l'évènement doit avoir au minimum <strong>2 caractères</strong>
       </mat-error>
     </mat-form-field>
@@ -22,7 +22,7 @@
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="form.get('date')?.dirty && form.get('date')?.hasError('required')">
+        <mat-error *ngIf="(form.get('name')?.dirty || form.get('name')?.touched) && form.get('date')?.hasError('required')">
           La date de l'évènement est <strong>obligatoire</strong>
         </mat-error>
       </mat-form-field>
@@ -35,7 +35,7 @@
     <mat-form-field class="input-description">
       <mat-label>Description</mat-label>
       <textarea matInput placeholder="Ex. description  de l'évènement" formControlName="description" required name="description" ></textarea>
-      <mat-error *ngIf="form.get('description')?.dirty && form.get('description')?.hasError('required')">
+      <mat-error *ngIf="(form.get('name')?.dirty || form.get('name')?.touched) && form.get('description')?.hasError('required')">
         La description de l'évènement est <strong>obligatoire</strong>
       </mat-error>
     </mat-form-field>
@@ -51,10 +51,6 @@
         <mat-label  >Adresse</mat-label>
         <input matInput placeholder="Ex. 5 rue Jacques Callot" formControlName="street"  name="street" >
       </mat-form-field>
-
-
-
-
 
 
 
@@ -84,11 +80,11 @@
       <mat-form-field class="input-name mt-2">
         <mat-label>Type</mat-label>
         <input matInput placeholder="Ex. Musique"  formControlName="type" minlength="2" required name="type">
-        <mat-error *ngIf="form.get('type')?.dirty && form.get('type')?.hasError('required')">
-          Nom de l'évènement est <strong>obligatoire</strong>
+        <mat-error *ngIf="(form.get('name')?.dirty || form.get('name')?.touched) && form.get('type')?.hasError('required')">
+          Type de l'évènement est <strong>obligatoire</strong>
         </mat-error>
-        <mat-error *ngIf="form.get('type')?.dirty && form.get('type')?.hasError('minlength')">
-          Nom de l'évènement doit avoir au minimum <strong>2 caractères</strong>
+        <mat-error *ngIf="(form.get('name')?.dirty || form.get('name')?.touched) && form.get('type')?.hasError('minlength')">
+          Type de l'évènement doit avoir au minimum <strong>2 caractères</strong>
         </mat-error>
       </mat-form-field>
       <div class="d-flex justify-content-center align-items-center">

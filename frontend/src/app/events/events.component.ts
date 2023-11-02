@@ -25,6 +25,7 @@ export class EventsComponent implements AfterViewInit {
   @ViewChild('paginator') paginator!: MatPaginator; // Replace 'MatPaginator' with your paginator type
   eventList: Event[] = [];
   eventListToDisplay: Event[] = [];
+  currentPage: number;
   step: number;
   isAscendingOrder: any = {
     nom: true,
@@ -38,19 +39,14 @@ export class EventsComponent implements AfterViewInit {
 
   constructor(private _eventService: EventService, private _authService: AuthService, private _dialog: MatDialog) {
     this.step = 5;
+    this.currentPage = 0;
     this._authService.authenticatedUser().subscribe(
       (data: UserType) => {
         this.user = data;
         this._eventService.fetchByUserId(this.user.id).subscribe(
           { next: (events: Event[]) =>{
               this.eventList = events
-              const savedPageIndex = localStorage.getItem('currentPageIndex');
-              if(!savedPageIndex){
-                this.eventListToDisplay = this.eventList.slice(0,this.step)
-                localStorage.setItem('currentPageIndex', "0");
-              }else {
-                this.eventListToDisplay = this.eventList.slice(parseInt(savedPageIndex)*this.step,parseInt(savedPageIndex)*this.step+this.step)
-              }
+              this.eventListToDisplay = this.eventList.slice(this.currentPage*this.step,this.currentPage*this.step+this.step)
             }
           }
         )
@@ -84,13 +80,10 @@ export class EventsComponent implements AfterViewInit {
         { next: (events: Event[]) =>
           {
             this.eventList = events
-
-            const savedPageIndex =  localStorage.getItem('currentPageIndex');
-            if ( savedPageIndex)
-              this.eventListToDisplay = this.eventList.slice(parseInt(savedPageIndex) *this.paginator.pageSize, parseInt(savedPageIndex) *this.paginator.pageSize+this.paginator.pageSize)
-          } }
+            this.eventArraySlice(this.currentPage)
+          }
+        }
       )
-
     });
 
   }
@@ -122,10 +115,8 @@ export class EventsComponent implements AfterViewInit {
       this._eventService.fetchByUserId(this.user.id).subscribe(
         { next: (events: Event[]) => {
             this.eventList = events;
-            const savedPageIndex =  localStorage.getItem('currentPageIndex');
-            if ( savedPageIndex)
-              this.eventListToDisplay = this.eventList.slice(parseInt(savedPageIndex) *this.paginator.pageSize, parseInt(savedPageIndex) *this.paginator.pageSize+this.paginator.pageSize)
-        }
+            this.eventArraySlice(this.currentPage)
+          }
         }
       )
 
@@ -183,9 +174,7 @@ export class EventsComponent implements AfterViewInit {
       });
     }
     this.isAscendingOrder[item] = !this.isAscendingOrder[item];
-    const savedPageIndex =  localStorage.getItem('currentPageIndex');
-    if ( savedPageIndex)
-      this.eventListToDisplay = this.eventList.slice(parseInt(savedPageIndex) *this.paginator.pageSize, parseInt(savedPageIndex) *this.paginator.pageSize+this.paginator.pageSize)
+    this.eventArraySlice(this.currentPage)
   }
 
   deleteEvent(event: Event) {
@@ -201,11 +190,7 @@ export class EventsComponent implements AfterViewInit {
           this._eventService.fetchByUserId(this.user.id).subscribe(
             { next: (events: Event[]) =>{
                 this.eventList = events
-
-                const savedPageIndex =  localStorage.getItem('currentPageIndex');
-                if ( savedPageIndex)
-                  this.eventListToDisplay = this.eventList.slice(parseInt(savedPageIndex) *this.paginator.pageSize, parseInt(savedPageIndex) *this.paginator.pageSize+this.paginator.pageSize)
-
+                this.eventArraySlice(this.currentPage)
               }
             }
           )
@@ -232,11 +217,19 @@ export class EventsComponent implements AfterViewInit {
     };
     this.paginator.page.subscribe(
       (data) =>{
-        localStorage.setItem('currentPageIndex', data.pageIndex.toString());
-        console.log(data)
-        this.eventListToDisplay = this.eventList.slice(data.pageIndex *data.pageSize, data.pageIndex *data.pageSize+data.pageSize)
+        this.eventArraySlice(data.pageIndex)
       }
     )
+  }
+
+
+  eventArraySlice(indexPage : number){
+    this.currentPage = indexPage;
+    this.eventListToDisplay = this.eventList.slice(this.currentPage *this.paginator.pageSize, this.currentPage *this.paginator.pageSize+this.paginator.pageSize)
+    if(this.eventListToDisplay.length == 0 ){
+      this.currentPage--;
+      this.eventListToDisplay = this.eventList.slice(this.currentPage *this.paginator.pageSize, this.currentPage *this.paginator.pageSize+this.paginator.pageSize)
+    }
   }
 
 
