@@ -151,7 +151,7 @@ export class MapComponent implements AfterViewInit {
   }
 
   seeEvent(event: Event){
-    this.mapLeaf.flyTo([event.location.latitude,event.location.longitude] as LatLngTuple,environment.mapConfig.defaultZoom);
+    this.mapLeaf.flyTo([event.location.latitude+0.0015,event.location.longitude] as LatLngTuple,environment.mapConfig.defaultZoom);
     this.sharedService.triggerEventDisplayAfterFlyMap(event);
   }
 
