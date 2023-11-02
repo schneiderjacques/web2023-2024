@@ -74,7 +74,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let event of eventList">
+      <tr *ngFor="let event of eventListToDisplay">
         <td scope="row">{{ event.name | titlecase}}</td>
         <td class="">
           {{ event.location.city | titlecase}} -
@@ -118,3 +118,12 @@
   <h2 *ngIf="eventList.length === 0">Vous n'avez pas encore d'évènement</h2>
 </div>
 </div>
+
+<mat-paginator #paginator
+               [length]="eventList.length"
+               [pageSize]="step"
+               [pageSizeOptions]="[5 , 10]"
+               aria-label="Select page">
+</mat-paginator>
+
+

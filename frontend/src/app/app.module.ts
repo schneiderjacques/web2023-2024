@@ -33,6 +33,7 @@ import { MailConfirmationComponent } from './mail-confirmation/mail-confirmation
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { DeleteComponent } from './shared/dialog/delete/delete.component';
 import { MapDialogComponent } from './shared/component/map-dialog/map-dialog.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { MapDialogComponent } from './shared/component/map-dialog/map-dialog.com
     NgxMatTimepickerModule,
     NgxMatTimepickerDirective,
     MatAutocompleteModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    MatPaginatorModule
   ],
   providers: [
     {

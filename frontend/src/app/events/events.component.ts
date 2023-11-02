@@ -1,22 +1,31 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import { Event } from '../shared/types/event.type';
 import { OnInit } from '@angular/core';
 import { EventService } from '../shared/services/event.service';
 import { AuthService } from '../shared/services/auth.service';
 import { UserType } from '../shared/types/user.type';
-import Popper from 'popper.js';
 import { DialogComponent } from '../shared/dialog/dialog.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Observable, filter, map, mergeMap } from 'rxjs';
 import { DeleteComponent } from '../shared/dialog/delete/delete.component';
+import {MatPaginator} from "@angular/material/paginator";
+import {end} from "@popperjs/core";
+import {Browser} from "leaflet";
+import safari = Browser.safari;
+
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.css'],
 
 })
-export class EventsComponent implements OnInit {
+
+
+export class EventsComponent implements AfterViewInit {
+  @ViewChild('paginator') paginator!: MatPaginator; // Replace 'MatPaginator' with your paginator type
   eventList: Event[] = [];
+  eventListToDisplay: Event[] = [];
+  step: number;
   isAscendingOrder: any = {
     nom: true,
     lieu: true,
@@ -25,15 +34,25 @@ export class EventsComponent implements OnInit {
     genre: true,
   };
   private user!: UserType;
-
   private _eventDialog : MatDialogRef<DialogComponent, Event> | undefined;
 
   constructor(private _eventService: EventService, private _authService: AuthService, private _dialog: MatDialog) {
+    this.step = 5;
     this._authService.authenticatedUser().subscribe(
       (data: UserType) => {
         this.user = data;
         this._eventService.fetchByUserId(this.user.id).subscribe(
-          { next: (events: Event[]) => this.eventList = events }
+          { next: (events: Event[]) =>{
+              this.eventList = events
+              const savedPageIndex = localStorage.getItem('currentPageIndex');
+              if(!savedPageIndex){
+                this.eventListToDisplay = this.eventList.slice(0,this.step)
+                localStorage.setItem('currentPageIndex', "0");
+              }else {
+                this.eventListToDisplay = this.eventList.slice(parseInt(savedPageIndex)*this.step,parseInt(savedPageIndex)*this.step+this.step)
+              }
+            }
+          }
         )
       }
     )
@@ -55,7 +74,6 @@ export class EventsComponent implements OnInit {
         if (event) {
           const { id, userId, dateCreated, dateUpdated, ...newEvent } = event;
           return newEvent as Event;
-
         } else {
           return undefined;
         }
@@ -63,7 +81,14 @@ export class EventsComponent implements OnInit {
       mergeMap((event: Event | undefined) => this._add(event as Event))
     ).subscribe(result => {
       this._eventService.fetchByUserId(this.user.id).subscribe(
-        { next: (events: Event[]) => this.eventList = events }
+        { next: (events: Event[]) =>
+          {
+            this.eventList = events
+
+            const savedPageIndex =  localStorage.getItem('currentPageIndex');
+            if ( savedPageIndex)
+              this.eventListToDisplay = this.eventList.slice(parseInt(savedPageIndex) *this.paginator.pageSize, parseInt(savedPageIndex) *this.paginator.pageSize+this.paginator.pageSize)
+          } }
       )
 
     });
@@ -95,7 +120,13 @@ export class EventsComponent implements OnInit {
       mergeMap((event: Event | undefined) => this._eventService.update(event as Event))
     ).subscribe(result => {
       this._eventService.fetchByUserId(this.user.id).subscribe(
-        { next: (events: Event[]) => this.eventList = events }
+        { next: (events: Event[]) => {
+            this.eventList = events;
+            const savedPageIndex =  localStorage.getItem('currentPageIndex');
+            if ( savedPageIndex)
+              this.eventListToDisplay = this.eventList.slice(parseInt(savedPageIndex) *this.paginator.pageSize, parseInt(savedPageIndex) *this.paginator.pageSize+this.paginator.pageSize)
+        }
+        }
       )
 
     });
@@ -107,8 +138,7 @@ export class EventsComponent implements OnInit {
     return this._eventService.create(event as Event);
   }
 
-  ngOnInit(): void {
-  }
+
 
   sortBy(item: string) {
     if (item == 'location' && this.isAscendingOrder[item]) {
@@ -153,6 +183,9 @@ export class EventsComponent implements OnInit {
       });
     }
     this.isAscendingOrder[item] = !this.isAscendingOrder[item];
+    const savedPageIndex =  localStorage.getItem('currentPageIndex');
+    if ( savedPageIndex)
+      this.eventListToDisplay = this.eventList.slice(parseInt(savedPageIndex) *this.paginator.pageSize, parseInt(savedPageIndex) *this.paginator.pageSize+this.paginator.pageSize)
   }
 
   deleteEvent(event: Event) {
@@ -162,14 +195,19 @@ export class EventsComponent implements OnInit {
 
     dialogRef.componentInstance.confirm$.subscribe(() => {
       this._eventService.delete(event.id).subscribe(
-       // { next: (events: Event[]) => this.eventList = events }
-       // close the dialog
-
        {
         next: () => {
           dialogRef.close();
           this._eventService.fetchByUserId(this.user.id).subscribe(
-            { next: (events: Event[]) => this.eventList = events }
+            { next: (events: Event[]) =>{
+                this.eventList = events
+
+                const savedPageIndex =  localStorage.getItem('currentPageIndex');
+                if ( savedPageIndex)
+                  this.eventListToDisplay = this.eventList.slice(parseInt(savedPageIndex) *this.paginator.pageSize, parseInt(savedPageIndex) *this.paginator.pageSize+this.paginator.pageSize)
+
+              }
+            }
           )
         }
        }
@@ -181,4 +219,25 @@ export class EventsComponent implements OnInit {
     }
     );
   }
+
+  ngAfterViewInit(): void {
+    this.paginator._intl.itemsPerPageLabel = 'Évènement pas page';
+    this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
+      const start = page * pageSize + 1;
+      let end = (page + 1) * pageSize;
+      if (end >length){
+        end = length
+      }
+      return `${start} - ${end} sur ${length}`;
+    };
+    this.paginator.page.subscribe(
+      (data) =>{
+        localStorage.setItem('currentPageIndex', data.pageIndex.toString());
+        console.log(data)
+        this.eventListToDisplay = this.eventList.slice(data.pageIndex *data.pageSize, data.pageIndex *data.pageSize+data.pageSize)
+      }
+    )
+  }
+
+
 }
