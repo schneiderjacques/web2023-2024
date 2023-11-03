@@ -226,13 +226,6 @@ export class MapComponent implements AfterViewInit {
     return L.marker(position,{icon : iconMarker});
   }
 
-
-
-
-
-
-
-
   private compilePopup( component: any, onAttach: any ): any {
     const compFactory: any = this.resolver.resolveComponentFactory(component);
     let compRef: any = compFactory.create(this.injector);
@@ -268,6 +261,7 @@ export class MapComponent implements AfterViewInit {
     navigator.geolocation.getCurrentPosition(
       position => {
         const { latitude, longitude } = position.coords;
+        this.createCurrentLocationMarker([latitude,longitude]).addTo(this.mapLeaf);
         this.mapLeaf.flyTo([latitude,longitude] as LatLngTuple,environment.mapConfig.defaultZoom);
       }
       )
