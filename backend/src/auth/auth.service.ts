@@ -40,6 +40,7 @@ export class AuthService {
     Logger.log('USER IS :' + user);
     //password is hashed in the database
 
+
     if (!user || !(await bcrypt.compare(pass, user.password))) {
       throw new UnauthorizedException('Your email or password is incorrect.');
     }

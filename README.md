@@ -20,6 +20,9 @@ Installer le project avec yarn
   yarn install
   cd ../backend
   yarn install
+  cd dataBase
+  docker compose up -d(Assurez-vous par la suite qu'il ai bien démarré)
+  node script.js
 ```
 
 Ensuite pour démarrer votre projet vous avez plusieurs possibilités :
@@ -31,4 +34,11 @@ Ensuite pour démarrer votre projet vous avez plusieurs possibilités :
   yarn start:both //Démarre les deux en même temps
 ```
 
+Jeu de données de base : 
+    
+    Mail : test@test.fr
+    Password : test@test.fr
+
+    Mail : test123@test.fr
+    Password : TestTest57
     

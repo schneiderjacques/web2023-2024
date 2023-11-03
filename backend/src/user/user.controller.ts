@@ -21,7 +21,7 @@ import {
   ApiTags,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
-import { HttpInterceptor } from 'src/interceptors/http.interceptor';
+import { HttpInterceptor } from 'src/shared/interceptors/http.interceptor';
 import { UseInterceptors } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserEntity } from './entities/user.entity';
@@ -29,7 +29,7 @@ import { Observable } from 'rxjs';
 
 import { AuthGuard } from 'src/auth/auth.guard';
 import { SignUpDto } from './dto/sign-up-user.dto';
-import { Public } from 'src/decorators/decorators';
+import { Public } from '../shared/decorators/decorators';
 import { HandlerParams } from 'src/shared/validators/handler-params';
 import { ConfirmationService } from 'src/shared/confirmation/confirmation.service';
 
