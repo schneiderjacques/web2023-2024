@@ -37,7 +37,7 @@ Ensuite pour démarrer votre projet vous avez plusieurs possibilités :
 Jeu de données de base : 
     
     Mail : test@test.fr
-    Password : test@test.fr
+    Password : Test1234
 
     Mail : test123@test.fr
     Password : TestTest57
