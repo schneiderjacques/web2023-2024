@@ -4,7 +4,7 @@ import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 export class EventLocationDto {
   @ApiProperty({ name: 'city', description: 'City', example: 'Paris' })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   city: string;
 
   @ApiProperty({
@@ -13,7 +13,7 @@ export class EventLocationDto {
     example: '61400',
   })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   postalCode: string;
 
   @ApiProperty({
@@ -22,7 +22,7 @@ export class EventLocationDto {
     example: 'Jewel Street',
   })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   street: string;
 
   @ApiProperty({

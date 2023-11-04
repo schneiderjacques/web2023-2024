@@ -58,16 +58,16 @@ export class Event {
     raw({
         city: {
             type: String,
-            required: true,
+            required: false,
             trim: true,
         },
         postalCode: {
-            type: Number,
-            required: true,
+            type: String,
+            required: false,
         },
         street: {
             type: String,
-            required: true,
+            required: false,
             trim: true,
         },
         locationDetails: {

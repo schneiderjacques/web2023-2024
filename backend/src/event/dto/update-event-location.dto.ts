@@ -5,7 +5,6 @@ export class UpdateEventLocationDto {
   @ApiProperty({ name: 'city', description: 'City', example: 'Paris' })
   @IsOptional()
   @IsString()
-  @IsNotEmpty()
   city: string;
 
   @ApiProperty({
@@ -15,17 +14,15 @@ export class UpdateEventLocationDto {
   })
   @IsOptional()
   @IsString()
-  @IsNotEmpty()
   postalCode: string;
 
-  @IsOptional()
   @ApiProperty({
     name: 'street',
     description: 'Street',
     example: 'Jewel Street',
   })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   street: string;
 
   @ApiProperty({
