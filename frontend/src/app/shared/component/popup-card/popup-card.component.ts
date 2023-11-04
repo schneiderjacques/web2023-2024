@@ -43,4 +43,24 @@ export class PopupCardComponent implements OnInit{
         window.open(`https://www.google.com/maps/dir/${latitude},${longitude}/${this._event.location.latitude},${this._event.location.longitude}`, '_blank');
       })
   }
+
+
+  addressInfo(): string {
+    const addressParts = [];
+    if (this.event.location.city) {
+      addressParts.push(this.event.location.city);
+    }
+    if (this.event.location.postalCode) {
+      addressParts.push(this.event.location.postalCode);
+    }
+    if (this.event.location.locationDetails) {
+      addressParts.push(this.event.location.locationDetails);
+    }
+    if (addressParts.length > 0) {
+      return addressParts.join(', ');
+    } else {
+      return "Informations sur l'adresse non disponibles";
+    }
+  }
+
 }

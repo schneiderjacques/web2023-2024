@@ -114,44 +114,22 @@ export class FormComponent implements OnInit{
    * Function to emit event to submit form and event
    */
   submit(event: Event): void {
-
-    console.log("Model is " )
-    console.log(event)
     event.location.street = this._form.get('location')?.get('street')?.value;
     event.location.city =this._form.get('location')?.get('city')?.value;
     event.location.postalCode =this._form.get('location')?.get('postalCode')?.value;
 
     if (this.model != undefined && !this.isUpdating) {
-    //Set property locationDetails in this.model
-    console.log("Ajout d'évènement par double click sur la map");
-
     this.model.location.locationDetails = event.location.locationDetails;
-
     event = { ... event,
               ... this.model} // merge model and event
     this._submit$.emit(event);
-    } else if (this.model != undefined && this.isUpdating){
+    } else if (this.isUpdating){
       event.id = this.model.id;
       event.location.locationDetails = this._form.value.location.locationDetails;
-      this._locationService.getLatAndLng(event.location.street + ' ' + event.location.city + ' ' + event.location.postalCode)
-      .subscribe((data) => {
-        event.location.latitude = data[0];
-        event.location.longitude = data[1];
-        event.location.postalCode = event.location.postalCode.toString();
-        this._submit$.emit(event);
-      }
-      );
-
+      this._submit$.emit(event);
     } else {
       event.location.locationDetails = this._form.value.location.locationDetails;
-      this._locationService.getLatAndLng(event.location.street + ' ' + event.location.city + ' ' + event.location.postalCode)
-      .subscribe((data) => {
-        event.location.latitude = data[0];
-        event.location.longitude = data[1];
-        event.location.postalCode = event.location.postalCode.toString();
-        this._submit$.emit(event);
-      }
-      );
+      this._submit$.emit(event);
     }
   }
 
@@ -175,9 +153,15 @@ export class FormComponent implements OnInit{
         Validators.required
       ])),
       location: new FormGroup({
-        street: new FormControl({value : this.model != undefined ? this.model.location.street : '',  disabled: true}),
-        city: new FormControl({value : this.model != undefined ? this.model.location.city : '',  disabled: true}),
-        postalCode: new FormControl({value : this.model != undefined ? this.model.location.postalCode : '',  disabled: true}),
+        street: new FormControl(
+          {value : this.model != undefined ? this.model.location.street : '',  disabled: false},
+          Validators.compose([Validators.required])),
+        city: new FormControl(
+          {value : this.model != undefined ? this.model.location.city : '',  disabled: false},
+           Validators.compose([Validators.required])),
+        postalCode: new FormControl(
+          {value : this.model != undefined ? this.model.location.postalCode : '',  disabled: false},
+          Validators.compose([Validators.required])),
         locationDetails: new FormControl('')
       })
       ,

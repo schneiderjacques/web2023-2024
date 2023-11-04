@@ -1,7 +1,7 @@
 <div class="d-flex flex-column" style="max-width:  700px;">
 
     <div class="d-flex flex-row justify-content-around align-items-center">
-        <h1>{{event.name}}</h1>
+        <h1>{{event.name | titlecase}}</h1>
         <span class="badge mx-2 p-2"
         [ngStyle]="{'background-color': event.color}"
         >{{event.type}}</span>
@@ -25,8 +25,11 @@
                 ></i>
             </div>
             <div class="d-flex flex-column justify-content-between align-items-baseline gap-2">
-                <span class="fw-bold custom-span-size">{{event.location.street}}</span>
-                <span class="main-color-light">{{event.location.city}}, {{event.location.postalCode}} - {{event.location.locationDetails}}</span>
+
+                <span *ngIf="event.location.street" class="fw-bold custom-span-size">{{event.location.street}}</span>
+                <span *ngIf="!event.location.street" class="fw-bold custom-span-size">Aucune adresse spécifiée</span>
+
+                <span class="main-color-light">{{addressInfo()}}</span>
             </div>
         </div>
         <span class="fw-bold mt-5 custom-span-size">À propos</span>

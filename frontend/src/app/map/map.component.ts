@@ -261,6 +261,7 @@ export class MapComponent implements AfterViewInit {
     navigator.geolocation.getCurrentPosition(
       position => {
         const { latitude, longitude } = position.coords;
+        this.refreshMap()
         this.createCurrentLocationMarker([latitude,longitude]).addTo(this.mapLeaf);
         this.mapLeaf.flyTo([latitude,longitude] as LatLngTuple,environment.mapConfig.defaultZoom);
       }
