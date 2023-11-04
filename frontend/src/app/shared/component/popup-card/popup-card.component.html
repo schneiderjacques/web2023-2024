@@ -25,10 +25,8 @@
                 ></i>
             </div>
             <div class="d-flex flex-column justify-content-between align-items-baseline gap-2">
-
                 <span *ngIf="event.location.street" class="fw-bold custom-span-size">{{event.location.street}}</span>
                 <span *ngIf="!event.location.street" class="fw-bold custom-span-size">Aucune adresse spécifiée</span>
-
                 <span class="main-color-light">{{addressInfo()}}</span>
             </div>
         </div>

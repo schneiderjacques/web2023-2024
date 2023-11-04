@@ -12,8 +12,8 @@
     <span class="text-secondary text-start">
       {{event.description.length > 40 ? event.description.substring(0, 40) + '...' : event.description | titlecase}}
     </span>
-
   </div>
-  <hr class="m-0 bar position-absolute bottom-0 start-50 translate-middle">
+	<span  style="font-weight: 500" class="badge rounded-pill position-absolute top-0 end-0 m-3" [style.background-color]="BadgeInfoTypeText[badgeInfo].color">{{BadgeInfoTypeText[badgeInfo].text}}</span>
+	<hr class="m-0 bar position-absolute bottom-0 start-50 translate-middle">
 </div>
 

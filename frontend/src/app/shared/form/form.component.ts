@@ -28,12 +28,10 @@ export class FormComponent implements OnInit{
   buttonText: string = "Ajouter";
 
 
-  constructor(private _locationService: LocationService, private sharedService : SharedService) {
+  constructor(private sharedService : SharedService) {
     this._model = {} as Event;
     this._submit$ = new EventEmitter<Event>();
     this._cancel$ = new EventEmitter<void>();
-
-
   }
   ngOnInit(): void {
     this._form = this._buildForm();
@@ -76,6 +74,10 @@ export class FormComponent implements OnInit{
   @Input()
   set model(model: Event) {
     this._model = model;
+    console.log('open ')
+    console.log(model);
+    console.log('open ')
+
   }
 
   /**
@@ -116,8 +118,12 @@ export class FormComponent implements OnInit{
   submit(event: Event): void {
     event.location.street = this._form.get('location')?.get('street')?.value;
     event.location.city =this._form.get('location')?.get('city')?.value;
-    event.location.postalCode =this._form.get('location')?.get('postalCode')?.value;
+    event.location.postalCode =this._form.get('location')?.get('postalCode')?.value.toString();
 
+    event.location.latitude =this.model.location.latitude;
+    event.location.longitude =this.model.location.longitude;
+
+    console.log(this.model.location.latitude +" "+this.model.location.longitude )
     if (this.model != undefined && !this.isUpdating) {
     this.model.location.locationDetails = event.location.locationDetails;
     event = { ... event,

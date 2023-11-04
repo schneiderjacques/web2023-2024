@@ -66,7 +66,8 @@ export class SidebarComponent implements OnInit{
           return (
             eventDate.getFullYear() === currentDate.getFullYear() &&
             eventDate.getMonth() === currentDate.getMonth() &&
-            eventDate.getDate() === currentDate.getDate()
+            eventDate.getDate() === currentDate.getDate() &&
+            eventDate.getHours() > currentDate.getHours()
           );
         });
         break;
