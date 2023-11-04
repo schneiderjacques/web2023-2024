@@ -16,5 +16,5 @@ export type AuthMailServiceConfig = {
   host: string;
   port: number;
   user: string;
-  password: string;
+  pass: string;
 };

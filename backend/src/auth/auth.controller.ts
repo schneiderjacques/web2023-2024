@@ -8,7 +8,7 @@ import {
 import { AuthService } from './auth.service';
 import { Get, Param, Post, Query, UseGuards } from '@nestjs/common/decorators';
 import { SignInDto } from 'src/user/dto/sign-in-user.dto';
-import { Public } from '../decorators/decorators';
+import { Public } from '../shared/decorators/decorators';
 import {
   ApiBadRequestResponse,
   ApiBody,

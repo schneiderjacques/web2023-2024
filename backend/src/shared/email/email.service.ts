@@ -22,12 +22,13 @@ export class EmailService {
 
   constructor() {
     var config = Config.get<AuthMailServiceConfig>('mail');
+
     this.transporter = nodemailer.createTransport({
       host: config.host,
       port: config.port,
       auth: {
         user: config.user,
-        pass: config.password,
+        pass: config.pass,
       },
       tls: {
         rejectUnauthorized: false,
