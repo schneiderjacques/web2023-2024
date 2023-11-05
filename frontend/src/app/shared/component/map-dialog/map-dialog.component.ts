@@ -47,7 +47,6 @@ export class MapDialogComponent implements  AfterViewInit {
     tiles.addTo(this.map);
 
     this.map.on('dblclick', (e: L.LeafletMouseEvent) => {
-      console.log(this.event)
       this.event.location.latitude = e.latlng.lat;
       this.event.location.longitude =  e.latlng.lng;
 
@@ -57,6 +56,8 @@ export class MapDialogComponent implements  AfterViewInit {
           this.eventForm.location.city = location.city
           this.eventForm.location.street = location.street
           this.eventForm.location.postalCode = location.postalCode
+          this.eventForm.location.latitude = location.latitude
+          this.eventForm.location.longitude = location.longitude
           this.changeLocation();
         }
       )

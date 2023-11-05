@@ -18,7 +18,7 @@
     <div class="d-flex col mb-2 justify-content-between align-content-center">
       <mat-form-field>
         <mat-label>Date De l'évènement</mat-label>
-        <input matInput [matDatepicker]="picker"  formControlName="date" name="date" required >
+        <input matInput [matDatepicker]="picker"  formControlName="date" name="date" required readonly>
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
@@ -49,7 +49,7 @@
 
       <mat-form-field class="input-name">
         <mat-label  >Adresse</mat-label>
-        <input matInput placeholder="Ex. 5 rue Jacques Callot" formControlName="street"  name="street" >
+        <input matInput placeholder="Ex. 5 rue Jacques Callot" formControlName="street"  name="street" readonly>
         <mat-error *ngIf="(form.get('street')?.dirty || form.get('street')?.touched) && form.get('type')?.hasError('required')">
           Adresse de l'évènement est <strong>obligatoire</strong>
         </mat-error>
@@ -58,11 +58,11 @@
       <div class="d-flex col  justify-content-between align-content-center">
         <mat-form-field class="input-name ">
           <mat-label>Ville</mat-label>
-          <input matInput placeholder="Ex. Nancy"   formControlName="city"  name="city" >
+          <input matInput placeholder="Ex. Nancy"   formControlName="city"  name="city" readonly>
           </mat-form-field>
         <mat-form-field class="input-name">
           <mat-label>Code Postal</mat-label>
-          <input matInput type="text" placeholder="Ex. 54000"   formControlName="postalCode"  name="postalCode"  >
+          <input matInput type="text" placeholder="Ex. 54000"   formControlName="postalCode"  name="postalCode" >
         </mat-form-field>
       </div>
       <mat-form-field class="input-description">
