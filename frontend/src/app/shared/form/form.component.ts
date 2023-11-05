@@ -1,12 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Event} from "../types/event.type";
-import {MatDatepickerModule} from '@angular/material/datepicker';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import { Observable } from 'rxjs';
-import { LocationService } from '../services/location.service';
-import { Location } from '../types/event.type';
-import { LatLng, LatLngTuple, latLng } from 'leaflet';
+import { LatLng,latLng } from 'leaflet';
 import {SharedService} from "../services/shared.service";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -18,7 +15,7 @@ export class FormComponent implements OnInit{
   private readonly _cancel$: EventEmitter<void>;
   private readonly _submit$: EventEmitter<Event>;
   private _model: Event;
-
+  private _hasPosition: boolean;
 
 
   //private readonly _form: FormGroup;
@@ -34,6 +31,7 @@ export class FormComponent implements OnInit{
     this._model = {} as Event;
     this._submit$ = new EventEmitter<Event>();
     this._cancel$ = new EventEmitter<void>();
+    this._hasPosition = true;
   }
   ngOnInit(): void {
     this._form = this._buildForm();
@@ -47,9 +45,9 @@ export class FormComponent implements OnInit{
         date: this.model.date,
         description: this.model.description,
         location: {
-          street: this.model.location.street,
-          city: this.model.location.city,
-          postalCode: this.model.location.postalCode,
+          street: this.model.location.street? this.model.location.street: "",
+          city: this.model.location.city? this.model.location.city: "",
+          postalCode: this.model.location.postalCode? this.model.location.postalCode: "",
           locationDetails: this.model.location.locationDetails
         },
         type: this.model.type,
@@ -64,6 +62,7 @@ export class FormComponent implements OnInit{
             this._form.get('location')?.get('street')?.setValue(event.location.street);
             this._form.get('location')?.get('postalCode')?.setValue(event.location.postalCode);
             this._latLng = latLng(event.location.latitude, event.location.longitude);
+            this._hasPosition = true;
         }
       )
   }
@@ -113,13 +112,15 @@ export class FormComponent implements OnInit{
    * Function to emit event to submit form and event
    */
   submit(event: Event): void {
+
+
     event.location.street = this._form.get('location')?.get('street')?.value ? this._form.get('location')?.get('street')?.value : '';
     event.location.city =this._form.get('location')?.get('city')?.value ? this._form.get('location')?.get('city')?.value : '';
     event.location.postalCode =this._form.get('location')?.get('postalCode')?.value ? this._form.get('location')?.get('postalCode')?.value.toString() : '';
 
 
     if (this.model != undefined && !this.isUpdating) {
-      
+
     event.location.latitude =this.model.location.latitude;
     event.location.longitude =this.model.location.longitude;
     this.model.location.locationDetails = event.location.locationDetails;
@@ -127,12 +128,16 @@ export class FormComponent implements OnInit{
               ... this.model} // merge model and event
     this._submit$.emit(event);
     } else if (this.isUpdating){ //Is updating
-      event.location.latitude = this._latLng.lat;
-      event.location.longitude = this._latLng.lng;
+      event.location.latitude = this._latLng ? this._latLng.lat : this.model.location.latitude;
+      event.location.longitude = this._latLng  ? this._latLng.lng : this.model.location.longitude;
       event.id = this.model.id;
       event.location.locationDetails = this._form.value.location.locationDetails;
       this._submit$.emit(event);
     } else {
+      if(!this._latLng){
+        this._hasPosition = false;
+        return;
+      }
       event.location.latitude = this._latLng.lat;
       event.location.longitude = this._latLng.lng;
       event.location.locationDetails = this._form.value.location.locationDetails;
@@ -145,8 +150,6 @@ export class FormComponent implements OnInit{
   }
 
   private _buildForm(): FormGroup {
-
-
     console.log(this.model)
     this._form = new FormGroup({
       name:  new FormControl('', Validators.compose([
@@ -155,7 +158,7 @@ export class FormComponent implements OnInit{
       startTime:  new FormControl('12:15'),
       date:  new FormControl('', Validators.compose([
         Validators.required,
-      ])), 
+      ])),
       description:  new FormControl('', Validators.compose([
         Validators.required
       ])),
@@ -176,5 +179,10 @@ export class FormComponent implements OnInit{
       color: new FormControl('#e66465'),
     });
     return this._form;
+  }
+
+
+  get hasPosition(): boolean {
+    return this._hasPosition;
   }
 }

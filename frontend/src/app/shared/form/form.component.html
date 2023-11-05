@@ -73,6 +73,10 @@
         </textarea>
       </mat-form-field>
     </div>
+
+    <mat-error id="map-error" *ngIf="!hasPosition">
+      Veuillez sélectionner la <strong>localisation</strong> sur la carte.
+    </mat-error>
     <app-map-dialog [event]="model"  [eventForm]="form.value" ></app-map-dialog>
     <hr class="hr mb-2" />
     <div class="d-flex col justify-content-between align-content-center">
