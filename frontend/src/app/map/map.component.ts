@@ -27,6 +27,7 @@ export class MapComponent implements AfterViewInit {
 
   private _events :Event[] | undefined;
   private _isLoading!:Boolean;
+  private _myCurrentLocation!:L.LatLngTuple | undefined;
 
 
   get isLoading(): Boolean {
@@ -95,18 +96,17 @@ export class MapComponent implements AfterViewInit {
       position => {
       const { latitude, longitude } = position.coords;
 
-
-
       this.initMap([latitude,longitude] as L.LatLngTuple);
         if (this.events) {
-          this.events.map(event => this.addMarker(event))
-          this.createCurrentLocationMarker([latitude,longitude]).addTo(this.mapLeaf);
+          this._myCurrentLocation = [latitude,longitude]
+          this.refreshMap()
         }
       },
       () => {
         this.initMap(environment.mapConfig.center);
         if (this.events) {
           this.events.map(event => this.addMarker(event))
+          this._myCurrentLocation = undefined;
         }
       }
     )
@@ -244,6 +244,9 @@ export class MapComponent implements AfterViewInit {
   private refreshMap(){
     this.clearMarkers();
     this._events?.map((event) => this.addMarker(event));
+    if (this._myCurrentLocation)
+      this.createCurrentLocationMarker(this._myCurrentLocation).addTo(this.mapLeaf);
+
   }
 
 
@@ -261,10 +264,21 @@ export class MapComponent implements AfterViewInit {
     navigator.geolocation.getCurrentPosition(
       position => {
         const { latitude, longitude } = position.coords;
+        this._myCurrentLocation = [ latitude, longitude]
         this.refreshMap()
-        this.createCurrentLocationMarker([latitude,longitude]).addTo(this.mapLeaf);
         this.mapLeaf.flyTo([latitude,longitude] as LatLngTuple,environment.mapConfig.defaultZoom);
-      }
+       }
       )
   }
+
+  get myCurrentLocation(): LatLngTuple | undefined {
+    return this._myCurrentLocation;
+  }
+
+  set myCurrentLocation(value: LatLngTuple | undefined) {
+    this._myCurrentLocation = value;
+  }
+
+
+
 }
