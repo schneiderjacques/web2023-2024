@@ -56,6 +56,9 @@ app-map{
 @media (max-width: 1000px) {
   .responsive{
     display: none;
-  }  
+  }
 }
 
+.info-modal{
+  z-index: 3000;
+}

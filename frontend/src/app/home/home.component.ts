@@ -6,7 +6,6 @@ import {filter, from, map, mergeMap, Observable} from "rxjs";
 import {SharedService} from "../shared/services/shared.service";
 import {LocationService} from "../shared/services/location.service";
 import {EventService} from "../shared/services/event.service";
-import {SearchBy} from "../shared/types/app.type";
 
 
 @Component({
@@ -20,6 +19,7 @@ export class HomeComponent implements OnInit {
   // private property to store dialogStatus value
   private _dialogStatus: string;
   private _isLoading!: boolean;
+  private _showInfoModal!: boolean;
 
   // private property to store dialog reference
   private _eventDialog : MatDialogRef<DialogComponent, Event> | undefined;
@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
               private _eventService :EventService){
     this._dialogStatus = 'inactive';
     this._isLoading = false;
+    this._showInfoModal = false;
   }
 
   ngOnInit(): void {
@@ -54,8 +55,16 @@ export class HomeComponent implements OnInit {
       )
     });
 
+    this.sharedService.getShowModalInfo().subscribe(
+      (data) =>{
+        let start : number;
+        this._showInfoModal = data;
+        this.timerToCloseTheAlert()
+      }
+    )
 
   }
+
 
 
 
@@ -120,7 +129,22 @@ export class HomeComponent implements OnInit {
   }
 
 
+  get showInfoModal(): boolean {
+    return this._showInfoModal;
+  }
 
+  set showInfoModal(value: boolean) {
+    this._showInfoModal = value;
+  }
 
-
+  private timerToCloseTheAlert() {
+    let seconds: number = 3;
+    const timer = setInterval(() => {
+      seconds--;
+      if (seconds <= 0) {
+        clearInterval(timer);
+        this._showInfoModal = false;
+      }
+    }, 1000);
+  }
 }

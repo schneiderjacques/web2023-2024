@@ -12,6 +12,7 @@ export class SharedService {
   private eventToAddSubject = new Subject<Event>();
   private eventDisplayAfterFlyMap = new Subject<Event>();
   private changeEventLocation = new Subject<Event>();
+  private showModalInfo = new Subject<boolean>();
 
   public triggerSeeEvent(event: Event) {
     this.eventSubject.next(event);
@@ -26,6 +27,10 @@ export class SharedService {
 
   public triggerChangeLocation(event: Event) {
     this.changeEventLocation.next(event);
+  }
+
+  public triggerShowModalInfo(show: boolean) {
+    this.showModalInfo.next(show);
   }
 
 
@@ -46,4 +51,7 @@ export class SharedService {
     return this.changeEventLocation.asObservable();
   }
 
+  public getShowModalInfo(): Observable<boolean> {
+    return this.showModalInfo.asObservable();
+  }
 }

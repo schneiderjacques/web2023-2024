@@ -15,6 +15,7 @@ import {DivIcon, LatLngTuple, marker} from "leaflet";
 import {SmallCardComponent} from "../shared/component/small-card/small-card.component";
 import {PopupCardComponent} from "../shared/component/popup-card/popup-card.component";
 import { SharedService } from '../shared/services/shared.service';
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 
 @Component({
@@ -267,8 +268,11 @@ export class MapComponent implements AfterViewInit {
         this._myCurrentLocation = [ latitude, longitude]
         this.refreshMap()
         this.mapLeaf.flyTo([latitude,longitude] as LatLngTuple,environment.mapConfig.defaultZoom);
-       }
-      )
+       },
+      (error) => {
+        this.sharedService.triggerShowModalInfo(true);
+      }
+    )
   }
 
   get myCurrentLocation(): LatLngTuple | undefined {
@@ -278,6 +282,8 @@ export class MapComponent implements AfterViewInit {
   set myCurrentLocation(value: LatLngTuple | undefined) {
     this._myCurrentLocation = value;
   }
+
+
 
 
 

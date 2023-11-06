@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Event} from "../../types/event.type";
 import {LocationService} from "../../services/location.service";
+import {error} from "@angular/compiler-cli/src/transformers/util";
+import {SharedService} from "../../services/shared.service";
 
 @Component({
   selector: 'app-popup-card',
@@ -12,7 +14,9 @@ export class PopupCardComponent implements OnInit{
   private _event! : Event;
   date: string = '';
   jour: string = '';
-  constructor(private _locationService : LocationService) {
+  constructor(private _locationService : LocationService,
+              private _sharedService : SharedService) {
+
   }
 
   ngOnInit(): void {
@@ -36,11 +40,13 @@ export class PopupCardComponent implements OnInit{
 
 
   redirectToGoogleMap(){
-
     navigator.geolocation.getCurrentPosition(
-      position => {
+      (position) => {
         const { latitude, longitude } = position.coords;
         window.open(`https://www.google.com/maps/dir/${latitude},${longitude}/${this._event.location.latitude},${this._event.location.longitude}`, '_blank');
+      },
+      (error) => {
+        this._sharedService.triggerShowModalInfo(true);
       })
   }
 
