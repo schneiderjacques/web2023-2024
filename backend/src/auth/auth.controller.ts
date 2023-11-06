@@ -11,6 +11,7 @@ import { SignInDto } from 'src/user/dto/sign-in-user.dto';
 import { Public } from '../shared/decorators/decorators';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiBody,
   ApiCreatedResponse,
   ApiNoContentResponse,
@@ -108,6 +109,7 @@ export class AuthController {
     description: 'User token',
     type: UserEntity,
   })
+  @ApiBearerAuth()
   getProfile(@Request() user): Observable<UserEntity> {
     const { username } = user.user;
     return this._userService.findOneByMail(username);

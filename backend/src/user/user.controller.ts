@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiBody,
   ApiNoContentResponse,
   ApiNotFoundResponse,
@@ -56,7 +57,7 @@ export class UserController {
   })
   @ApiNoContentResponse({ description: 'No user exists in database' })
   @ApiOperation({ summary: 'Get all users' })
-
+  @ApiBearerAuth()
   @Get()
   findAll(): Observable<UserEntity[] | void> {
     const users = this._userService.findAll();
@@ -88,6 +89,7 @@ export class UserController {
     allowEmptyValue: false,
   })
   @ApiOperation({ summary: 'Get one user' })
+  @ApiBearerAuth()
   @Get(':id')
   findOne(@Param('id') userId: string): Observable<UserEntity> {
     return this._userService.findOne(userId);
@@ -115,6 +117,7 @@ export class UserController {
     type: SignUpDto,
   })
   @ApiOperation({ summary: 'Create a new user' })
+  @ApiBearerAuth()
   @HttpCode(HttpStatus.OK)
   @Post()
   @Public()

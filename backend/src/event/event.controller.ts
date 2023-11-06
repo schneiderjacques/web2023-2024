@@ -13,6 +13,7 @@ import { Observable, of } from 'rxjs';
 import { EventService } from './event.service';
 import {
   ApiBadRequestResponse,
+  ApiBearerAuth,
   ApiBody,
   ApiConflictResponse,
   ApiCreatedResponse,
@@ -49,6 +50,7 @@ export class EventController {
   })
   @ApiNoContentResponse({ description: 'No envent exists in database' })
   @ApiOperation({ summary: 'Get all events' })
+  @ApiBearerAuth()
   @Get()
   findAll(): Observable<EventEntity[] | void> {
     const events = this._eventService.findAll();
@@ -67,6 +69,7 @@ export class EventController {
   })
   @ApiNoContentResponse({ description: 'No envent exists in database' })
   @ApiOperation({ summary: 'Get all events of a specific user' })
+  @ApiBearerAuth()
   @Get('user/:id')
   findAllByUserId(
     @Param('id') userId: string,
@@ -100,6 +103,7 @@ export class EventController {
     allowEmptyValue: false,
   })
   @ApiOperation({ summary: 'Get one event by user Id' })
+  @ApiBearerAuth()
   @Get(':id')
   findOne(@Param('id') eventId: string): Observable<EventEntity> {
     return this._eventService.findOne(eventId);
@@ -131,6 +135,7 @@ export class EventController {
     type: CreateEventDto,
     description: 'Payload to create a new event',
   })
+  @ApiBearerAuth()
   @Post()
   create(
     @Body() CreateEventDto: CreateEventDto,
@@ -168,6 +173,7 @@ export class EventController {
     allowEmptyValue: false,
   })
   @ApiOperation({ summary: 'Delete one event' })
+  @ApiBearerAuth()
   @Delete(':id')
   delete(@Param() params: HandlerParams, @Request() req): Observable<void> {
     const { username } = req.user;
@@ -203,6 +209,7 @@ export class EventController {
   })
   @ApiBody({ description: 'Payload to update a person', type: UpdateEventDto })
   @ApiOperation({ summary: 'Update one event' })
+  @ApiBearerAuth()
   @Put(':id')
   update(
     @Param() params: HandlerParams,
