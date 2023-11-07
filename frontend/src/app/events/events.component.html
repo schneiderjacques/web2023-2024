@@ -6,7 +6,7 @@
     <div class="btn-group" role="group">
       <button
         type="button"
-        class="btn btn-primary d-flex justify-content-center align-items-center"
+        class="btn custom-btn fw-normal d-flex justify-content-center align-items-center"
         (click)="createEvent()">
         <i class="bi bi-plus h3 mb-0 ml-5 me-1"></i>
         Ajouter un évènement
@@ -118,7 +118,7 @@
 </div>
 </div>
 
-<mat-paginator *ngIf="eventList.length>=0" #paginator
+<mat-paginator #paginator [ngStyle]="{'visibility': eventList.length > 0 ? 'visible' : 'hidden'}"
                [length]="eventList.length"
                [pageSize]="step"
                [pageSizeOptions]="[5 , 10]"

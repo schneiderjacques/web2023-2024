@@ -44,6 +44,7 @@ export class RegisterComponent {
       this._authService.register(registerType).subscribe(
         (res) => {
           this.success = true;
+          this.errors = '';
         },
         (err) => {
           console.log("erreur inscription");

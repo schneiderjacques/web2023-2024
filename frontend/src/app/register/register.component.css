@@ -3,4 +3,16 @@
     background: scroll center url('https://source.unsplash.com/414x512/?concert,festival,musician');
     background-size: cover;
   }
-  
+.container-custom{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.row{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}

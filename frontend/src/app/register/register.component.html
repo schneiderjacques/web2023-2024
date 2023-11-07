@@ -1,5 +1,5 @@
 
-<div class="container">
+<div class="container-custom">
     <div class="row">
       <div class="col-lg-10 col-xl-9 mx-auto">
         <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
@@ -64,7 +64,7 @@
                 </div>
 
               <div class="d-grid mb-2">
-                <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit" [disabled]="form.invalid" (click)="register(form.value)">Inscription</button>
+                <button class="btn btn-lg custom-btn btn-login fw-bold text-uppercase" type="submit" [disabled]="form.invalid" (click)="register(form.value)">Inscription</button>
               </div>
 
               <a [routerLink]="['/login']"  class="d-block text-center mt-2 small" href="#">Vous avez déjà un compte ? Connectez-vous</a>

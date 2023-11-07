@@ -39,7 +39,7 @@ Jeu de données de base :
     Password : Test1234
 
     Mail : test123@test.fr
-    Password : TestTest57
+    Password : Test1234
 
 Si vous souhaitez créer un compte et confirmer votre email nous avons utilisé un SMTP gratuit : 
 

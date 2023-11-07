@@ -112,15 +112,16 @@ export class EventsComponent implements AfterViewInit {
       }),
       mergeMap((event: Event | undefined) => this._eventService.update(event as Event))
     ).subscribe(result => {
-      this._eventService.fetchByUserId(this.user.id).subscribe(
-        { next: (events: Event[]) => {
-            this.eventList = events;
-            this.eventArraySlice(this.currentPage)
-          }
+          this._eventService.fetchByUserId(this.user.id).subscribe(
+            { next: (events: Event[]) =>
+              {
+                this.eventList = events
+                this.eventArraySlice(this.currentPage)
+              }
+            }
+          )
         }
-      )
-
-    });
+    );
 
 
   }
@@ -174,6 +175,7 @@ export class EventsComponent implements AfterViewInit {
       });
     }
     this.isAscendingOrder[item] = !this.isAscendingOrder[item];
+
     this.eventArraySlice(this.currentPage)
   }
 
@@ -206,6 +208,11 @@ export class EventsComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+      this.refreshPaginator()
+    
+  }
+
+  refreshPaginator(){
     this.paginator._intl.itemsPerPageLabel = 'Évènements par page';
     this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
       const start = page * pageSize + 1;

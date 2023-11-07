@@ -9,7 +9,7 @@ p{
     background-color: rgba(190, 190, 190, 0.3);
 }
 .arrow{
-    background: #3D56F0;
+    background: var(--main-color-dark);
     position: absolute;
     right: 35px;
 }

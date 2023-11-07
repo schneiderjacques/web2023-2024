@@ -39,7 +39,7 @@
 }
 .custom-card{
     background-color: rgba(86, 105, 255,0.12);
-    color: #5669FF;
+    color: var(--main-color-dark);
     border-radius: 12px;
     /*Add a little shadow under the card*/
     
@@ -54,6 +54,12 @@
     border-color: var(--main-color-dark);
     font-weight: bold;
     letter-spacing: 0.05em;
+  }
+  .custom-btn:disabled{
+    background-color: var(--main-color-light);
+    border-color: var(--main-color-light);
+    color: #ffffff;
+    cursor: not-allowed;
   }
 
   
