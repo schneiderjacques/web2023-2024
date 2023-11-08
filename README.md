@@ -57,3 +57,5 @@ Puis rendez-vous dans la section message ou vous pourrez trouver votre mail et c
 Ces informations sont sensées êtres privées et inaccessibles et se trouver dans un fichier .env par exemple mais pour ce projet étant privé et pour l'école nous les avons mis dans le code source.
 
 Si vous désirez changer la clé secrète de jwt elle se trouve dans backend/src/auth/constants.ts
+
+Il se peut que quand lors du double clique sur la map plusieurs modal s'ouvrent la première fois que vous vous connectez, veuillez recharger la page pour corriger ce "bug"
